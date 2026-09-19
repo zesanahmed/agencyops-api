@@ -1,0 +1,75 @@
+model Organization {
+  id        String             @id @default(uuid()) @db.Uuid
+  name      String
+  slug      String             @unique
+  logoUrl   String?
+  ownerId   String             @db.Uuid
+  status    OrganizationStatus @default(ACTIVE)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  deletedAt DateTime?
+
+  // No onDelete: Cascade here on purpose — a User that still owns an
+  // Organization should not be hard-deletable out from under it.
+  // Ownership transfer/deletion is a service-layer concern.
+  owner User @relation("OrganizationOwner", fields: [ownerId], references: [id])
+
+  memberships Membership[]
+  invitations Invitation[]
+  teams       Team[]
+  projects    Project[]
+}
+
+model Membership {
+  id             String           @id @default(uuid()) @db.Uuid
+  userId         String           @db.Uuid
+  organizationId String           @db.Uuid
+  role           MembershipRole
+  status         MembershipStatus @default(ACTIVE)
+  joinedAt       DateTime         @default(now())
+  removedAt      DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  // Invitations sent by this membership (invitedByMembershipId).
+  invitationsSent Invitation[] @relation("InvitationInviter")
+
+  // Team/Project assignments — a Membership is what actually gets
+  // assigned to teams/projects, not the User directly (see explanation
+  // after the schema).
+  teamMemberships    TeamMember[]
+  projectMemberships ProjectMember[]
+
+  @@unique([userId, organizationId])
+  @@index([organizationId])
+  @@index([userId])
+  @@index([organizationId, role])
+  @@index([organizationId, status])
+}
+
+model Invitation {
+  id                    String         @id @default(uuid()) @db.Uuid
+  organizationId        String         @db.Uuid
+  email                 String
+  role                  MembershipRole
+  tokenHash             String         @unique
+  invitedByMembershipId String         @db.Uuid
+  expiresAt             DateTime
+  acceptedAt            DateTime?
+  revokedAt             DateTime?
+  createdAt             DateTime       @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  // No onDelete: Cascade here on purpose — an Invitation is an audit
+  // record; it should not silently disappear just because the
+  // inviting Membership is later removed/deleted.
+  invitedByMembership Membership @relation("InvitationInviter", fields: [invitedByMembershipId], references: [id])
+
+  @@index([organizationId])
+  @@index([email])
+  @@index([expiresAt])
+}

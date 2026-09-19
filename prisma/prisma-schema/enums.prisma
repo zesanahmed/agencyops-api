@@ -1,0 +1,41 @@
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum AuthProvider {
+  GOOGLE
+  GITHUB
+}
+
+enum AuthTokenType {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+}
+
+enum OrganizationStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+// Shared by Membership.role and Invitation.role — an invitation's role
+// is simply the role the invitee will hold once the invite is accepted,
+// so it reuses the same enum rather than duplicating it.
+enum MembershipRole {
+  OWNER
+  MANAGER
+  TEAM_MEMBER
+}
+
+enum MembershipStatus {
+  ACTIVE
+  REMOVED
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}

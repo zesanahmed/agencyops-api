@@ -1,0 +1,34 @@
+model Team {
+  id             String    @id @default(uuid()) @db.Uuid
+  organizationId String    @db.Uuid
+  name           String
+  description    String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  organization Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  members      TeamMember[]
+  projectTeams ProjectTeam[]
+
+  // Non-unique — see the note after this schema on why "no duplicate
+  // active team name per org" is NOT enforced as a DB constraint here.
+  // This index just makes that name-scoped lookup itself fast.
+  @@index([organizationId])
+  @@index([organizationId, name])
+  @@index([organizationId, deletedAt])
+}
+
+model TeamMember {
+  id           String   @id @default(uuid()) @db.Uuid
+  teamId       String   @db.Uuid
+  membershipId String   @db.Uuid
+  createdAt    DateTime @default(now())
+
+  team       Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  membership Membership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, membershipId])
+  @@index([teamId])
+  @@index([membershipId])
+}
