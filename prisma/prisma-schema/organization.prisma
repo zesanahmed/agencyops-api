@@ -43,6 +43,15 @@ model Membership {
   teamMemberships    TeamMember[]
   projectMemberships ProjectMember[]
 
+  // Task assignment/collaboration — see explanation after the schema
+  // on why these go through Membership rather than User directly.
+  assignedTasks      Task[]             @relation("TaskAssignee")
+  taskCollaborations TaskCollaborator[]
+
+  // Comment authorship/mentions.
+  authoredComments Comment[]        @relation("CommentAuthor")
+  commentMentions  CommentMention[]
+
   @@unique([userId, organizationId])
   @@index([organizationId])
   @@index([userId])

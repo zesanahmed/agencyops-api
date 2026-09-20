@@ -1,0 +1,39 @@
+model Comment {
+  id                 String    @id @default(uuid()) @db.Uuid
+  taskId             String    @db.Uuid
+  authorMembershipId String    @db.Uuid
+  content            String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  // Not specified in the task instructions — Restrict rather than
+  // Cascade/SetNull, matching how this schema already treats a
+  // Membership tied to historical/audit content elsewhere (e.g.
+  // Invitation.invitedByMembership, Organization.owner): a comment's
+  // authorship shouldn't silently disappear or be reassigned to null
+  // just because the author's membership is later hard-deleted.
+  author Membership @relation("CommentAuthor", fields: [authorMembershipId], references: [id], onDelete: Restrict)
+
+  mentions CommentMention[]
+
+  @@index([taskId])
+  @@index([authorMembershipId])
+  @@index([taskId, deletedAt])
+}
+
+model CommentMention {
+  id           String   @id @default(uuid()) @db.Uuid
+  commentId    String   @db.Uuid
+  membershipId String   @db.Uuid
+  createdAt    DateTime @default(now())
+
+  comment    Comment    @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  membership Membership @relation(fields: [membershipId], references: [id], onDelete: Restrict)
+
+  @@unique([commentId, membershipId])
+  @@index([commentId])
+  @@index([membershipId])
+}

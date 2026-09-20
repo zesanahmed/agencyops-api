@@ -1,0 +1,61 @@
+model Task {
+  id                   String       @id @default(uuid()) @db.Uuid
+  projectId            String       @db.Uuid
+  sprintId             String?      @db.Uuid
+  parentTaskId         String?      @db.Uuid
+  assigneeMembershipId String?      @db.Uuid
+  title                String
+  description          String?
+  status               TaskStatus   @default(BACKLOG)
+  priority             TaskPriority @default(MEDIUM)
+  startDate            DateTime?
+  dueDate              DateTime?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+  deletedAt            DateTime?
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  // Unassigning a task from its sprint should not delete the task —
+  // the sprint is just a time-boxed grouping, the work item persists.
+  sprint Sprint? @relation(fields: [sprintId], references: [id], onDelete: SetNull)
+
+  // Primary assignee is a Membership, not a User, so assignment stays
+  // organization-scoped (see explanation after the schema). Losing the
+  // assignee's membership should unassign the task, not delete it.
+  assignee Membership? @relation("TaskAssignee", fields: [assigneeMembershipId], references: [id], onDelete: SetNull)
+
+  // One-level self-relation for subtasks. A normal task has
+  // parentTaskId = null; a subtask has parentTaskId = parent Task.id.
+  // Deleting a parent task cascades to its (one level of) subtasks.
+  // Enforcing "subtasks can't themselves have children" is a
+  // service-layer rule, not a database constraint (see task instructions).
+  parentTask Task?  @relation("TaskSubtasks", fields: [parentTaskId], references: [id], onDelete: Cascade)
+  subtasks   Task[] @relation("TaskSubtasks")
+
+  collaborators TaskCollaborator[]
+  comments      Comment[]
+
+  @@index([projectId])
+  @@index([projectId, status])
+  @@index([projectId, priority])
+  @@index([sprintId])
+  @@index([assigneeMembershipId])
+  @@index([parentTaskId])
+  @@index([dueDate])
+  @@index([projectId, deletedAt])
+}
+
+model TaskCollaborator {
+  id           String   @id @default(uuid()) @db.Uuid
+  taskId       String   @db.Uuid
+  membershipId String   @db.Uuid
+  createdAt    DateTime @default(now())
+
+  task       Task       @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  membership Membership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, membershipId])
+  @@index([taskId])
+  @@index([membershipId])
+}
