@@ -1,3 +1,5 @@
+import "./config/load-env.js";
+
 import { createApp } from "./app/app.js";
 import { env } from "./config/env.js";
 
