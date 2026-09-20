@@ -1,0 +1,47 @@
+model Notification {
+  id                    String    @id @default(uuid()) @db.Uuid
+  organizationId        String    @db.Uuid
+  recipientMembershipId String    @db.Uuid
+  type                  String
+  title                 String
+  message               String
+  data                  Json?
+  readAt                DateTime?
+  createdAt             DateTime  @default(now())
+
+  // Full-tenant purge, same reasoning as Activity/AuditLog.organization:
+  // Restrict here would make an Organization practically undeletable.
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  // Both FKs are required, so SetNull isn't available. Restrict (not
+  // Cascade) on the recipient: a Membership is normally soft-removed
+  // (status REMOVED), not hard-deleted, so this rarely blocks anything
+  // in practice — but it stops notification history from being
+  // silently wiped out as a side effect of a hard delete, consistent
+  // with how this schema already treats history tied to a Membership
+  // (Comment.author, CommentMention.membership).
+  recipient Membership @relation("NotificationRecipient", fields: [recipientMembershipId], references: [id], onDelete: Restrict)
+
+  @@index([organizationId])
+  @@index([recipientMembershipId])
+  @@index([recipientMembershipId, readAt])
+  @@index([createdAt])
+  @@index([type])
+}
+
+model NotificationPreference {
+  id               String   @id @default(uuid()) @db.Uuid
+  membershipId     String   @db.Uuid
+  notificationType String
+  inAppEnabled     Boolean  @default(true)
+  emailEnabled     Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Unlike Notification above, a preference is current-state config,
+  // not history — Cascade is appropriate here (matches TeamMember/
+  // ProjectMember cascading from Membership) rather than Restrict.
+  membership Membership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+
+  @@unique([membershipId, notificationType])
+}

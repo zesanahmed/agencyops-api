@@ -14,12 +14,13 @@ model Organization {
   // Ownership transfer/deletion is a service-layer concern.
   owner User @relation("OrganizationOwner", fields: [ownerId], references: [id])
 
-  memberships Membership[]
-  invitations Invitation[]
-  teams       Team[]
-  projects    Project[]
-  activities  Activity[]
-  auditLogs   AuditLog[]
+  memberships   Membership[]
+  invitations   Invitation[]
+  teams         Team[]
+  projects      Project[]
+  activities    Activity[]
+  auditLogs     AuditLog[]
+  notifications Notification[]
 }
 
 model Membership {
@@ -58,6 +59,11 @@ model Membership {
   // after the schema on why SetNull is used here, not Cascade).
   activities Activity[] @relation("ActivityActor")
   auditLogs  AuditLog[] @relation("AuditLogActor")
+
+  // Notifications received, and this membership's per-type channel
+  // preferences.
+  notificationsReceived   Notification[]           @relation("NotificationRecipient")
+  notificationPreferences NotificationPreference[]
 
   @@unique([userId, organizationId])
   @@index([organizationId])
