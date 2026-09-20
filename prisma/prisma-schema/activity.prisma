@@ -1,0 +1,72 @@
+model Activity {
+  id                String   @id @default(uuid()) @db.Uuid
+  organizationId    String   @db.Uuid
+  actorMembershipId String?  @db.Uuid
+  action            String
+  entityType        String
+  entityId          String   @db.Uuid
+  projectId         String?  @db.Uuid
+  taskId            String?  @db.Uuid
+  metadata          Json?
+  createdAt         DateTime @default(now())
+
+  // Full-tenant purge: if an Organization is hard-deleted, its
+  // activity history is deleted with it — this is the "necessary"
+  // cascade the task instructions allow for (the whole trail belongs
+  // to that tenant's existence, and Restrict here would make an
+  // Organization practically impossible to ever hard-delete once it
+  // has any activity at all).
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  // Everything below is deliberately SetNull, not Cascade — losing the
+  // actor's membership, or the referenced project/task, should not
+  // delete the activity row itself. The history stays; only the
+  // specific optional reference is cleared.
+  actor   Membership? @relation("ActivityActor", fields: [actorMembershipId], references: [id], onDelete: SetNull)
+  project Project?    @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  task    Task?       @relation(fields: [taskId], references: [id], onDelete: SetNull)
+
+  // entityType/entityId are a polymorphic reference (e.g. "Task"/<uuid>,
+  // "Comment"/<uuid>) and intentionally NOT a real Prisma relation —
+  // the target model varies per row, which Prisma can't express as a
+  // typed foreign key. No referential action applies to it.
+
+  @@index([organizationId])
+  @@index([organizationId, createdAt])
+  @@index([entityType, entityId])
+  @@index([actorMembershipId])
+  @@index([projectId])
+  @@index([taskId])
+}
+
+model AuditLog {
+  id                String   @id @default(uuid()) @db.Uuid
+  organizationId    String   @db.Uuid
+  actorMembershipId String?  @db.Uuid
+  action            String
+  entityType        String
+  entityId          String   @db.Uuid
+  metadata          Json?
+  ipAddress         String?
+  userAgent         String?
+  createdAt         DateTime @default(now())
+
+  // Same full-tenant-purge reasoning as Activity.organization above.
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  // SetNull, not Cascade — an audit entry must remain even if the
+  // actor's membership is later removed; only the actor reference is
+  // cleared. AuditLog rows are treated as immutable at the
+  // application level (no update/delete endpoints) — the database
+  // itself doesn't enforce immutability, since Prisma has no
+  // column/row-level write-protection primitive for that.
+  actor Membership? @relation("AuditLogActor", fields: [actorMembershipId], references: [id], onDelete: SetNull)
+
+  // entityType/entityId is a polymorphic reference, same as on
+  // Activity — intentionally not a typed Prisma relation.
+
+  @@index([organizationId])
+  @@index([organizationId, createdAt])
+  @@index([entityType, entityId])
+  @@index([actorMembershipId])
+}

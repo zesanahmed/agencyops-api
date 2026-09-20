@@ -35,6 +35,7 @@ model Task {
 
   collaborators TaskCollaborator[]
   comments      Comment[]
+  activities    Activity[]
 
   @@index([projectId])
   @@index([projectId, status])

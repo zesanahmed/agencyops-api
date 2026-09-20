@@ -16,6 +16,7 @@ model Project {
   members      ProjectMember[]
   sprints      Sprint[]
   tasks        Task[]
+  activities   Activity[]
 
   // Org-scoped slug uniqueness, not global — two different
   // organizations may each have a project with slug "website-redesign".

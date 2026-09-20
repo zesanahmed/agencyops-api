@@ -18,6 +18,8 @@ model Organization {
   invitations Invitation[]
   teams       Team[]
   projects    Project[]
+  activities  Activity[]
+  auditLogs   AuditLog[]
 }
 
 model Membership {
@@ -51,6 +53,11 @@ model Membership {
   // Comment authorship/mentions.
   authoredComments Comment[]        @relation("CommentAuthor")
   commentMentions  CommentMention[]
+
+  // Activity/audit trail authorship (nullable actor — see explanation
+  // after the schema on why SetNull is used here, not Cascade).
+  activities Activity[] @relation("ActivityActor")
+  auditLogs  AuditLog[] @relation("AuditLogActor")
 
   @@unique([userId, organizationId])
   @@index([organizationId])
