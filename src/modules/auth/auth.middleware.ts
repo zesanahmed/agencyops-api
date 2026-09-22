@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { AppError } from "../../errors/AppError.js";
-import { verifyAccessToken } from "./auth.service.js";
+import { verifyAccessToken } from "./token.service.js";
 
 const BEARER_PREFIX = "Bearer ";
 

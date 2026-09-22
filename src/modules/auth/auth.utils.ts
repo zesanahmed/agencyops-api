@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import argon2 from "argon2";
 
 /**
@@ -19,10 +20,10 @@ const ARGON2_OPTIONS = {
  * in it), so comparePassword() doesn't need ARGON2_OPTIONS passed
  * back in to verify it later.
  *
- * Intentionally the only two exports of this module (see
- * comparePassword below) — callers never touch the `argon2` package
- * directly, so the hashing algorithm stays replaceable behind this
- * one file if it's ever changed later.
+ * Callers never touch the `argon2` package directly — everything
+ * password-related goes through hashPassword/comparePassword, so
+ * the hashing algorithm stays replaceable behind this one file if
+ * it's ever changed later.
  *
  * Never logs the password or the resulting hash.
  */
@@ -39,4 +40,30 @@ export async function comparePassword(
   passwordHash: string,
 ): Promise<boolean> {
   return argon2.verify(passwordHash, password);
+}
+
+/**
+ * Hashes a refresh token for storage in Session.refreshTokenHash.
+ * Deliberately NOT argon2 — that's a slow, memory-hard algorithm
+ * designed for low-entropy human-chosen passwords, where the whole
+ * point is making brute-force guessing expensive. A refresh token
+ * is already a high-entropy, randomly-generated secret (a signed
+ * JWT), so a fast cryptographic digest is the correct, standard
+ * choice — using argon2 here would just add latency for no real
+ * security benefit.
+ */
+export function hashToken(token: string): string {
+  return createHash("sha256").update(token).digest("hex");
+}
+
+/**
+ * Normalizes an email address (trim + lowercase) so the same
+ * address always maps to the same stored/queried value, regardless
+ * of how a client happens to capitalize or space-pad it. Kept as
+ * one explicit, reusable step — called deliberately in the service
+ * layer, not hidden inside Zod validation — so normalization stays
+ * visible and auditable rather than a silent transform.
+ */
+export function normalizeEmail(email: string): string {
+  return email.trim().toLowerCase();
 }

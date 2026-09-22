@@ -132,11 +132,28 @@ export interface RefreshCookieConfig {
   sameSite: SameSite;
 }
 
+/**
+ * Unlike JWT secrets, there's no safe insecure fallback for a
+ * database connection string — a placeholder value wouldn't let the
+ * app "start but be insecure," it just wouldn't work at all. So this
+ * is required in every environment, not just production.
+ */
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (value && value.trim() !== "") {
+    return value;
+  }
+  throw new Error(
+    `Missing required environment variable "${name}" — the app cannot start without it.`,
+  );
+}
+
 export interface EnvConfig {
   nodeEnv: NodeEnv;
   port: number;
   isProduction: boolean;
   redisUrl: string;
+  databaseUrl: string;
   jwt: JwtConfig;
   refreshCookie: RefreshCookieConfig;
 }
@@ -153,6 +170,7 @@ export const env: EnvConfig = {
   port: resolvePort(process.env["PORT"]),
   isProduction,
   redisUrl: resolveRedisUrl(process.env["REDIS_URL"]),
+  databaseUrl: requireEnv("DATABASE_URL"),
   jwt: {
     accessSecret: requireSecret("JWT_ACCESS_SECRET", isProduction),
     refreshSecret: requireSecret("JWT_REFRESH_SECRET", isProduction),

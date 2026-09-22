@@ -1,6 +1,14 @@
 generator client {
   provider = "prisma-client"
-  output   = "../../generated/prisma"
+  // Inside src/ on purpose: Prisma 7's "prisma-client" generator
+  // emits TypeScript source (not prebuilt JS), meant to be compiled
+  // by the project's own tsc as part of the normal build. Our
+  // tsconfig has rootDir: "./src", so the generated output has to
+  // live inside src/ too, or `tsc` refuses to include it (error
+  // TS6059: "is not under 'rootDir'"). Previously this pointed
+  // outside src/ (../../generated/prisma) — moved here specifically
+  // to fix that.
+  output = "../../src/generated/prisma"
 }
 
 datasource db {
