@@ -96,7 +96,9 @@ function isEmailUniqueConstraintError(error: unknown): boolean {
   if (!isPrismaKnownRequestError(error)) {
     return false;
   }
-  return error.code === "P2002" && (error.meta?.target?.includes("email") ?? false);
+  return (
+    error.code === "P2002" && (error.meta?.target?.includes("email") ?? false)
+  );
 }
 
 /**
@@ -127,7 +129,8 @@ export async function registerUser(input: RegisterInput): Promise<AuthResult> {
 
   try {
     const { user, session } = await prisma.$transaction(async (tx) => {
-      const createdUser = await tx.user.create({
+      const txClient = tx as unknown as Pick<typeof prisma, "user" | "session">;
+      const createdUser = await txClient.user.create({
         data: { name, email, passwordHash },
       });
 
@@ -135,7 +138,7 @@ export async function registerUser(input: RegisterInput): Promise<AuthResult> {
         userId: createdUser.id,
         userAgent: input.userAgent,
         ipAddress: input.ipAddress,
-        client: tx,
+        createSessionRecord: (data) => txClient.session.create({ data }),
       });
 
       return { user: createdUser, session: createdSession };
@@ -201,6 +204,7 @@ export async function loginUser(input: LoginInput): Promise<AuthResult> {
     userId: user.id,
     userAgent: input.userAgent,
     ipAddress: input.ipAddress,
+    createSessionRecord: (data) => prisma.session.create({ data }),
   });
 
   return {
