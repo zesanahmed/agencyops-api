@@ -8,17 +8,6 @@ export interface ValidationSchemas {
   query?: ZodType;
 }
 
-/**
- * Reusable Zod validation middleware factory — the project's
- * general-purpose `validate(schema)` concept. Validates whichever
- * of body/params/query a schema is given for, and replaces
- * req.<part> with the parsed result so downstream handlers work
- * with validated, typed data rather than raw unknown input.
- *
- * Validation only — no authorization or business-rule checks here
- * (those are separate concerns, handled elsewhere: authentication
- * in auth.middleware.ts, business logic in each module's service).
- */
 export function validate(schemas: ValidationSchemas) {
   return (req: Request, _res: Response, next: NextFunction): void => {
     if (schemas.body) {
@@ -31,7 +20,14 @@ export function validate(schemas: ValidationSchemas) {
       ) as typeof req.params;
     }
     if (schemas.query) {
-      req.query = parseOrThrow(schemas.query, req.query) as typeof req.query;
+      const parsedQuery = parseOrThrow(schemas.query, req.query);
+
+      Object.defineProperty(req, "query", {
+        value: parsedQuery,
+        writable: true,
+        configurable: true,
+        enumerable: true,
+      });
     }
     next();
   };
