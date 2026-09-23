@@ -4,22 +4,6 @@ import { verifyAccessToken } from "./token.service.js";
 
 const BEARER_PREFIX = "Bearer ";
 
-/**
- * Reads `Authorization: Bearer <accessToken>`, validates it, and
- * attaches the resulting SessionContext to req.auth.
- *
- * Stateless by design for this milestone: verification is done
- * entirely from the token's signature and expiry, with no database
- * lookup per request. A DB-backed revocation check (e.g. rejecting
- * tokens whose Session record has since been revoked) is a
- * heavier-weight addition for a later milestone, not this
- * foundational middleware.
- *
- * Throws AppError(401) on anything wrong, using the existing error
- * format — no try/catch needed here, Express 5 forwards a rejected
- * async handler's promise to the centralized error handler on its
- * own.
- */
 export async function authenticate(
   req: Request,
   _res: Response,

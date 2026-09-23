@@ -20,3 +20,21 @@ export const refreshCookieOptions: CookieOptions = {
   // cookie on every request, just the ones that need it.
   path: "/api/v1/auth",
 };
+
+/**
+ * Options for res.clearCookie() on logout. Deliberately the same as
+ * refreshCookieOptions minus `maxAge`: Express's clearCookie sets an
+ * expired cookie by defaulting `expires` to a date in the past, but
+ * if `maxAge` is present in the options it passes to res.cookie()
+ * internally, that recomputes `expires` as `Date.now() + maxAge` —
+ * i.e. a future date — which would silently cancel the clear. All
+ * other attributes (httpOnly/secure/sameSite/path) must still match
+ * the original cookie exactly, or the browser will treat it as a
+ * different cookie and never actually remove the real one.
+ */
+export const refreshCookieClearOptions: CookieOptions = {
+  httpOnly: true,
+  secure: env.isProduction,
+  sameSite: env.refreshCookie.sameSite,
+  path: "/api/v1/auth",
+};

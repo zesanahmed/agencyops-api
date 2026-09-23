@@ -1,7 +1,11 @@
 import { randomUUID } from "node:crypto";
 import { env } from "../../config/env.js";
+import { AppError } from "../../errors/AppError.js";
+import { prisma } from "../../lib/prisma.js";
 import { hashToken } from "./auth.utils.js";
 import { createAccessToken, createRefreshToken } from "./token.service.js";
+
+export const REFRESH_FAILURE_MESSAGE = "Invalid or expired refresh token";
 
 export interface SessionRecordData {
   id: string;
@@ -16,31 +20,7 @@ export interface CreateAuthSessionInput {
   userId: string;
   userAgent: string | null;
   ipAddress: string | null;
-  /**
-   * Persists the Session row. The caller supplies this — usually
-   * `(data) => prisma.session.create({ data })` for a standalone
-   * call (login), or `(data) => tx.session.create({ data })` from
-   * inside a `prisma.$transaction(async (tx) => ...)` block
-   * (register, so User + Session commit atomically).
-   *
-   * This function deliberately never imports or names a Prisma
-   * "transaction client" type itself. Every official Prisma
-   * transaction example (including the ones Prisma's own
-   * `prisma init` installs as agent reference docs in this exact
-   * repo, under .agents/skills/prisma-client-api/references/
-   * transactions.md) uses `tx` purely inline inside the callback —
-   * never exported or passed around as a standalone named type. Two
-   * earlier attempts to give this function a `client?:
-   * PrismaTransactionClient` parameter both broke, because both
-   * relied on naming a type Prisma itself never names in its own
-   * usage patterns (`Prisma.TransactionClient` turned out to have a
-   * real defect for this project's generated output; a
-   * hand-inferred alternative hit the same root cause). Accepting a
-   * plain callback here sidesteps needing that type to exist at
-   * all — `tx` (or `prisma`) is only ever referenced inline, at the
-   * actual call site in auth.service.ts, exactly like Prisma's own
-   * examples.
-   */
+
   createSessionRecord: (data: SessionRecordData) => Promise<unknown>;
 }
 
@@ -50,25 +30,6 @@ export interface AuthSessionResult {
   sessionId: string;
 }
 
-/**
- * Creates a Session record plus a matching access/refresh token
- * pair. Shared by register and login so this logic exists in
- * exactly one place, per the milestone's "createAuthSession" ask.
- *
- * Deliberately does NOT touch Express req/res or set any cookie —
- * it only returns the raw refreshToken value. The controller is
- * responsible for actually calling res.cookie(...) using the
- * existing centralized cookie config (config/cookies.ts), which
- * keeps this function framework-agnostic and independently
- * testable.
- *
- * The session id is generated here (not left to Prisma's default)
- * specifically so it can be embedded in the access/refresh tokens'
- * `sid` claim in the same call — Session.refreshTokenHash is a
- * required field, so the token (and its hash) must exist before the
- * Session row can be created; generating the id upfront avoids a
- * create-then-update round trip to fill that in afterward.
- */
 export async function createAuthSession(
   input: CreateAuthSessionInput,
 ): Promise<AuthSessionResult> {
@@ -89,4 +50,70 @@ export async function createAuthSession(
   });
 
   return { accessToken, refreshToken, sessionId };
+}
+
+export interface RotateAuthSessionInput {
+  sessionId: string;
+  userId: string;
+  /** The raw refresh token exactly as presented by the client. */
+  presentedRefreshToken: string;
+}
+
+export async function rotateAuthSession(
+  input: RotateAuthSessionInput,
+): Promise<AuthSessionResult> {
+  const session = await prisma.session.findUnique({
+    where: { id: input.sessionId },
+  });
+
+  if (!session || session.userId !== input.userId) {
+    throw new AppError(REFRESH_FAILURE_MESSAGE, 401);
+  }
+  if (session.revokedAt !== null) {
+    throw new AppError(REFRESH_FAILURE_MESSAGE, 401);
+  }
+  if (session.expiresAt.getTime() <= Date.now()) {
+    throw new AppError(REFRESH_FAILURE_MESSAGE, 401);
+  }
+
+  const presentedHash = hashToken(input.presentedRefreshToken);
+
+  const [accessToken, refreshToken] = await Promise.all([
+    createAccessToken({ userId: input.userId, sessionId: input.sessionId }),
+    createRefreshToken({ userId: input.userId, sessionId: input.sessionId }),
+  ]);
+
+  const { count } = await prisma.session.updateMany({
+    where: {
+      id: input.sessionId,
+      refreshTokenHash: presentedHash,
+      revokedAt: null,
+    },
+    data: {
+      refreshTokenHash: hashToken(refreshToken),
+      expiresAt: new Date(Date.now() + env.jwt.refreshTokenMaxAgeMs),
+      lastUsedAt: new Date(),
+    },
+  });
+
+  if (count === 0) {
+    await revokeSession(input.sessionId);
+    throw new AppError(REFRESH_FAILURE_MESSAGE, 401);
+  }
+
+  return { accessToken, refreshToken, sessionId: input.sessionId };
+}
+
+export async function revokeSession(sessionId: string): Promise<void> {
+  await prisma.session.updateMany({
+    where: { id: sessionId, revokedAt: null },
+    data: { revokedAt: new Date() },
+  });
+}
+
+export async function revokeAllUserSessions(userId: string): Promise<void> {
+  await prisma.session.updateMany({
+    where: { userId, revokedAt: null },
+    data: { revokedAt: new Date() },
+  });
 }

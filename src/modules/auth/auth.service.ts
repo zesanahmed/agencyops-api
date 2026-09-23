@@ -3,7 +3,14 @@ import { prisma } from "../../lib/prisma.js";
 import type { User, UserStatus } from "../../generated/prisma/client.js";
 import { Prisma } from "../../generated/prisma/client.js";
 import { comparePassword, hashPassword, normalizeEmail } from "./auth.utils.js";
-import { createAuthSession } from "./session.service.js";
+import {
+  createAuthSession,
+  REFRESH_FAILURE_MESSAGE,
+  revokeAllUserSessions,
+  revokeSession,
+  rotateAuthSession,
+} from "./session.service.js";
+import { verifyRefreshToken } from "./token.service.js";
 
 export interface RegisterInput {
   name: string;
@@ -20,15 +27,6 @@ export interface LoginInput {
   ipAddress: string | null;
 }
 
-/**
- * Safe user shape returned by the API — never passwordHash or any
- * other internal field. The index signature is what lets this be
- * passed straight into sendSuccess()'s JsonValue-constrained data
- * param — a plain named interface without one isn't structurally
- * assignable to an indexed type when it goes through generic
- * constraint checking, even though every field here is already a
- * JsonValue on its own.
- */
 export interface SafeUser {
   id: string;
   name: string;
@@ -46,7 +44,12 @@ export interface AuthResult {
   refreshToken: string;
 }
 
-function toSafeUser(user: User): SafeUser {
+type SafeUserSource = Pick<
+  User,
+  "id" | "name" | "email" | "avatarUrl" | "status" | "emailVerifiedAt"
+>;
+
+function toSafeUser(user: SafeUserSource): SafeUser {
   return {
     id: user.id,
     name: user.name,
@@ -62,30 +65,9 @@ function toSafeUser(user: User): SafeUser {
 const DUPLICATE_EMAIL_MESSAGE = "An account with this email already exists";
 const GENERIC_LOGIN_FAILURE_MESSAGE = "Invalid email or password";
 
-/**
- * A precomputed, valid-format Argon2id hash of an arbitrary fixed
- * string — not a real password hash for any real account. Used only
- * so comparePassword() always has *something* to hash against, even
- * when no matching user was found. See loginUser() for why.
- */
 const DUMMY_PASSWORD_HASH =
   "$argon2id$v=19$m=65536,p=4,t=3$+zozk9h7tiiOI2MoWA8bww$hBL8ckLWO2XjNaKNsF/5msZho3sLycMN05snNlgpxzE";
 
-/**
- * Explicit type guard rather than an inline `instanceof` check.
- * Prisma's PrismaClientKnownRequestError is declared in the
- * generated client as a const+type pair re-exported through a
- * namespace (Prisma, from internal/prismaNamespace.ts via
- * client.ts's `export { Prisma }`) — accessed through that many
- * layers of re-export, TypeScript's control-flow narrowing for a
- * bare `error instanceof Prisma.PrismaClientKnownRequestError`
- * inside a chained boolean expression didn't reliably narrow
- * `error` away from `unknown` (see the milestone report for the
- * exact symptom). Isolating the check in one function with an
- * explicit `error is Prisma.PrismaClientKnownRequestError`
- * predicate makes the narrowing exact and guaranteed at every call
- * site, regardless of that inference gap.
- */
 function isPrismaKnownRequestError(
   error: unknown,
 ): error is Prisma.PrismaClientKnownRequestError {
@@ -101,22 +83,10 @@ function isEmailUniqueConstraintError(error: unknown): boolean {
   );
 }
 
-/**
- * Registers a new user and immediately creates their first session
- * (register implies being logged in — matches the milestone's
- * "register → session creation" flow).
- *
- * User creation + session creation run inside one Prisma
- * transaction, so a failure partway through can't leave a User row
- * with no session, or any other inconsistent state.
- */
 export async function registerUser(input: RegisterInput): Promise<AuthResult> {
   const name = input.name.trim();
   const email = normalizeEmail(input.email);
 
-  // Explicit pre-check for the common case (see the milestone report
-  // for the one edge case this doesn't fully cover, and the
-  // try/catch below that backstops it).
   const existing = await prisma.user.findFirst({
     where: { email, deletedAt: null },
     select: { id: true },
@@ -150,14 +120,6 @@ export async function registerUser(input: RegisterInput): Promise<AuthResult> {
       refreshToken: session.refreshToken,
     };
   } catch (error) {
-    // Defense in depth: the pre-check above handles the common case
-    // (an ACTIVE or previously-registered-and-still-present user),
-    // but User.email is a globally unique DB constraint with no
-    // carve-out for soft-deleted rows — see the milestone report for
-    // why, and why fixing that at the schema level is deliberately
-    // out of scope here. This catches the remaining edge case (email
-    // belongs to a soft-deleted user, or a genuine race) and returns
-    // the same 409 instead of an unhandled 500.
     if (isEmailUniqueConstraintError(error)) {
       throw new AppError(DUPLICATE_EMAIL_MESSAGE, 409);
     }
@@ -165,21 +127,6 @@ export async function registerUser(input: RegisterInput): Promise<AuthResult> {
   }
 }
 
-/**
- * Logs a user in. Returns a generic 401 for every ineligible case —
- * unknown email, wrong password, suspended account, soft-deleted
- * account — on purpose, so none of those can be distinguished from
- * the outside by response content.
- *
- * Timing note: comparePassword() is always called, even when no
- * user was found (against a fixed dummy hash) — see
- * DUMMY_PASSWORD_HASH above. Short-circuiting on `!user` before
- * calling comparePassword would make "no such account" respond
- * measurably faster than "wrong password" (Argon2 is deliberately
- * slow), which would leak exactly the "does this email exist"
- * information the generic error message is trying to hide, just
- * through timing instead of content.
- */
 export async function loginUser(input: LoginInput): Promise<AuthResult> {
   const email = normalizeEmail(input.email);
 
@@ -212,4 +159,68 @@ export async function loginUser(input: LoginInput): Promise<AuthResult> {
     accessToken: session.accessToken,
     refreshToken: session.refreshToken,
   };
+}
+
+export interface RefreshResult {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export async function refreshAuthSession(
+  presentedRefreshToken: string | undefined,
+): Promise<RefreshResult> {
+  if (!presentedRefreshToken) {
+    throw new AppError(REFRESH_FAILURE_MESSAGE, 401);
+  }
+
+  const payload = await verifyRefreshToken(presentedRefreshToken);
+
+  const { accessToken, refreshToken } = await rotateAuthSession({
+    sessionId: payload.sid,
+    userId: payload.sub,
+    presentedRefreshToken,
+  });
+
+  return { accessToken, refreshToken };
+}
+
+export async function logoutCurrentSession(
+  presentedRefreshToken: string | undefined,
+): Promise<void> {
+  if (!presentedRefreshToken) {
+    return;
+  }
+
+  let sessionId: string;
+  try {
+    ({ sid: sessionId } = await verifyRefreshToken(presentedRefreshToken));
+  } catch {
+    return;
+  }
+
+  await revokeSession(sessionId);
+}
+
+export async function logoutAllSessions(userId: string): Promise<void> {
+  await revokeAllUserSessions(userId);
+}
+
+export async function getCurrentUser(userId: string): Promise<SafeUser> {
+  const user = await prisma.user.findFirst({
+    where: { id: userId, deletedAt: null },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatarUrl: true,
+      status: true,
+      emailVerifiedAt: true,
+    },
+  });
+
+  if (!user) {
+    throw new AppError("Authentication required", 401);
+  }
+
+  return toSafeUser(user);
 }
