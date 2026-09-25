@@ -1,19 +1,11 @@
 import { Router } from "express";
 import { validate } from "../../middlewares/validate.js";
 import { authenticate } from "../auth/auth.middleware.js";
-import {
-  loadOrganizationContext,
-  requirePermission,
-} from "../rbac/rbac.middleware.js";
-import {
-  create,
-  getOne,
-  list,
-  remove,
-  update,
-} from "./organization.controller.js";
+import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
+import { create, getOne, list, remove, update } from "./organization.controller.js";
 import { membershipRouter } from "./membership.routes.js";
 import { invitationRouter } from "../invitation/invitation.routes.js";
+import { teamRouter } from "../team/team.routes.js";
 import {
   createOrganizationSchema,
   organizationIdParamSchema,
@@ -32,7 +24,11 @@ organizationRouter.post(
   create,
 );
 
-organizationRouter.get("/", validate({ query: paginationQuerySchema }), list);
+organizationRouter.get(
+  "/",
+  validate({ query: paginationQuerySchema }),
+  list,
+);
 
 organizationRouter.get(
   "/:organizationId",
@@ -61,7 +57,11 @@ organizationRouter.delete(
   remove,
 );
 
+// Membership routes live under this organization's own path — see
+// membership.routes.ts. Mounted last so the more specific
+// "/:organizationId" routes above aren't shadowed by it.
 organizationRouter.use("/:organizationId/members", membershipRouter);
 organizationRouter.use("/:organizationId/invitations", invitationRouter);
+organizationRouter.use("/:organizationId/teams", teamRouter);
 
 export { organizationRouter };

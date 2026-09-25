@@ -79,7 +79,7 @@ function isEmailUniqueConstraintError(error: unknown): boolean {
     return false;
   }
   return (
-    error.code === "P2002" && (error.meta?.target?.includes("email") ?? false)
+    error.code === "P2002" && ((error.meta as { target?: string[] } | undefined)?.target?.includes("email") ?? false)
   );
 }
 
