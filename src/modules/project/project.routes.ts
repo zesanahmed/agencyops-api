@@ -2,6 +2,7 @@ import { Router } from "express";
 import { validate } from "../../middlewares/validate.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
 import { organizationIdParamSchema } from "../organization/organization.validation.js";
+import { sprintRouter } from "../sprint/sprint.routes.js";
 import {
   addMember,
   addTeam,
@@ -68,5 +69,7 @@ projectRouter.delete(
   requirePermission("project:manage-members"),
   removeMember,
 );
+
+projectRouter.use("/:projectId/sprints", sprintRouter);
 
 export { projectRouter };

@@ -28,6 +28,10 @@ export const PERMISSIONS = [
   "project:delete",
   "project:manage-teams",
   "project:manage-members",
+  "sprint:create",
+  "sprint:read",
+  "sprint:update",
+  "sprint:delete",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
@@ -62,6 +66,10 @@ const ROLE_PERMISSIONS: Record<MembershipRole, readonly Permission[]> = {
     "project:delete",
     "project:manage-teams",
     "project:manage-members",
+    "sprint:create",
+    "sprint:read",
+    "sprint:update",
+    "sprint:delete",
   ],
   MANAGER: [
     "organization:read",
@@ -80,8 +88,12 @@ const ROLE_PERMISSIONS: Record<MembershipRole, readonly Permission[]> = {
     "project:delete",
     "project:manage-teams",
     "project:manage-members",
+    "sprint:create",
+    "sprint:read",
+    "sprint:update",
+    "sprint:delete",
   ],
-  TEAM_MEMBER: ["organization:read", "membership:read", "team:read", "project:read"],
+  TEAM_MEMBER: ["organization:read", "membership:read", "team:read", "project:read", "sprint:read"],
 };
 
 export function roleHasPermission(
