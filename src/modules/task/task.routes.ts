@@ -2,6 +2,7 @@ import { Router } from "express";
 import { validate } from "../../middlewares/validate.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
 import { organizationIdParamSchema } from "../organization/organization.validation.js";
+import { commentRouter } from "../comment/comment.routes.js";
 import {
   addCollaboratorHandler,
   create,
@@ -65,5 +66,7 @@ taskRouter.delete(
   requirePermission("task:update"),
   removeCollaboratorHandler,
 );
+
+taskRouter.use("/:taskId/comments", commentRouter);
 
 export { taskRouter };
