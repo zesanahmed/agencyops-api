@@ -3,6 +3,7 @@ import { validate } from "../../middlewares/validate.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
 import { organizationIdParamSchema } from "../organization/organization.validation.js";
 import { sprintRouter } from "../sprint/sprint.routes.js";
+import { taskRouter } from "../task/task.routes.js";
 import {
   addMember,
   addTeam,
@@ -71,5 +72,6 @@ projectRouter.delete(
 );
 
 projectRouter.use("/:projectId/sprints", sprintRouter);
+projectRouter.use("/:projectId/tasks", taskRouter);
 
 export { projectRouter };
