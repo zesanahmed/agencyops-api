@@ -1,4 +1,13 @@
+import { randomUUID } from "node:crypto";
 import { jwtVerify, SignJWT, type JWTPayload } from "jose";
+
+// Every token gets a random jti. Without it, two tokens issued for
+// the same session within the same second (sub/sid/type/iat/exp all
+// identical) sign to the byte-identical string — which silently
+// breaks refresh rotation: the "new" token equals the old one, so
+// the old (supposedly rotated-away) cookie keeps working. Found via
+// an automated test, not by inspection — a manual/slower test
+// doesn't reliably cross this same-second window.
 import { env } from "../../config/env.js";
 import { AppError } from "../../errors/AppError.js";
 import type {
@@ -32,6 +41,7 @@ export async function createAccessToken(
   return new SignJWT({ sid: session.sessionId, type: "access" })
     .setProtectedHeader({ alg: ALG })
     .setSubject(session.userId)
+    .setJti(randomUUID())
     .setIssuedAt()
     .setExpirationTime(env.jwt.accessTokenExpiry)
     .sign(accessSecret);
@@ -62,6 +72,7 @@ export async function createRefreshToken(
   return new SignJWT({ sid: session.sessionId, type: "refresh" })
     .setProtectedHeader({ alg: ALG })
     .setSubject(session.userId)
+    .setJti(randomUUID())
     .setIssuedAt()
     .setExpirationTime(env.jwt.refreshTokenExpiry)
     .sign(refreshSecret);

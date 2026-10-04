@@ -104,6 +104,17 @@ function requireEnv(name: string): string {
   );
 }
 
+// Comma-separated list of allowed frontend origins. Defaults to
+// common local dev ports when unset, EXCEPT in production, where an
+// unset value means "no cross-origin requests allowed" rather than
+// silently falling back to a permissive default.
+function resolveCorsOrigins(value: string | undefined, isProduction: boolean): string[] {
+  if (value && value.trim() !== "") {
+    return value.split(",").map((o) => o.trim()).filter(Boolean);
+  }
+  return isProduction ? [] : ["http://localhost:3000", "http://localhost:5173"];
+}
+
 export interface EnvConfig {
   nodeEnv: NodeEnv;
   port: number;
@@ -112,6 +123,7 @@ export interface EnvConfig {
   databaseUrl: string;
   jwt: JwtConfig;
   refreshCookie: RefreshCookieConfig;
+  corsOrigins: string[];
 }
 
 const nodeEnv = resolveNodeEnv(process.env["NODE_ENV"]);
@@ -140,4 +152,5 @@ export const env: EnvConfig = {
       "agencyops_refresh_token",
     sameSite: resolveSameSite(process.env["REFRESH_TOKEN_COOKIE_SAME_SITE"]),
   },
+  corsOrigins: resolveCorsOrigins(process.env["CORS_ORIGIN"], isProduction),
 };
