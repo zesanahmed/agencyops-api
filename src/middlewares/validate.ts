@@ -14,10 +14,13 @@ export function validate(schemas: ValidationSchemas) {
       req.body = parseOrThrow(schemas.body, req.body);
     }
     if (schemas.params) {
-      req.params = parseOrThrow(
-        schemas.params,
-        req.params,
-      ) as typeof req.params;
+      // MERGE the parsed params into req.params instead of replacing them. Replacing drops every
+      // param the schema doesn't declare (e.g. projectId on routes validated with taskIdParamSchema),
+      // which leaves handlers reading `undefined` and makes Prisma ignore that filter entirely.
+      req.params = {
+        ...req.params,
+        ...(parseOrThrow(schemas.params, req.params) as Record<string, string>),
+      } as typeof req.params;
     }
     if (schemas.query) {
       const parsedQuery = parseOrThrow(schemas.query, req.query);
