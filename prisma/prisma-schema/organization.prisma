@@ -21,6 +21,7 @@ model Organization {
   activities    Activity[]
   auditLogs     AuditLog[]
   notifications Notification[]
+  attachments   Attachment[]
 }
 
 model Membership {
@@ -64,6 +65,9 @@ model Membership {
   // preferences.
   notificationsReceived   Notification[]           @relation("NotificationRecipient")
   notificationPreferences NotificationPreference[]
+
+  // Files this membership has uploaded.
+  uploadedAttachments Attachment[]
 
   @@unique([userId, organizationId])
   @@index([organizationId])

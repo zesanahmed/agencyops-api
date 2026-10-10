@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Activity: 'Activity',
   AuditLog: 'AuditLog',
+  Attachment: 'Attachment',
   User: 'User',
   Account: 'Account',
   Session: 'Session',
@@ -120,6 +121,22 @@ export const AuditLogScalarFieldEnum = {
 } as const
 
 export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
+export const AttachmentScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  taskId: 'taskId',
+  uploadedByMembershipId: 'uploadedByMembershipId',
+  originalFilename: 'originalFilename',
+  publicId: 'publicId',
+  url: 'url',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  createdAt: 'createdAt'
+} as const
+
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

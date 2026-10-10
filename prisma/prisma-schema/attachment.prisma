@@ -1,0 +1,26 @@
+model Attachment {
+  id                     String   @id @default(uuid()) @db.Uuid
+  organizationId         String   @db.Uuid
+  taskId                 String   @db.Uuid
+  uploadedByMembershipId String   @db.Uuid
+  originalFilename       String
+  // Cloudinary's public_id — needed to delete the asset from
+  // Cloudinary itself, not just this row.
+  publicId               String   @unique
+  url                    String
+  mimeType               String
+  sizeBytes              Int
+  createdAt              DateTime @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  task         Task         @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  // No onDelete: Cascade here on purpose — same reasoning as
+  // Comment.author elsewhere in this schema: an attachment's
+  // "uploaded by" record is history, not something to silently
+  // delete just because the uploader's membership is later removed.
+  uploadedBy Membership @relation(fields: [uploadedByMembershipId], references: [id])
+
+  @@index([organizationId])
+  @@index([taskId])
+}

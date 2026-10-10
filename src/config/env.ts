@@ -115,6 +115,26 @@ function resolveCorsOrigins(value: string | undefined, isProduction: boolean): s
   return isProduction ? [] : ["http://localhost:3000", "http://localhost:5173"];
 }
 
+export interface CloudinaryConfig {
+  cloudName: string;
+  apiKey: string;
+  apiSecret: string;
+}
+
+// Optional, not required — unlike DATABASE_URL, file upload is one
+// feature among many, not core to the app running at all. Missing
+// Cloudinary config means the upload endpoints return a clear error
+// when actually used, not that the whole app refuses to start.
+function resolveCloudinaryConfig(): CloudinaryConfig | undefined {
+  const cloudName = process.env["CLOUDINARY_CLOUD_NAME"];
+  const apiKey = process.env["CLOUDINARY_API_KEY"];
+  const apiSecret = process.env["CLOUDINARY_API_SECRET"];
+  if (cloudName && apiKey && apiSecret) {
+    return { cloudName, apiKey, apiSecret };
+  }
+  return undefined;
+}
+
 export interface EnvConfig {
   nodeEnv: NodeEnv;
   port: number;
@@ -124,6 +144,7 @@ export interface EnvConfig {
   jwt: JwtConfig;
   refreshCookie: RefreshCookieConfig;
   corsOrigins: string[];
+  cloudinary: CloudinaryConfig | undefined;
 }
 
 const nodeEnv = resolveNodeEnv(process.env["NODE_ENV"]);
@@ -153,4 +174,5 @@ export const env: EnvConfig = {
     sameSite: resolveSameSite(process.env["REFRESH_TOKEN_COOKIE_SAME_SITE"]),
   },
   corsOrigins: resolveCorsOrigins(process.env["CORS_ORIGIN"], isProduction),
+  cloudinary: resolveCloudinaryConfig(),
 };

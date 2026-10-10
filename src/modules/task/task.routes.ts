@@ -3,6 +3,7 @@ import { validate } from "../../middlewares/validate.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
 import { organizationIdParamSchema } from "../organization/organization.validation.js";
 import { commentRouter } from "../comment/comment.routes.js";
+import { attachmentRouter } from "../attachment/attachment.routes.js";
 import {
   addCollaboratorHandler,
   create,
@@ -68,5 +69,6 @@ taskRouter.delete(
 );
 
 taskRouter.use("/:taskId/comments", commentRouter);
+taskRouter.use("/:taskId/attachments", attachmentRouter);
 
 export { taskRouter };

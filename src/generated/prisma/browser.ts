@@ -28,6 +28,11 @@ export type Activity = Prisma.ActivityModel
  */
 export type AuditLog = Prisma.AuditLogModel
 /**
+ * Model Attachment
+ * 
+ */
+export type Attachment = Prisma.AttachmentModel
+/**
  * Model User
  * 
  */

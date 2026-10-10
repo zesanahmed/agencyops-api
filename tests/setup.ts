@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { afterAll, beforeAll, vi } from "vitest";
 
 try {

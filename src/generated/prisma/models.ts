@@ -10,6 +10,7 @@
  */
 export type * from './models/Activity.js'
 export type * from './models/AuditLog.js'
+export type * from './models/Attachment.js'
 export type * from './models/User.js'
 export type * from './models/Account.js'
 export type * from './models/Session.js'
