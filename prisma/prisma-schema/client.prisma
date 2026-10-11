@@ -1,0 +1,185 @@
+// Client portal models. Deliberately a separate identity/security
+// boundary from internal User/Membership: a ClientContact is an
+// external portal identity, never a Membership and never a fourth
+// MembershipRole. Access to a project is explicit (ClientProjectAccess),
+// never inferred from belonging to a ClientOrganization.
+
+model ClientOrganization {
+  id             String    @id @default(uuid()) @db.Uuid
+  organizationId String    @db.Uuid
+  name           String
+  website        String?
+  // Internal-only notes — never exposed through the client portal.
+  notes          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+
+  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  contacts     ClientContact[]
+  projects     Project[]
+
+  @@index([organizationId])
+  @@index([organizationId, deletedAt])
+}
+
+model ClientContact {
+  id                   String              @id @default(uuid()) @db.Uuid
+  // Denormalized from clientOrganization so tenant checks and the
+  // (organizationId, email) login lookup never need a join.
+  organizationId       String              @db.Uuid
+  clientOrganizationId String              @db.Uuid
+  name                 String
+  email                String
+  jobTitle             String?
+  passwordHash         String?
+  status               ClientContactStatus @default(INVITED)
+  // SHA-256 of the one-time invite token; cleared once accepted.
+  inviteTokenHash      String?             @unique
+  inviteExpiresAt      DateTime?
+  lastLoginAt          DateTime?
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+
+  organization       Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  clientOrganization ClientOrganization @relation(fields: [clientOrganizationId], references: [id], onDelete: Cascade)
+
+  sessions      ClientSession[]
+  projectAccess ClientProjectAccess[]
+  requests      ClientRequest[]
+  messages      ClientMessage[]
+  files         ClientFile[]
+
+  // A contact is never hard-deleted — removal means status DISABLED —
+  // so (organizationId, email) uniqueness never needs to ignore
+  // soft-deleted rows.
+  @@unique([organizationId, email])
+  @@index([clientOrganizationId])
+}
+
+model ClientSession {
+  id               String    @id @default(uuid()) @db.Uuid
+  clientContactId  String    @db.Uuid
+  refreshTokenHash String    @unique
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  lastUsedAt       DateTime?
+  userAgent        String?
+  ipAddress        String?
+  createdAt        DateTime  @default(now())
+
+  clientContact ClientContact @relation(fields: [clientContactId], references: [id], onDelete: Cascade)
+
+  @@index([clientContactId])
+  @@index([expiresAt])
+}
+
+model ClientProjectAccess {
+  id                    String   @id @default(uuid()) @db.Uuid
+  clientContactId       String   @db.Uuid
+  projectId             String   @db.Uuid
+  grantedByMembershipId String   @db.Uuid
+  createdAt             DateTime @default(now())
+
+  clientContact ClientContact @relation(fields: [clientContactId], references: [id], onDelete: Cascade)
+  project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  // History of who granted access — not silently deleted with the membership.
+  grantedBy     Membership    @relation("ClientAccessGrantedBy", fields: [grantedByMembershipId], references: [id])
+
+  @@unique([clientContactId, projectId])
+  @@index([projectId])
+}
+
+model ClientRequest {
+  id                    String              @id @default(uuid()) @db.Uuid
+  organizationId        String              @db.Uuid
+  projectId             String              @db.Uuid
+  clientContactId       String              @db.Uuid
+  type                  ClientRequestType
+  title                 String
+  description           String
+  status                ClientRequestStatus @default(OPEN)
+  resolutionNote        String?
+  handledByMembershipId String?             @db.Uuid
+  resolvedAt            DateTime?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  organization  Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  clientContact ClientContact @relation(fields: [clientContactId], references: [id], onDelete: Cascade)
+  handledBy     Membership?   @relation("ClientRequestHandler", fields: [handledByMembershipId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, status])
+  @@index([projectId, status])
+  @@index([clientContactId])
+}
+
+// Internal staff post these for clients to read (status notes, demo
+// links, milestones). Client-visible by definition.
+model ProjectUpdate {
+  id                 String    @id @default(uuid()) @db.Uuid
+  organizationId     String    @db.Uuid
+  projectId          String    @db.Uuid
+  authorMembershipId String    @db.Uuid
+  title              String
+  body               String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  author       Membership   @relation("ProjectUpdateAuthor", fields: [authorMembershipId], references: [id])
+
+  @@index([organizationId])
+  @@index([projectId, deletedAt])
+}
+
+// Per-project client-facing conversation thread. Separate from the
+// internal task Comment model on purpose: internal comments are never
+// visible to clients. Exactly one of the two author columns is set
+// (enforced by a CHECK constraint in the migration SQL).
+model ClientMessage {
+  id                    String    @id @default(uuid()) @db.Uuid
+  organizationId        String    @db.Uuid
+  projectId             String    @db.Uuid
+  authorClientContactId String?   @db.Uuid
+  authorMembershipId    String?   @db.Uuid
+  content               String
+  createdAt             DateTime  @default(now())
+  deletedAt             DateTime?
+
+  organization Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project      Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  clientAuthor ClientContact? @relation(fields: [authorClientContactId], references: [id], onDelete: Cascade)
+  staffAuthor  Membership?    @relation("ClientMessageStaffAuthor", fields: [authorMembershipId], references: [id])
+
+  @@index([organizationId])
+  @@index([projectId, deletedAt, createdAt])
+}
+
+// Shared per-project file area visible to authorized client contacts
+// and internal staff. Metadata only — binaries live in Cloudinary.
+// Exactly one uploader column is set (CHECK in the migration SQL).
+model ClientFile {
+  id                        String   @id @default(uuid()) @db.Uuid
+  organizationId            String   @db.Uuid
+  projectId                 String   @db.Uuid
+  uploadedByClientContactId String?  @db.Uuid
+  uploadedByMembershipId    String?  @db.Uuid
+  originalFilename          String
+  publicId                  String   @unique
+  url                       String
+  mimeType                  String
+  sizeBytes                 Int
+  createdAt                 DateTime @default(now())
+
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  clientUploader ClientContact? @relation(fields: [uploadedByClientContactId], references: [id], onDelete: Cascade)
+  staffUploader  Membership?    @relation("ClientFileStaffUploader", fields: [uploadedByMembershipId], references: [id])
+
+  @@index([organizationId])
+  @@index([projectId, createdAt])
+}

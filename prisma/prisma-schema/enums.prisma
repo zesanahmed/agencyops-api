@@ -60,3 +60,24 @@ enum TaskPriority {
   HIGH
   URGENT
 }
+
+enum ClientContactStatus {
+  INVITED
+  ACTIVE
+  DISABLED
+}
+
+enum ClientRequestType {
+  NEW_REQUIREMENT
+  CHANGE_REQUEST
+  QUESTION
+  FEEDBACK
+  ISSUE
+}
+
+enum ClientRequestStatus {
+  OPEN
+  IN_REVIEW
+  RESOLVED
+  REJECTED
+}

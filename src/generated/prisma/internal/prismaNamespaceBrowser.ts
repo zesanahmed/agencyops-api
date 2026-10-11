@@ -58,6 +58,14 @@ export const ModelName = {
   Account: 'Account',
   Session: 'Session',
   AuthToken: 'AuthToken',
+  ClientOrganization: 'ClientOrganization',
+  ClientContact: 'ClientContact',
+  ClientSession: 'ClientSession',
+  ClientProjectAccess: 'ClientProjectAccess',
+  ClientRequest: 'ClientRequest',
+  ProjectUpdate: 'ProjectUpdate',
+  ClientMessage: 'ClientMessage',
+  ClientFile: 'ClientFile',
   Comment: 'Comment',
   CommentMention: 'CommentMention',
   Notification: 'Notification',
@@ -195,6 +203,130 @@ export const AuthTokenScalarFieldEnum = {
 export type AuthTokenScalarFieldEnum = (typeof AuthTokenScalarFieldEnum)[keyof typeof AuthTokenScalarFieldEnum]
 
 
+export const ClientOrganizationScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  name: 'name',
+  website: 'website',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ClientOrganizationScalarFieldEnum = (typeof ClientOrganizationScalarFieldEnum)[keyof typeof ClientOrganizationScalarFieldEnum]
+
+
+export const ClientContactScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  clientOrganizationId: 'clientOrganizationId',
+  name: 'name',
+  email: 'email',
+  jobTitle: 'jobTitle',
+  passwordHash: 'passwordHash',
+  status: 'status',
+  inviteTokenHash: 'inviteTokenHash',
+  inviteExpiresAt: 'inviteExpiresAt',
+  lastLoginAt: 'lastLoginAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientContactScalarFieldEnum = (typeof ClientContactScalarFieldEnum)[keyof typeof ClientContactScalarFieldEnum]
+
+
+export const ClientSessionScalarFieldEnum = {
+  id: 'id',
+  clientContactId: 'clientContactId',
+  refreshTokenHash: 'refreshTokenHash',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  lastUsedAt: 'lastUsedAt',
+  userAgent: 'userAgent',
+  ipAddress: 'ipAddress',
+  createdAt: 'createdAt'
+} as const
+
+export type ClientSessionScalarFieldEnum = (typeof ClientSessionScalarFieldEnum)[keyof typeof ClientSessionScalarFieldEnum]
+
+
+export const ClientProjectAccessScalarFieldEnum = {
+  id: 'id',
+  clientContactId: 'clientContactId',
+  projectId: 'projectId',
+  grantedByMembershipId: 'grantedByMembershipId',
+  createdAt: 'createdAt'
+} as const
+
+export type ClientProjectAccessScalarFieldEnum = (typeof ClientProjectAccessScalarFieldEnum)[keyof typeof ClientProjectAccessScalarFieldEnum]
+
+
+export const ClientRequestScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  clientContactId: 'clientContactId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  resolutionNote: 'resolutionNote',
+  handledByMembershipId: 'handledByMembershipId',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientRequestScalarFieldEnum = (typeof ClientRequestScalarFieldEnum)[keyof typeof ClientRequestScalarFieldEnum]
+
+
+export const ProjectUpdateScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  authorMembershipId: 'authorMembershipId',
+  title: 'title',
+  body: 'body',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ProjectUpdateScalarFieldEnum = (typeof ProjectUpdateScalarFieldEnum)[keyof typeof ProjectUpdateScalarFieldEnum]
+
+
+export const ClientMessageScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  authorClientContactId: 'authorClientContactId',
+  authorMembershipId: 'authorMembershipId',
+  content: 'content',
+  createdAt: 'createdAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ClientMessageScalarFieldEnum = (typeof ClientMessageScalarFieldEnum)[keyof typeof ClientMessageScalarFieldEnum]
+
+
+export const ClientFileScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  projectId: 'projectId',
+  uploadedByClientContactId: 'uploadedByClientContactId',
+  uploadedByMembershipId: 'uploadedByMembershipId',
+  originalFilename: 'originalFilename',
+  publicId: 'publicId',
+  url: 'url',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  createdAt: 'createdAt'
+} as const
+
+export type ClientFileScalarFieldEnum = (typeof ClientFileScalarFieldEnum)[keyof typeof ClientFileScalarFieldEnum]
+
+
 export const CommentScalarFieldEnum = {
   id: 'id',
   taskId: 'taskId',
@@ -303,7 +435,8 @@ export const ProjectScalarFieldEnum = {
   dueDate: 'dueDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  clientOrganizationId: 'clientOrganizationId'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -358,7 +491,8 @@ export const TaskScalarFieldEnum = {
   dueDate: 'dueDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  clientVisible: 'clientVisible'
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]

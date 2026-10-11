@@ -223,6 +223,12 @@ export type OrganizationWhereInput = {
   auditLogs?: Prisma.AuditLogListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   attachments?: Prisma.AttachmentListRelationFilter
+  clientOrganizations?: Prisma.ClientOrganizationListRelationFilter
+  clientContacts?: Prisma.ClientContactListRelationFilter
+  clientRequests?: Prisma.ClientRequestListRelationFilter
+  projectUpdates?: Prisma.ProjectUpdateListRelationFilter
+  clientMessages?: Prisma.ClientMessageListRelationFilter
+  clientFiles?: Prisma.ClientFileListRelationFilter
 }
 
 export type OrganizationOrderByWithRelationInput = {
@@ -244,6 +250,12 @@ export type OrganizationOrderByWithRelationInput = {
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   attachments?: Prisma.AttachmentOrderByRelationAggregateInput
+  clientOrganizations?: Prisma.ClientOrganizationOrderByRelationAggregateInput
+  clientContacts?: Prisma.ClientContactOrderByRelationAggregateInput
+  clientRequests?: Prisma.ClientRequestOrderByRelationAggregateInput
+  projectUpdates?: Prisma.ProjectUpdateOrderByRelationAggregateInput
+  clientMessages?: Prisma.ClientMessageOrderByRelationAggregateInput
+  clientFiles?: Prisma.ClientFileOrderByRelationAggregateInput
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -268,6 +280,12 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   auditLogs?: Prisma.AuditLogListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   attachments?: Prisma.AttachmentListRelationFilter
+  clientOrganizations?: Prisma.ClientOrganizationListRelationFilter
+  clientContacts?: Prisma.ClientContactListRelationFilter
+  clientRequests?: Prisma.ClientRequestListRelationFilter
+  projectUpdates?: Prisma.ProjectUpdateListRelationFilter
+  clientMessages?: Prisma.ClientMessageListRelationFilter
+  clientFiles?: Prisma.ClientFileListRelationFilter
 }, "id" | "slug">
 
 export type OrganizationOrderByWithAggregationInput = {
@@ -318,6 +336,12 @@ export type OrganizationCreateInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateInput = {
@@ -338,6 +362,12 @@ export type OrganizationUncheckedCreateInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUpdateInput = {
@@ -358,6 +388,12 @@ export type OrganizationUpdateInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateInput = {
@@ -378,6 +414,12 @@ export type OrganizationUncheckedUpdateInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateManyInput = {
@@ -550,6 +592,90 @@ export type OrganizationUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.OrganizationScalarWhereInput | Prisma.OrganizationScalarWhereInput[]
 }
 
+export type OrganizationCreateNestedOneWithoutClientOrganizationsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientOrganizationsInput, Prisma.OrganizationUncheckedCreateWithoutClientOrganizationsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientOrganizationsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutClientOrganizationsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientOrganizationsInput, Prisma.OrganizationUncheckedCreateWithoutClientOrganizationsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientOrganizationsInput
+  upsert?: Prisma.OrganizationUpsertWithoutClientOrganizationsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutClientOrganizationsInput, Prisma.OrganizationUpdateWithoutClientOrganizationsInput>, Prisma.OrganizationUncheckedUpdateWithoutClientOrganizationsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutClientContactsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientContactsInput, Prisma.OrganizationUncheckedCreateWithoutClientContactsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientContactsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutClientContactsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientContactsInput, Prisma.OrganizationUncheckedCreateWithoutClientContactsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientContactsInput
+  upsert?: Prisma.OrganizationUpsertWithoutClientContactsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutClientContactsInput, Prisma.OrganizationUpdateWithoutClientContactsInput>, Prisma.OrganizationUncheckedUpdateWithoutClientContactsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutClientRequestsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientRequestsInput, Prisma.OrganizationUncheckedCreateWithoutClientRequestsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientRequestsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutClientRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientRequestsInput, Prisma.OrganizationUncheckedCreateWithoutClientRequestsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientRequestsInput
+  upsert?: Prisma.OrganizationUpsertWithoutClientRequestsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutClientRequestsInput, Prisma.OrganizationUpdateWithoutClientRequestsInput>, Prisma.OrganizationUncheckedUpdateWithoutClientRequestsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutProjectUpdatesInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectUpdatesInput, Prisma.OrganizationUncheckedCreateWithoutProjectUpdatesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutProjectUpdatesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutProjectUpdatesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectUpdatesInput, Prisma.OrganizationUncheckedCreateWithoutProjectUpdatesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutProjectUpdatesInput
+  upsert?: Prisma.OrganizationUpsertWithoutProjectUpdatesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutProjectUpdatesInput, Prisma.OrganizationUpdateWithoutProjectUpdatesInput>, Prisma.OrganizationUncheckedUpdateWithoutProjectUpdatesInput>
+}
+
+export type OrganizationCreateNestedOneWithoutClientMessagesInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientMessagesInput, Prisma.OrganizationUncheckedCreateWithoutClientMessagesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientMessagesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutClientMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientMessagesInput, Prisma.OrganizationUncheckedCreateWithoutClientMessagesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientMessagesInput
+  upsert?: Prisma.OrganizationUpsertWithoutClientMessagesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutClientMessagesInput, Prisma.OrganizationUpdateWithoutClientMessagesInput>, Prisma.OrganizationUncheckedUpdateWithoutClientMessagesInput>
+}
+
+export type OrganizationCreateNestedOneWithoutClientFilesInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientFilesInput, Prisma.OrganizationUncheckedCreateWithoutClientFilesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientFilesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutClientFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientFilesInput, Prisma.OrganizationUncheckedCreateWithoutClientFilesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientFilesInput
+  upsert?: Prisma.OrganizationUpsertWithoutClientFilesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutClientFilesInput, Prisma.OrganizationUpdateWithoutClientFilesInput>, Prisma.OrganizationUncheckedUpdateWithoutClientFilesInput>
+}
+
 export type OrganizationCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutNotificationsInput, Prisma.OrganizationUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutNotificationsInput
@@ -641,6 +767,12 @@ export type OrganizationCreateWithoutActivitiesInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutActivitiesInput = {
@@ -660,6 +792,12 @@ export type OrganizationUncheckedCreateWithoutActivitiesInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutActivitiesInput = {
@@ -695,6 +833,12 @@ export type OrganizationUpdateWithoutActivitiesInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutActivitiesInput = {
@@ -714,6 +858,12 @@ export type OrganizationUncheckedUpdateWithoutActivitiesInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutAuditLogsInput = {
@@ -733,6 +883,12 @@ export type OrganizationCreateWithoutAuditLogsInput = {
   activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutAuditLogsInput = {
@@ -752,6 +908,12 @@ export type OrganizationUncheckedCreateWithoutAuditLogsInput = {
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutAuditLogsInput = {
@@ -787,6 +949,12 @@ export type OrganizationUpdateWithoutAuditLogsInput = {
   activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutAuditLogsInput = {
@@ -806,6 +974,12 @@ export type OrganizationUncheckedUpdateWithoutAuditLogsInput = {
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutAttachmentsInput = {
@@ -825,6 +999,12 @@ export type OrganizationCreateWithoutAttachmentsInput = {
   activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutAttachmentsInput = {
@@ -844,6 +1024,12 @@ export type OrganizationUncheckedCreateWithoutAttachmentsInput = {
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutAttachmentsInput = {
@@ -879,6 +1065,12 @@ export type OrganizationUpdateWithoutAttachmentsInput = {
   activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutAttachmentsInput = {
@@ -898,6 +1090,12 @@ export type OrganizationUncheckedUpdateWithoutAttachmentsInput = {
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutOwnerInput = {
@@ -917,6 +1115,12 @@ export type OrganizationCreateWithoutOwnerInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutOwnerInput = {
@@ -936,6 +1140,12 @@ export type OrganizationUncheckedCreateWithoutOwnerInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutOwnerInput = {
@@ -979,6 +1189,702 @@ export type OrganizationScalarWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"Organization"> | Date | string | null
 }
 
+export type OrganizationCreateWithoutClientOrganizationsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  owner: Prisma.UserCreateNestedOneWithoutOwnedOrganizationsInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutClientOrganizationsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  ownerId: string
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutClientOrganizationsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientOrganizationsInput, Prisma.OrganizationUncheckedCreateWithoutClientOrganizationsInput>
+}
+
+export type OrganizationUpsertWithoutClientOrganizationsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientOrganizationsInput, Prisma.OrganizationUncheckedUpdateWithoutClientOrganizationsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientOrganizationsInput, Prisma.OrganizationUncheckedCreateWithoutClientOrganizationsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutClientOrganizationsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientOrganizationsInput, Prisma.OrganizationUncheckedUpdateWithoutClientOrganizationsInput>
+}
+
+export type OrganizationUpdateWithoutClientOrganizationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutClientOrganizationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutClientContactsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  owner: Prisma.UserCreateNestedOneWithoutOwnedOrganizationsInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutClientContactsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  ownerId: string
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutClientContactsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientContactsInput, Prisma.OrganizationUncheckedCreateWithoutClientContactsInput>
+}
+
+export type OrganizationUpsertWithoutClientContactsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientContactsInput, Prisma.OrganizationUncheckedUpdateWithoutClientContactsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientContactsInput, Prisma.OrganizationUncheckedCreateWithoutClientContactsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutClientContactsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientContactsInput, Prisma.OrganizationUncheckedUpdateWithoutClientContactsInput>
+}
+
+export type OrganizationUpdateWithoutClientContactsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutClientContactsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutClientRequestsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  owner: Prisma.UserCreateNestedOneWithoutOwnedOrganizationsInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutClientRequestsInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  ownerId: string
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutClientRequestsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientRequestsInput, Prisma.OrganizationUncheckedCreateWithoutClientRequestsInput>
+}
+
+export type OrganizationUpsertWithoutClientRequestsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientRequestsInput, Prisma.OrganizationUncheckedUpdateWithoutClientRequestsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientRequestsInput, Prisma.OrganizationUncheckedCreateWithoutClientRequestsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutClientRequestsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientRequestsInput, Prisma.OrganizationUncheckedUpdateWithoutClientRequestsInput>
+}
+
+export type OrganizationUpdateWithoutClientRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutClientRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutProjectUpdatesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  owner: Prisma.UserCreateNestedOneWithoutOwnedOrganizationsInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutProjectUpdatesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  ownerId: string
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutProjectUpdatesInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectUpdatesInput, Prisma.OrganizationUncheckedCreateWithoutProjectUpdatesInput>
+}
+
+export type OrganizationUpsertWithoutProjectUpdatesInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutProjectUpdatesInput, Prisma.OrganizationUncheckedUpdateWithoutProjectUpdatesInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectUpdatesInput, Prisma.OrganizationUncheckedCreateWithoutProjectUpdatesInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutProjectUpdatesInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutProjectUpdatesInput, Prisma.OrganizationUncheckedUpdateWithoutProjectUpdatesInput>
+}
+
+export type OrganizationUpdateWithoutProjectUpdatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutProjectUpdatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutClientMessagesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  owner: Prisma.UserCreateNestedOneWithoutOwnedOrganizationsInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutClientMessagesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  ownerId: string
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutClientMessagesInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientMessagesInput, Prisma.OrganizationUncheckedCreateWithoutClientMessagesInput>
+}
+
+export type OrganizationUpsertWithoutClientMessagesInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientMessagesInput, Prisma.OrganizationUncheckedUpdateWithoutClientMessagesInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientMessagesInput, Prisma.OrganizationUncheckedCreateWithoutClientMessagesInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutClientMessagesInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientMessagesInput, Prisma.OrganizationUncheckedUpdateWithoutClientMessagesInput>
+}
+
+export type OrganizationUpdateWithoutClientMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutClientMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutClientFilesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  owner: Prisma.UserCreateNestedOneWithoutOwnedOrganizationsInput
+  memberships?: Prisma.MembershipCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutClientFilesInput = {
+  id?: string
+  name: string
+  slug: string
+  logoUrl?: string | null
+  ownerId: string
+  status?: $Enums.OrganizationStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutOrganizationInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutOrganizationInput
+  teams?: Prisma.TeamUncheckedCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutClientFilesInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientFilesInput, Prisma.OrganizationUncheckedCreateWithoutClientFilesInput>
+}
+
+export type OrganizationUpsertWithoutClientFilesInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientFilesInput, Prisma.OrganizationUncheckedUpdateWithoutClientFilesInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientFilesInput, Prisma.OrganizationUncheckedCreateWithoutClientFilesInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutClientFilesInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientFilesInput, Prisma.OrganizationUncheckedUpdateWithoutClientFilesInput>
+}
+
+export type OrganizationUpdateWithoutClientFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedOrganizationsNestedInput
+  memberships?: Prisma.MembershipUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutClientFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumOrganizationStatusFieldUpdateOperationsInput | $Enums.OrganizationStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutOrganizationNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutOrganizationNestedInput
+  teams?: Prisma.TeamUncheckedUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
 export type OrganizationCreateWithoutNotificationsInput = {
   id?: string
   name: string
@@ -996,6 +1902,12 @@ export type OrganizationCreateWithoutNotificationsInput = {
   activities?: Prisma.ActivityCreateNestedManyWithoutOrganizationInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutNotificationsInput = {
@@ -1015,6 +1927,12 @@ export type OrganizationUncheckedCreateWithoutNotificationsInput = {
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutOrganizationInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutNotificationsInput = {
@@ -1050,6 +1968,12 @@ export type OrganizationUpdateWithoutNotificationsInput = {
   activities?: Prisma.ActivityUpdateManyWithoutOrganizationNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutNotificationsInput = {
@@ -1069,6 +1993,12 @@ export type OrganizationUncheckedUpdateWithoutNotificationsInput = {
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutOrganizationNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutMembershipsInput = {
@@ -1088,6 +2018,12 @@ export type OrganizationCreateWithoutMembershipsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutMembershipsInput = {
@@ -1107,6 +2043,12 @@ export type OrganizationUncheckedCreateWithoutMembershipsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutMembershipsInput = {
@@ -1142,6 +2084,12 @@ export type OrganizationUpdateWithoutMembershipsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutMembershipsInput = {
@@ -1161,6 +2109,12 @@ export type OrganizationUncheckedUpdateWithoutMembershipsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutInvitationsInput = {
@@ -1180,6 +2134,12 @@ export type OrganizationCreateWithoutInvitationsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutInvitationsInput = {
@@ -1199,6 +2159,12 @@ export type OrganizationUncheckedCreateWithoutInvitationsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutInvitationsInput = {
@@ -1234,6 +2200,12 @@ export type OrganizationUpdateWithoutInvitationsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutInvitationsInput = {
@@ -1253,6 +2225,12 @@ export type OrganizationUncheckedUpdateWithoutInvitationsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutProjectsInput = {
@@ -1272,6 +2250,12 @@ export type OrganizationCreateWithoutProjectsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutProjectsInput = {
@@ -1291,6 +2275,12 @@ export type OrganizationUncheckedCreateWithoutProjectsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutProjectsInput = {
@@ -1326,6 +2316,12 @@ export type OrganizationUpdateWithoutProjectsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutProjectsInput = {
@@ -1345,6 +2341,12 @@ export type OrganizationUncheckedUpdateWithoutProjectsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutTeamsInput = {
@@ -1364,6 +2366,12 @@ export type OrganizationCreateWithoutTeamsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutTeamsInput = {
@@ -1383,6 +2391,12 @@ export type OrganizationUncheckedCreateWithoutTeamsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutOrganizationInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutOrganizationInput
   attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutOrganizationInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedCreateNestedManyWithoutOrganizationInput
+  clientContacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutOrganizationInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutOrganizationInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutOrganizationInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutOrganizationInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutTeamsInput = {
@@ -1418,6 +2432,12 @@ export type OrganizationUpdateWithoutTeamsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutTeamsInput = {
@@ -1437,6 +2457,12 @@ export type OrganizationUncheckedUpdateWithoutTeamsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateManyOwnerInput = {
@@ -1467,6 +2493,12 @@ export type OrganizationUpdateWithoutOwnerInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutOwnerInput = {
@@ -1486,6 +2518,12 @@ export type OrganizationUncheckedUpdateWithoutOwnerInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutOrganizationNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutOrganizationNestedInput
   attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientOrganizations?: Prisma.ClientOrganizationUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientContacts?: Prisma.ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutOrganizationNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutOrganizationNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateManyWithoutOwnerInput = {
@@ -1513,6 +2551,12 @@ export type OrganizationCountOutputType = {
   auditLogs: number
   notifications: number
   attachments: number
+  clientOrganizations: number
+  clientContacts: number
+  clientRequests: number
+  projectUpdates: number
+  clientMessages: number
+  clientFiles: number
 }
 
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1524,6 +2568,12 @@ export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   auditLogs?: boolean | OrganizationCountOutputTypeCountAuditLogsArgs
   notifications?: boolean | OrganizationCountOutputTypeCountNotificationsArgs
   attachments?: boolean | OrganizationCountOutputTypeCountAttachmentsArgs
+  clientOrganizations?: boolean | OrganizationCountOutputTypeCountClientOrganizationsArgs
+  clientContacts?: boolean | OrganizationCountOutputTypeCountClientContactsArgs
+  clientRequests?: boolean | OrganizationCountOutputTypeCountClientRequestsArgs
+  projectUpdates?: boolean | OrganizationCountOutputTypeCountProjectUpdatesArgs
+  clientMessages?: boolean | OrganizationCountOutputTypeCountClientMessagesArgs
+  clientFiles?: boolean | OrganizationCountOutputTypeCountClientFilesArgs
 }
 
 /**
@@ -1592,6 +2642,48 @@ export type OrganizationCountOutputTypeCountAttachmentsArgs<ExtArgs extends runt
   where?: Prisma.AttachmentWhereInput
 }
 
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountClientOrganizationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientOrganizationWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountClientContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientContactWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountClientRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientRequestWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountProjectUpdatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectUpdateWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountClientMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientMessageWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountClientFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientFileWhereInput
+}
+
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1612,6 +2704,12 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   auditLogs?: boolean | Prisma.Organization$auditLogsArgs<ExtArgs>
   notifications?: boolean | Prisma.Organization$notificationsArgs<ExtArgs>
   attachments?: boolean | Prisma.Organization$attachmentsArgs<ExtArgs>
+  clientOrganizations?: boolean | Prisma.Organization$clientOrganizationsArgs<ExtArgs>
+  clientContacts?: boolean | Prisma.Organization$clientContactsArgs<ExtArgs>
+  clientRequests?: boolean | Prisma.Organization$clientRequestsArgs<ExtArgs>
+  projectUpdates?: boolean | Prisma.Organization$projectUpdatesArgs<ExtArgs>
+  clientMessages?: boolean | Prisma.Organization$clientMessagesArgs<ExtArgs>
+  clientFiles?: boolean | Prisma.Organization$clientFilesArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
@@ -1664,6 +2762,12 @@ export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.Interna
   auditLogs?: boolean | Prisma.Organization$auditLogsArgs<ExtArgs>
   notifications?: boolean | Prisma.Organization$notificationsArgs<ExtArgs>
   attachments?: boolean | Prisma.Organization$attachmentsArgs<ExtArgs>
+  clientOrganizations?: boolean | Prisma.Organization$clientOrganizationsArgs<ExtArgs>
+  clientContacts?: boolean | Prisma.Organization$clientContactsArgs<ExtArgs>
+  clientRequests?: boolean | Prisma.Organization$clientRequestsArgs<ExtArgs>
+  projectUpdates?: boolean | Prisma.Organization$projectUpdatesArgs<ExtArgs>
+  clientMessages?: boolean | Prisma.Organization$clientMessagesArgs<ExtArgs>
+  clientFiles?: boolean | Prisma.Organization$clientFilesArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1685,6 +2789,12 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     attachments: Prisma.$AttachmentPayload<ExtArgs>[]
+    clientOrganizations: Prisma.$ClientOrganizationPayload<ExtArgs>[]
+    clientContacts: Prisma.$ClientContactPayload<ExtArgs>[]
+    clientRequests: Prisma.$ClientRequestPayload<ExtArgs>[]
+    projectUpdates: Prisma.$ProjectUpdatePayload<ExtArgs>[]
+    clientMessages: Prisma.$ClientMessagePayload<ExtArgs>[]
+    clientFiles: Prisma.$ClientFilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2099,6 +3209,12 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
   auditLogs<T extends Prisma.Organization$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.Organization$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   attachments<T extends Prisma.Organization$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientOrganizations<T extends Prisma.Organization$clientOrganizationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$clientOrganizationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientOrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientContacts<T extends Prisma.Organization$clientContactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$clientContactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientRequests<T extends Prisma.Organization$clientRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$clientRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectUpdates<T extends Prisma.Organization$projectUpdatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$projectUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientMessages<T extends Prisma.Organization$clientMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$clientMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientFiles<T extends Prisma.Organization$clientFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$clientFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2727,6 +3843,150 @@ export type Organization$attachmentsArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.AttachmentScalarFieldEnum | Prisma.AttachmentScalarFieldEnum[]
+}
+
+/**
+ * Organization.clientOrganizations
+ */
+export type Organization$clientOrganizationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientOrganization
+   */
+  select?: Prisma.ClientOrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientOrganization
+   */
+  omit?: Prisma.ClientOrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientOrganizationInclude<ExtArgs> | null
+  where?: Prisma.ClientOrganizationWhereInput
+  orderBy?: Prisma.ClientOrganizationOrderByWithRelationInput | Prisma.ClientOrganizationOrderByWithRelationInput[]
+  cursor?: Prisma.ClientOrganizationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientOrganizationScalarFieldEnum | Prisma.ClientOrganizationScalarFieldEnum[]
+}
+
+/**
+ * Organization.clientContacts
+ */
+export type Organization$clientContactsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientContact
+   */
+  select?: Prisma.ClientContactSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientContact
+   */
+  omit?: Prisma.ClientContactOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientContactInclude<ExtArgs> | null
+  where?: Prisma.ClientContactWhereInput
+  orderBy?: Prisma.ClientContactOrderByWithRelationInput | Prisma.ClientContactOrderByWithRelationInput[]
+  cursor?: Prisma.ClientContactWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientContactScalarFieldEnum | Prisma.ClientContactScalarFieldEnum[]
+}
+
+/**
+ * Organization.clientRequests
+ */
+export type Organization$clientRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientRequest
+   */
+  select?: Prisma.ClientRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientRequest
+   */
+  omit?: Prisma.ClientRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientRequestInclude<ExtArgs> | null
+  where?: Prisma.ClientRequestWhereInput
+  orderBy?: Prisma.ClientRequestOrderByWithRelationInput | Prisma.ClientRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ClientRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientRequestScalarFieldEnum | Prisma.ClientRequestScalarFieldEnum[]
+}
+
+/**
+ * Organization.projectUpdates
+ */
+export type Organization$projectUpdatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectUpdate
+   */
+  select?: Prisma.ProjectUpdateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectUpdate
+   */
+  omit?: Prisma.ProjectUpdateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectUpdateInclude<ExtArgs> | null
+  where?: Prisma.ProjectUpdateWhereInput
+  orderBy?: Prisma.ProjectUpdateOrderByWithRelationInput | Prisma.ProjectUpdateOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectUpdateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectUpdateScalarFieldEnum | Prisma.ProjectUpdateScalarFieldEnum[]
+}
+
+/**
+ * Organization.clientMessages
+ */
+export type Organization$clientMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientMessage
+   */
+  select?: Prisma.ClientMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientMessage
+   */
+  omit?: Prisma.ClientMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientMessageInclude<ExtArgs> | null
+  where?: Prisma.ClientMessageWhereInput
+  orderBy?: Prisma.ClientMessageOrderByWithRelationInput | Prisma.ClientMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ClientMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientMessageScalarFieldEnum | Prisma.ClientMessageScalarFieldEnum[]
+}
+
+/**
+ * Organization.clientFiles
+ */
+export type Organization$clientFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientFile
+   */
+  select?: Prisma.ClientFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientFile
+   */
+  omit?: Prisma.ClientFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientFileInclude<ExtArgs> | null
+  where?: Prisma.ClientFileWhereInput
+  orderBy?: Prisma.ClientFileOrderByWithRelationInput | Prisma.ClientFileOrderByWithRelationInput[]
+  cursor?: Prisma.ClientFileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientFileScalarFieldEnum | Prisma.ClientFileScalarFieldEnum[]
 }
 
 /**

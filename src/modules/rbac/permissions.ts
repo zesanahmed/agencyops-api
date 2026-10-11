@@ -39,6 +39,13 @@ export const PERMISSIONS = [
   "comment:create",
   "comment:read",
   "comment:moderate",
+  "client:create",
+  "client:read",
+  "client:update",
+  "client:delete",
+  "client:manage-access",
+  "client-portal:read",
+  "client-portal:manage",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
@@ -84,6 +91,13 @@ const ROLE_PERMISSIONS: Record<MembershipRole, readonly Permission[]> = {
     "comment:create",
     "comment:read",
     "comment:moderate",
+    "client:create",
+    "client:read",
+    "client:update",
+    "client:delete",
+    "client:manage-access",
+    "client-portal:read",
+    "client-portal:manage",
   ],
   MANAGER: [
     "organization:read",
@@ -113,8 +127,15 @@ const ROLE_PERMISSIONS: Record<MembershipRole, readonly Permission[]> = {
     "comment:create",
     "comment:read",
     "comment:moderate",
+    "client:create",
+    "client:read",
+    "client:update",
+    "client:delete",
+    "client:manage-access",
+    "client-portal:read",
+    "client-portal:manage",
   ],
-  TEAM_MEMBER: ["organization:read", "membership:read", "team:read", "project:read", "sprint:read", "task:create", "task:read", "task:update", "comment:create", "comment:read"],
+  TEAM_MEMBER: ["organization:read", "membership:read", "team:read", "project:read", "sprint:read", "task:create", "task:read", "task:update", "comment:create", "comment:read", "client:read", "client-portal:read"],
 };
 
 export function roleHasPermission(

@@ -77,6 +77,46 @@ export type Session = Prisma.SessionModel
  */
 export type AuthToken = Prisma.AuthTokenModel
 /**
+ * Model ClientOrganization
+ * 
+ */
+export type ClientOrganization = Prisma.ClientOrganizationModel
+/**
+ * Model ClientContact
+ * 
+ */
+export type ClientContact = Prisma.ClientContactModel
+/**
+ * Model ClientSession
+ * 
+ */
+export type ClientSession = Prisma.ClientSessionModel
+/**
+ * Model ClientProjectAccess
+ * 
+ */
+export type ClientProjectAccess = Prisma.ClientProjectAccessModel
+/**
+ * Model ClientRequest
+ * 
+ */
+export type ClientRequest = Prisma.ClientRequestModel
+/**
+ * Model ProjectUpdate
+ * 
+ */
+export type ProjectUpdate = Prisma.ProjectUpdateModel
+/**
+ * Model ClientMessage
+ * 
+ */
+export type ClientMessage = Prisma.ClientMessageModel
+/**
+ * Model ClientFile
+ * 
+ */
+export type ClientFile = Prisma.ClientFileModel
+/**
  * Model Comment
  * 
  */

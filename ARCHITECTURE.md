@@ -93,7 +93,14 @@ Not yet implemented. Planned to sit strictly behind the same authorization layer
 
 ## Client Portal
 
-Not yet implemented. Planned as a genuinely separate security boundary from internal organization membership (not a fourth `MembershipRole`) — a client contact is not an organization member and must be authorized per-resource, explicitly.
+A genuinely separate security boundary from internal organization membership (not a fourth `MembershipRole`). A `ClientContact` is an external identity; it never has a `Membership`.
+
+- **Data model** (`prisma/prisma-schema/client.prisma`): `ClientOrganization` → `ClientContact` (login identity, unique per `(organizationId, email)`), `ClientSession`, explicit `ClientProjectAccess` (contact × project), `ClientRequest`, `ProjectUpdate`, `ClientMessage`, `ClientFile`. `Project.clientOrganizationId` links a project to the client it is delivered for; `Task.clientVisible` (default `false`) controls which tasks clients see.
+- **Auth** (`src/modules/portal/`): invite → accept (one-time hashed token, password set) → login (`organizationSlug` + email + password) with its own access/refresh tokens. Tokens use a distinct `type` claim (`client_access` / `client_refresh`) and a separate cookie (`<name>_client`, path `/api/v1/portal/auth`), so an internal token is rejected by the portal and vice versa. `portalAuthenticate` checks the database on every request (session, contact status, organization status), so disabling a contact or revoking access is immediate.
+- **Authorization**: every project-scoped portal route runs `requireProjectAccess` — an explicit `ClientProjectAccess` grant, on a live project in the contact's own organization and linked to the contact's own client. Anything else is a 404.
+- **Staff side**: `/organizations/:organizationId/clients/...` (client/contact/access management, `client:*` permissions) and `/organizations/:organizationId/client-portal/...` (task visibility, updates, message thread, shared files, request inbox, `client-portal:*` permissions). Access grants/revokes and contact/client disabling are written to `AuditLog`.
+- **Client-facing responses** use dedicated minimal shapes: no assignees, collaborators, internal comments, organization ids or Cloudinary public ids.
+- **Not yet in the portal**: invoice/payment views (arrive with the billing milestone) and email delivery of invite links (the raw invite token is currently returned once to the staff member who creates the contact).
 
 ## Deployment
 

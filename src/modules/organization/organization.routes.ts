@@ -8,6 +8,8 @@ import { invitationRouter } from "../invitation/invitation.routes.js";
 import { teamRouter } from "../team/team.routes.js";
 import { projectRouter } from "../project/project.routes.js";
 import { notificationRouter } from "../notification/notification.routes.js";
+import { clientRouter } from "../client/client.routes.js";
+import { collaborationRouter } from "../client-collaboration/collaboration.routes.js";
 import {
   createOrganizationSchema,
   organizationIdParamSchema,
@@ -67,5 +69,7 @@ organizationRouter.use("/:organizationId/invitations", invitationRouter);
 organizationRouter.use("/:organizationId/teams", teamRouter);
 organizationRouter.use("/:organizationId/projects", projectRouter);
 organizationRouter.use("/:organizationId/notifications", notificationRouter);
+organizationRouter.use("/:organizationId/clients", clientRouter);
+organizationRouter.use("/:organizationId/client-portal", collaborationRouter);
 
 export { organizationRouter };

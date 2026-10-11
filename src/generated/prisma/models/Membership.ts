@@ -228,6 +228,11 @@ export type MembershipWhereInput = {
   notificationsReceived?: Prisma.NotificationListRelationFilter
   notificationPreferences?: Prisma.NotificationPreferenceListRelationFilter
   uploadedAttachments?: Prisma.AttachmentListRelationFilter
+  clientAccessGranted?: Prisma.ClientProjectAccessListRelationFilter
+  handledClientRequests?: Prisma.ClientRequestListRelationFilter
+  projectUpdates?: Prisma.ProjectUpdateListRelationFilter
+  clientMessages?: Prisma.ClientMessageListRelationFilter
+  clientFilesUploaded?: Prisma.ClientFileListRelationFilter
 }
 
 export type MembershipOrderByWithRelationInput = {
@@ -254,6 +259,11 @@ export type MembershipOrderByWithRelationInput = {
   notificationsReceived?: Prisma.NotificationOrderByRelationAggregateInput
   notificationPreferences?: Prisma.NotificationPreferenceOrderByRelationAggregateInput
   uploadedAttachments?: Prisma.AttachmentOrderByRelationAggregateInput
+  clientAccessGranted?: Prisma.ClientProjectAccessOrderByRelationAggregateInput
+  handledClientRequests?: Prisma.ClientRequestOrderByRelationAggregateInput
+  projectUpdates?: Prisma.ProjectUpdateOrderByRelationAggregateInput
+  clientMessages?: Prisma.ClientMessageOrderByRelationAggregateInput
+  clientFilesUploaded?: Prisma.ClientFileOrderByRelationAggregateInput
 }
 
 export type MembershipWhereUniqueInput = Prisma.AtLeast<{
@@ -284,6 +294,11 @@ export type MembershipWhereUniqueInput = Prisma.AtLeast<{
   notificationsReceived?: Prisma.NotificationListRelationFilter
   notificationPreferences?: Prisma.NotificationPreferenceListRelationFilter
   uploadedAttachments?: Prisma.AttachmentListRelationFilter
+  clientAccessGranted?: Prisma.ClientProjectAccessListRelationFilter
+  handledClientRequests?: Prisma.ClientRequestListRelationFilter
+  projectUpdates?: Prisma.ProjectUpdateListRelationFilter
+  clientMessages?: Prisma.ClientMessageListRelationFilter
+  clientFilesUploaded?: Prisma.ClientFileListRelationFilter
 }, "id" | "userId_organizationId">
 
 export type MembershipOrderByWithAggregationInput = {
@@ -338,6 +353,11 @@ export type MembershipCreateInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateInput = {
@@ -362,6 +382,11 @@ export type MembershipUncheckedCreateInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUpdateInput = {
@@ -386,6 +411,11 @@ export type MembershipUpdateInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateInput = {
@@ -410,6 +440,11 @@ export type MembershipUncheckedUpdateInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateManyInput = {
@@ -593,6 +628,82 @@ export type MembershipUncheckedUpdateManyWithoutUserNestedInput = {
   update?: Prisma.MembershipUpdateWithWhereUniqueWithoutUserInput | Prisma.MembershipUpdateWithWhereUniqueWithoutUserInput[]
   updateMany?: Prisma.MembershipUpdateManyWithWhereWithoutUserInput | Prisma.MembershipUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.MembershipScalarWhereInput | Prisma.MembershipScalarWhereInput[]
+}
+
+export type MembershipCreateNestedOneWithoutClientAccessGrantedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutClientAccessGrantedInput, Prisma.MembershipUncheckedCreateWithoutClientAccessGrantedInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutClientAccessGrantedInput
+  connect?: Prisma.MembershipWhereUniqueInput
+}
+
+export type MembershipUpdateOneRequiredWithoutClientAccessGrantedNestedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutClientAccessGrantedInput, Prisma.MembershipUncheckedCreateWithoutClientAccessGrantedInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutClientAccessGrantedInput
+  upsert?: Prisma.MembershipUpsertWithoutClientAccessGrantedInput
+  connect?: Prisma.MembershipWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutClientAccessGrantedInput, Prisma.MembershipUpdateWithoutClientAccessGrantedInput>, Prisma.MembershipUncheckedUpdateWithoutClientAccessGrantedInput>
+}
+
+export type MembershipCreateNestedOneWithoutHandledClientRequestsInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutHandledClientRequestsInput, Prisma.MembershipUncheckedCreateWithoutHandledClientRequestsInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutHandledClientRequestsInput
+  connect?: Prisma.MembershipWhereUniqueInput
+}
+
+export type MembershipUpdateOneWithoutHandledClientRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutHandledClientRequestsInput, Prisma.MembershipUncheckedCreateWithoutHandledClientRequestsInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutHandledClientRequestsInput
+  upsert?: Prisma.MembershipUpsertWithoutHandledClientRequestsInput
+  disconnect?: Prisma.MembershipWhereInput | boolean
+  delete?: Prisma.MembershipWhereInput | boolean
+  connect?: Prisma.MembershipWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutHandledClientRequestsInput, Prisma.MembershipUpdateWithoutHandledClientRequestsInput>, Prisma.MembershipUncheckedUpdateWithoutHandledClientRequestsInput>
+}
+
+export type MembershipCreateNestedOneWithoutProjectUpdatesInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutProjectUpdatesInput, Prisma.MembershipUncheckedCreateWithoutProjectUpdatesInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutProjectUpdatesInput
+  connect?: Prisma.MembershipWhereUniqueInput
+}
+
+export type MembershipUpdateOneRequiredWithoutProjectUpdatesNestedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutProjectUpdatesInput, Prisma.MembershipUncheckedCreateWithoutProjectUpdatesInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutProjectUpdatesInput
+  upsert?: Prisma.MembershipUpsertWithoutProjectUpdatesInput
+  connect?: Prisma.MembershipWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutProjectUpdatesInput, Prisma.MembershipUpdateWithoutProjectUpdatesInput>, Prisma.MembershipUncheckedUpdateWithoutProjectUpdatesInput>
+}
+
+export type MembershipCreateNestedOneWithoutClientMessagesInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutClientMessagesInput, Prisma.MembershipUncheckedCreateWithoutClientMessagesInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutClientMessagesInput
+  connect?: Prisma.MembershipWhereUniqueInput
+}
+
+export type MembershipUpdateOneWithoutClientMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutClientMessagesInput, Prisma.MembershipUncheckedCreateWithoutClientMessagesInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutClientMessagesInput
+  upsert?: Prisma.MembershipUpsertWithoutClientMessagesInput
+  disconnect?: Prisma.MembershipWhereInput | boolean
+  delete?: Prisma.MembershipWhereInput | boolean
+  connect?: Prisma.MembershipWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutClientMessagesInput, Prisma.MembershipUpdateWithoutClientMessagesInput>, Prisma.MembershipUncheckedUpdateWithoutClientMessagesInput>
+}
+
+export type MembershipCreateNestedOneWithoutClientFilesUploadedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutClientFilesUploadedInput, Prisma.MembershipUncheckedCreateWithoutClientFilesUploadedInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutClientFilesUploadedInput
+  connect?: Prisma.MembershipWhereUniqueInput
+}
+
+export type MembershipUpdateOneWithoutClientFilesUploadedNestedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutClientFilesUploadedInput, Prisma.MembershipUncheckedCreateWithoutClientFilesUploadedInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutClientFilesUploadedInput
+  upsert?: Prisma.MembershipUpsertWithoutClientFilesUploadedInput
+  disconnect?: Prisma.MembershipWhereInput | boolean
+  delete?: Prisma.MembershipWhereInput | boolean
+  connect?: Prisma.MembershipWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutClientFilesUploadedInput, Prisma.MembershipUpdateWithoutClientFilesUploadedInput>, Prisma.MembershipUncheckedUpdateWithoutClientFilesUploadedInput>
 }
 
 export type MembershipCreateNestedOneWithoutAuthoredCommentsInput = {
@@ -794,6 +905,11 @@ export type MembershipCreateWithoutActivitiesInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutActivitiesInput = {
@@ -817,6 +933,11 @@ export type MembershipUncheckedCreateWithoutActivitiesInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutActivitiesInput = {
@@ -856,6 +977,11 @@ export type MembershipUpdateWithoutActivitiesInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutActivitiesInput = {
@@ -879,6 +1005,11 @@ export type MembershipUncheckedUpdateWithoutActivitiesInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutAuditLogsInput = {
@@ -902,6 +1033,11 @@ export type MembershipCreateWithoutAuditLogsInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutAuditLogsInput = {
@@ -925,6 +1061,11 @@ export type MembershipUncheckedCreateWithoutAuditLogsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutAuditLogsInput = {
@@ -964,6 +1105,11 @@ export type MembershipUpdateWithoutAuditLogsInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutAuditLogsInput = {
@@ -987,6 +1133,11 @@ export type MembershipUncheckedUpdateWithoutAuditLogsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutUploadedAttachmentsInput = {
@@ -1010,6 +1161,11 @@ export type MembershipCreateWithoutUploadedAttachmentsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutUploadedAttachmentsInput = {
@@ -1033,6 +1189,11 @@ export type MembershipUncheckedCreateWithoutUploadedAttachmentsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutUploadedAttachmentsInput = {
@@ -1072,6 +1233,11 @@ export type MembershipUpdateWithoutUploadedAttachmentsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutUploadedAttachmentsInput = {
@@ -1095,6 +1261,11 @@ export type MembershipUncheckedUpdateWithoutUploadedAttachmentsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutUserInput = {
@@ -1118,6 +1289,11 @@ export type MembershipCreateWithoutUserInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutUserInput = {
@@ -1141,6 +1317,11 @@ export type MembershipUncheckedCreateWithoutUserInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutUserInput = {
@@ -1184,6 +1365,646 @@ export type MembershipScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Membership"> | Date | string
 }
 
+export type MembershipCreateWithoutClientAccessGrantedInput = {
+  id?: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutMembershipsInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
+}
+
+export type MembershipUncheckedCreateWithoutClientAccessGrantedInput = {
+  id?: string
+  userId: string
+  organizationId: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionUncheckedCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
+}
+
+export type MembershipCreateOrConnectWithoutClientAccessGrantedInput = {
+  where: Prisma.MembershipWhereUniqueInput
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutClientAccessGrantedInput, Prisma.MembershipUncheckedCreateWithoutClientAccessGrantedInput>
+}
+
+export type MembershipUpsertWithoutClientAccessGrantedInput = {
+  update: Prisma.XOR<Prisma.MembershipUpdateWithoutClientAccessGrantedInput, Prisma.MembershipUncheckedUpdateWithoutClientAccessGrantedInput>
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutClientAccessGrantedInput, Prisma.MembershipUncheckedCreateWithoutClientAccessGrantedInput>
+  where?: Prisma.MembershipWhereInput
+}
+
+export type MembershipUpdateToOneWithWhereWithoutClientAccessGrantedInput = {
+  where?: Prisma.MembershipWhereInput
+  data: Prisma.XOR<Prisma.MembershipUpdateWithoutClientAccessGrantedInput, Prisma.MembershipUncheckedUpdateWithoutClientAccessGrantedInput>
+}
+
+export type MembershipUpdateWithoutClientAccessGrantedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
+}
+
+export type MembershipUncheckedUpdateWithoutClientAccessGrantedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUncheckedUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
+}
+
+export type MembershipCreateWithoutHandledClientRequestsInput = {
+  id?: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutMembershipsInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
+}
+
+export type MembershipUncheckedCreateWithoutHandledClientRequestsInput = {
+  id?: string
+  userId: string
+  organizationId: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionUncheckedCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
+}
+
+export type MembershipCreateOrConnectWithoutHandledClientRequestsInput = {
+  where: Prisma.MembershipWhereUniqueInput
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutHandledClientRequestsInput, Prisma.MembershipUncheckedCreateWithoutHandledClientRequestsInput>
+}
+
+export type MembershipUpsertWithoutHandledClientRequestsInput = {
+  update: Prisma.XOR<Prisma.MembershipUpdateWithoutHandledClientRequestsInput, Prisma.MembershipUncheckedUpdateWithoutHandledClientRequestsInput>
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutHandledClientRequestsInput, Prisma.MembershipUncheckedCreateWithoutHandledClientRequestsInput>
+  where?: Prisma.MembershipWhereInput
+}
+
+export type MembershipUpdateToOneWithWhereWithoutHandledClientRequestsInput = {
+  where?: Prisma.MembershipWhereInput
+  data: Prisma.XOR<Prisma.MembershipUpdateWithoutHandledClientRequestsInput, Prisma.MembershipUncheckedUpdateWithoutHandledClientRequestsInput>
+}
+
+export type MembershipUpdateWithoutHandledClientRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
+}
+
+export type MembershipUncheckedUpdateWithoutHandledClientRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUncheckedUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
+}
+
+export type MembershipCreateWithoutProjectUpdatesInput = {
+  id?: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutMembershipsInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
+}
+
+export type MembershipUncheckedCreateWithoutProjectUpdatesInput = {
+  id?: string
+  userId: string
+  organizationId: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionUncheckedCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
+}
+
+export type MembershipCreateOrConnectWithoutProjectUpdatesInput = {
+  where: Prisma.MembershipWhereUniqueInput
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutProjectUpdatesInput, Prisma.MembershipUncheckedCreateWithoutProjectUpdatesInput>
+}
+
+export type MembershipUpsertWithoutProjectUpdatesInput = {
+  update: Prisma.XOR<Prisma.MembershipUpdateWithoutProjectUpdatesInput, Prisma.MembershipUncheckedUpdateWithoutProjectUpdatesInput>
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutProjectUpdatesInput, Prisma.MembershipUncheckedCreateWithoutProjectUpdatesInput>
+  where?: Prisma.MembershipWhereInput
+}
+
+export type MembershipUpdateToOneWithWhereWithoutProjectUpdatesInput = {
+  where?: Prisma.MembershipWhereInput
+  data: Prisma.XOR<Prisma.MembershipUpdateWithoutProjectUpdatesInput, Prisma.MembershipUncheckedUpdateWithoutProjectUpdatesInput>
+}
+
+export type MembershipUpdateWithoutProjectUpdatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
+}
+
+export type MembershipUncheckedUpdateWithoutProjectUpdatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUncheckedUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
+}
+
+export type MembershipCreateWithoutClientMessagesInput = {
+  id?: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutMembershipsInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
+}
+
+export type MembershipUncheckedCreateWithoutClientMessagesInput = {
+  id?: string
+  userId: string
+  organizationId: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionUncheckedCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
+}
+
+export type MembershipCreateOrConnectWithoutClientMessagesInput = {
+  where: Prisma.MembershipWhereUniqueInput
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutClientMessagesInput, Prisma.MembershipUncheckedCreateWithoutClientMessagesInput>
+}
+
+export type MembershipUpsertWithoutClientMessagesInput = {
+  update: Prisma.XOR<Prisma.MembershipUpdateWithoutClientMessagesInput, Prisma.MembershipUncheckedUpdateWithoutClientMessagesInput>
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutClientMessagesInput, Prisma.MembershipUncheckedCreateWithoutClientMessagesInput>
+  where?: Prisma.MembershipWhereInput
+}
+
+export type MembershipUpdateToOneWithWhereWithoutClientMessagesInput = {
+  where?: Prisma.MembershipWhereInput
+  data: Prisma.XOR<Prisma.MembershipUpdateWithoutClientMessagesInput, Prisma.MembershipUncheckedUpdateWithoutClientMessagesInput>
+}
+
+export type MembershipUpdateWithoutClientMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
+}
+
+export type MembershipUncheckedUpdateWithoutClientMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUncheckedUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
+}
+
+export type MembershipCreateWithoutClientFilesUploadedInput = {
+  id?: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutMembershipsInput
+  invitationsSent?: Prisma.InvitationCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+}
+
+export type MembershipUncheckedCreateWithoutClientFilesUploadedInput = {
+  id?: string
+  userId: string
+  organizationId: string
+  role: $Enums.MembershipRole
+  status?: $Enums.MembershipStatus
+  joinedAt?: Date | string
+  removedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  invitationsSent?: Prisma.InvitationUncheckedCreateNestedManyWithoutInvitedByMembershipInput
+  teamMemberships?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutMembershipInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutMembershipInput
+  assignedTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedCreateNestedManyWithoutMembershipInput
+  authoredComments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  commentMentions?: Prisma.CommentMentionUncheckedCreateNestedManyWithoutMembershipInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutActorInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+}
+
+export type MembershipCreateOrConnectWithoutClientFilesUploadedInput = {
+  where: Prisma.MembershipWhereUniqueInput
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutClientFilesUploadedInput, Prisma.MembershipUncheckedCreateWithoutClientFilesUploadedInput>
+}
+
+export type MembershipUpsertWithoutClientFilesUploadedInput = {
+  update: Prisma.XOR<Prisma.MembershipUpdateWithoutClientFilesUploadedInput, Prisma.MembershipUncheckedUpdateWithoutClientFilesUploadedInput>
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutClientFilesUploadedInput, Prisma.MembershipUncheckedCreateWithoutClientFilesUploadedInput>
+  where?: Prisma.MembershipWhereInput
+}
+
+export type MembershipUpdateToOneWithWhereWithoutClientFilesUploadedInput = {
+  where?: Prisma.MembershipWhereInput
+  data: Prisma.XOR<Prisma.MembershipUpdateWithoutClientFilesUploadedInput, Prisma.MembershipUncheckedUpdateWithoutClientFilesUploadedInput>
+}
+
+export type MembershipUpdateWithoutClientFilesUploadedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembershipsNestedInput
+  invitationsSent?: Prisma.InvitationUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+}
+
+export type MembershipUncheckedUpdateWithoutClientFilesUploadedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+  status?: Prisma.EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  removedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invitationsSent?: Prisma.InvitationUncheckedUpdateManyWithoutInvitedByMembershipNestedInput
+  teamMemberships?: Prisma.TeamMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  projectMemberships?: Prisma.ProjectMemberUncheckedUpdateManyWithoutMembershipNestedInput
+  assignedTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+  taskCollaborations?: Prisma.TaskCollaboratorUncheckedUpdateManyWithoutMembershipNestedInput
+  authoredComments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  commentMentions?: Prisma.CommentMentionUncheckedUpdateManyWithoutMembershipNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutActorNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
+  uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+}
+
 export type MembershipCreateWithoutAuthoredCommentsInput = {
   id?: string
   role: $Enums.MembershipRole
@@ -1205,6 +2026,11 @@ export type MembershipCreateWithoutAuthoredCommentsInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutAuthoredCommentsInput = {
@@ -1228,6 +2054,11 @@ export type MembershipUncheckedCreateWithoutAuthoredCommentsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutAuthoredCommentsInput = {
@@ -1267,6 +2098,11 @@ export type MembershipUpdateWithoutAuthoredCommentsInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutAuthoredCommentsInput = {
@@ -1290,6 +2126,11 @@ export type MembershipUncheckedUpdateWithoutAuthoredCommentsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutCommentMentionsInput = {
@@ -1313,6 +2154,11 @@ export type MembershipCreateWithoutCommentMentionsInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutCommentMentionsInput = {
@@ -1336,6 +2182,11 @@ export type MembershipUncheckedCreateWithoutCommentMentionsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutCommentMentionsInput = {
@@ -1375,6 +2226,11 @@ export type MembershipUpdateWithoutCommentMentionsInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutCommentMentionsInput = {
@@ -1398,6 +2254,11 @@ export type MembershipUncheckedUpdateWithoutCommentMentionsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutNotificationsReceivedInput = {
@@ -1421,6 +2282,11 @@ export type MembershipCreateWithoutNotificationsReceivedInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutNotificationsReceivedInput = {
@@ -1444,6 +2310,11 @@ export type MembershipUncheckedCreateWithoutNotificationsReceivedInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutNotificationsReceivedInput = {
@@ -1483,6 +2354,11 @@ export type MembershipUpdateWithoutNotificationsReceivedInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutNotificationsReceivedInput = {
@@ -1506,6 +2382,11 @@ export type MembershipUncheckedUpdateWithoutNotificationsReceivedInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutNotificationPreferencesInput = {
@@ -1529,6 +2410,11 @@ export type MembershipCreateWithoutNotificationPreferencesInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutNotificationPreferencesInput = {
@@ -1552,6 +2438,11 @@ export type MembershipUncheckedCreateWithoutNotificationPreferencesInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutNotificationPreferencesInput = {
@@ -1591,6 +2482,11 @@ export type MembershipUpdateWithoutNotificationPreferencesInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutNotificationPreferencesInput = {
@@ -1614,6 +2510,11 @@ export type MembershipUncheckedUpdateWithoutNotificationPreferencesInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutOrganizationInput = {
@@ -1637,6 +2538,11 @@ export type MembershipCreateWithoutOrganizationInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutOrganizationInput = {
@@ -1660,6 +2566,11 @@ export type MembershipUncheckedCreateWithoutOrganizationInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutOrganizationInput = {
@@ -1709,6 +2620,11 @@ export type MembershipCreateWithoutInvitationsSentInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutInvitationsSentInput = {
@@ -1732,6 +2648,11 @@ export type MembershipUncheckedCreateWithoutInvitationsSentInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutInvitationsSentInput = {
@@ -1771,6 +2692,11 @@ export type MembershipUpdateWithoutInvitationsSentInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutInvitationsSentInput = {
@@ -1794,6 +2720,11 @@ export type MembershipUncheckedUpdateWithoutInvitationsSentInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutProjectMembershipsInput = {
@@ -1817,6 +2748,11 @@ export type MembershipCreateWithoutProjectMembershipsInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutProjectMembershipsInput = {
@@ -1840,6 +2776,11 @@ export type MembershipUncheckedCreateWithoutProjectMembershipsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutProjectMembershipsInput = {
@@ -1879,6 +2820,11 @@ export type MembershipUpdateWithoutProjectMembershipsInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutProjectMembershipsInput = {
@@ -1902,6 +2848,11 @@ export type MembershipUncheckedUpdateWithoutProjectMembershipsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutAssignedTasksInput = {
@@ -1925,6 +2876,11 @@ export type MembershipCreateWithoutAssignedTasksInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutAssignedTasksInput = {
@@ -1948,6 +2904,11 @@ export type MembershipUncheckedCreateWithoutAssignedTasksInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutAssignedTasksInput = {
@@ -1987,6 +2948,11 @@ export type MembershipUpdateWithoutAssignedTasksInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutAssignedTasksInput = {
@@ -2010,6 +2976,11 @@ export type MembershipUncheckedUpdateWithoutAssignedTasksInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutTaskCollaborationsInput = {
@@ -2033,6 +3004,11 @@ export type MembershipCreateWithoutTaskCollaborationsInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutTaskCollaborationsInput = {
@@ -2056,6 +3032,11 @@ export type MembershipUncheckedCreateWithoutTaskCollaborationsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutTaskCollaborationsInput = {
@@ -2095,6 +3076,11 @@ export type MembershipUpdateWithoutTaskCollaborationsInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutTaskCollaborationsInput = {
@@ -2118,6 +3104,11 @@ export type MembershipUncheckedUpdateWithoutTaskCollaborationsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateWithoutTeamMembershipsInput = {
@@ -2141,6 +3132,11 @@ export type MembershipCreateWithoutTeamMembershipsInput = {
   notificationsReceived?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipUncheckedCreateWithoutTeamMembershipsInput = {
@@ -2164,6 +3160,11 @@ export type MembershipUncheckedCreateWithoutTeamMembershipsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedCreateNestedManyWithoutMembershipInput
   uploadedAttachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutGrantedByInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutHandledByInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutAuthorInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutStaffAuthorInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedCreateNestedManyWithoutStaffUploaderInput
 }
 
 export type MembershipCreateOrConnectWithoutTeamMembershipsInput = {
@@ -2203,6 +3204,11 @@ export type MembershipUpdateWithoutTeamMembershipsInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutTeamMembershipsInput = {
@@ -2226,6 +3232,11 @@ export type MembershipUncheckedUpdateWithoutTeamMembershipsInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipCreateManyUserInput = {
@@ -2260,6 +3271,11 @@ export type MembershipUpdateWithoutUserInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutUserInput = {
@@ -2283,6 +3299,11 @@ export type MembershipUncheckedUpdateWithoutUserInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateManyWithoutUserInput = {
@@ -2328,6 +3349,11 @@ export type MembershipUpdateWithoutOrganizationInput = {
   notificationsReceived?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutOrganizationInput = {
@@ -2351,6 +3377,11 @@ export type MembershipUncheckedUpdateWithoutOrganizationInput = {
   notificationsReceived?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
   notificationPreferences?: Prisma.NotificationPreferenceUncheckedUpdateManyWithoutMembershipNestedInput
   uploadedAttachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  clientAccessGranted?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutGrantedByNestedInput
+  handledClientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutHandledByNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutAuthorNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutStaffAuthorNestedInput
+  clientFilesUploaded?: Prisma.ClientFileUncheckedUpdateManyWithoutStaffUploaderNestedInput
 }
 
 export type MembershipUncheckedUpdateManyWithoutOrganizationInput = {
@@ -2382,6 +3413,11 @@ export type MembershipCountOutputType = {
   notificationsReceived: number
   notificationPreferences: number
   uploadedAttachments: number
+  clientAccessGranted: number
+  handledClientRequests: number
+  projectUpdates: number
+  clientMessages: number
+  clientFilesUploaded: number
 }
 
 export type MembershipCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2397,6 +3433,11 @@ export type MembershipCountOutputTypeSelect<ExtArgs extends runtime.Types.Extens
   notificationsReceived?: boolean | MembershipCountOutputTypeCountNotificationsReceivedArgs
   notificationPreferences?: boolean | MembershipCountOutputTypeCountNotificationPreferencesArgs
   uploadedAttachments?: boolean | MembershipCountOutputTypeCountUploadedAttachmentsArgs
+  clientAccessGranted?: boolean | MembershipCountOutputTypeCountClientAccessGrantedArgs
+  handledClientRequests?: boolean | MembershipCountOutputTypeCountHandledClientRequestsArgs
+  projectUpdates?: boolean | MembershipCountOutputTypeCountProjectUpdatesArgs
+  clientMessages?: boolean | MembershipCountOutputTypeCountClientMessagesArgs
+  clientFilesUploaded?: boolean | MembershipCountOutputTypeCountClientFilesUploadedArgs
 }
 
 /**
@@ -2493,6 +3534,41 @@ export type MembershipCountOutputTypeCountUploadedAttachmentsArgs<ExtArgs extend
   where?: Prisma.AttachmentWhereInput
 }
 
+/**
+ * MembershipCountOutputType without action
+ */
+export type MembershipCountOutputTypeCountClientAccessGrantedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientProjectAccessWhereInput
+}
+
+/**
+ * MembershipCountOutputType without action
+ */
+export type MembershipCountOutputTypeCountHandledClientRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientRequestWhereInput
+}
+
+/**
+ * MembershipCountOutputType without action
+ */
+export type MembershipCountOutputTypeCountProjectUpdatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectUpdateWhereInput
+}
+
+/**
+ * MembershipCountOutputType without action
+ */
+export type MembershipCountOutputTypeCountClientMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientMessageWhereInput
+}
+
+/**
+ * MembershipCountOutputType without action
+ */
+export type MembershipCountOutputTypeCountClientFilesUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientFileWhereInput
+}
+
 
 export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2518,6 +3594,11 @@ export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   notificationsReceived?: boolean | Prisma.Membership$notificationsReceivedArgs<ExtArgs>
   notificationPreferences?: boolean | Prisma.Membership$notificationPreferencesArgs<ExtArgs>
   uploadedAttachments?: boolean | Prisma.Membership$uploadedAttachmentsArgs<ExtArgs>
+  clientAccessGranted?: boolean | Prisma.Membership$clientAccessGrantedArgs<ExtArgs>
+  handledClientRequests?: boolean | Prisma.Membership$handledClientRequestsArgs<ExtArgs>
+  projectUpdates?: boolean | Prisma.Membership$projectUpdatesArgs<ExtArgs>
+  clientMessages?: boolean | Prisma.Membership$clientMessagesArgs<ExtArgs>
+  clientFilesUploaded?: boolean | Prisma.Membership$clientFilesUploadedArgs<ExtArgs>
   _count?: boolean | Prisma.MembershipCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["membership"]>
 
@@ -2577,6 +3658,11 @@ export type MembershipInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   notificationsReceived?: boolean | Prisma.Membership$notificationsReceivedArgs<ExtArgs>
   notificationPreferences?: boolean | Prisma.Membership$notificationPreferencesArgs<ExtArgs>
   uploadedAttachments?: boolean | Prisma.Membership$uploadedAttachmentsArgs<ExtArgs>
+  clientAccessGranted?: boolean | Prisma.Membership$clientAccessGrantedArgs<ExtArgs>
+  handledClientRequests?: boolean | Prisma.Membership$handledClientRequestsArgs<ExtArgs>
+  projectUpdates?: boolean | Prisma.Membership$projectUpdatesArgs<ExtArgs>
+  clientMessages?: boolean | Prisma.Membership$clientMessagesArgs<ExtArgs>
+  clientFilesUploaded?: boolean | Prisma.Membership$clientFilesUploadedArgs<ExtArgs>
   _count?: boolean | Prisma.MembershipCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MembershipIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2605,6 +3691,11 @@ export type $MembershipPayload<ExtArgs extends runtime.Types.Extensions.Internal
     notificationsReceived: Prisma.$NotificationPayload<ExtArgs>[]
     notificationPreferences: Prisma.$NotificationPreferencePayload<ExtArgs>[]
     uploadedAttachments: Prisma.$AttachmentPayload<ExtArgs>[]
+    clientAccessGranted: Prisma.$ClientProjectAccessPayload<ExtArgs>[]
+    handledClientRequests: Prisma.$ClientRequestPayload<ExtArgs>[]
+    projectUpdates: Prisma.$ProjectUpdatePayload<ExtArgs>[]
+    clientMessages: Prisma.$ClientMessagePayload<ExtArgs>[]
+    clientFilesUploaded: Prisma.$ClientFilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3024,6 +4115,11 @@ export interface Prisma__MembershipClient<T, Null = never, ExtArgs extends runti
   notificationsReceived<T extends Prisma.Membership$notificationsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$notificationsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notificationPreferences<T extends Prisma.Membership$notificationPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$notificationPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   uploadedAttachments<T extends Prisma.Membership$uploadedAttachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$uploadedAttachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientAccessGranted<T extends Prisma.Membership$clientAccessGrantedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$clientAccessGrantedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientProjectAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  handledClientRequests<T extends Prisma.Membership$handledClientRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$handledClientRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectUpdates<T extends Prisma.Membership$projectUpdatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$projectUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientMessages<T extends Prisma.Membership$clientMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$clientMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientFilesUploaded<T extends Prisma.Membership$clientFilesUploadedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$clientFilesUploadedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3748,6 +4844,126 @@ export type Membership$uploadedAttachmentsArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.AttachmentScalarFieldEnum | Prisma.AttachmentScalarFieldEnum[]
+}
+
+/**
+ * Membership.clientAccessGranted
+ */
+export type Membership$clientAccessGrantedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientProjectAccess
+   */
+  select?: Prisma.ClientProjectAccessSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientProjectAccess
+   */
+  omit?: Prisma.ClientProjectAccessOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientProjectAccessInclude<ExtArgs> | null
+  where?: Prisma.ClientProjectAccessWhereInput
+  orderBy?: Prisma.ClientProjectAccessOrderByWithRelationInput | Prisma.ClientProjectAccessOrderByWithRelationInput[]
+  cursor?: Prisma.ClientProjectAccessWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientProjectAccessScalarFieldEnum | Prisma.ClientProjectAccessScalarFieldEnum[]
+}
+
+/**
+ * Membership.handledClientRequests
+ */
+export type Membership$handledClientRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientRequest
+   */
+  select?: Prisma.ClientRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientRequest
+   */
+  omit?: Prisma.ClientRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientRequestInclude<ExtArgs> | null
+  where?: Prisma.ClientRequestWhereInput
+  orderBy?: Prisma.ClientRequestOrderByWithRelationInput | Prisma.ClientRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ClientRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientRequestScalarFieldEnum | Prisma.ClientRequestScalarFieldEnum[]
+}
+
+/**
+ * Membership.projectUpdates
+ */
+export type Membership$projectUpdatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectUpdate
+   */
+  select?: Prisma.ProjectUpdateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectUpdate
+   */
+  omit?: Prisma.ProjectUpdateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectUpdateInclude<ExtArgs> | null
+  where?: Prisma.ProjectUpdateWhereInput
+  orderBy?: Prisma.ProjectUpdateOrderByWithRelationInput | Prisma.ProjectUpdateOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectUpdateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectUpdateScalarFieldEnum | Prisma.ProjectUpdateScalarFieldEnum[]
+}
+
+/**
+ * Membership.clientMessages
+ */
+export type Membership$clientMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientMessage
+   */
+  select?: Prisma.ClientMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientMessage
+   */
+  omit?: Prisma.ClientMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientMessageInclude<ExtArgs> | null
+  where?: Prisma.ClientMessageWhereInput
+  orderBy?: Prisma.ClientMessageOrderByWithRelationInput | Prisma.ClientMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ClientMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientMessageScalarFieldEnum | Prisma.ClientMessageScalarFieldEnum[]
+}
+
+/**
+ * Membership.clientFilesUploaded
+ */
+export type Membership$clientFilesUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientFile
+   */
+  select?: Prisma.ClientFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientFile
+   */
+  omit?: Prisma.ClientFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientFileInclude<ExtArgs> | null
+  where?: Prisma.ClientFileWhereInput
+  orderBy?: Prisma.ClientFileOrderByWithRelationInput | Prisma.ClientFileOrderByWithRelationInput[]
+  cursor?: Prisma.ClientFileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientFileScalarFieldEnum | Prisma.ClientFileScalarFieldEnum[]
 }
 
 /**

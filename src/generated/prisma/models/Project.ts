@@ -36,6 +36,7 @@ export type ProjectMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  clientOrganizationId: string | null
 }
 
 export type ProjectMaxAggregateOutputType = {
@@ -50,6 +51,7 @@ export type ProjectMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
+  clientOrganizationId: string | null
 }
 
 export type ProjectCountAggregateOutputType = {
@@ -64,6 +66,7 @@ export type ProjectCountAggregateOutputType = {
   createdAt: number
   updatedAt: number
   deletedAt: number
+  clientOrganizationId: number
   _all: number
 }
 
@@ -80,6 +83,7 @@ export type ProjectMinAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  clientOrganizationId?: true
 }
 
 export type ProjectMaxAggregateInputType = {
@@ -94,6 +98,7 @@ export type ProjectMaxAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  clientOrganizationId?: true
 }
 
 export type ProjectCountAggregateInputType = {
@@ -108,6 +113,7 @@ export type ProjectCountAggregateInputType = {
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
+  clientOrganizationId?: true
   _all?: true
 }
 
@@ -195,6 +201,7 @@ export type ProjectGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
+  clientOrganizationId: string | null
   _count: ProjectCountAggregateOutputType | null
   _min: ProjectMinAggregateOutputType | null
   _max: ProjectMaxAggregateOutputType | null
@@ -230,12 +237,19 @@ export type ProjectWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
+  clientOrganizationId?: Prisma.UuidNullableFilter<"Project"> | string | null
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  clientOrganization?: Prisma.XOR<Prisma.ClientOrganizationNullableScalarRelationFilter, Prisma.ClientOrganizationWhereInput> | null
   projectTeams?: Prisma.ProjectTeamListRelationFilter
   members?: Prisma.ProjectMemberListRelationFilter
   sprints?: Prisma.SprintListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
+  clientAccess?: Prisma.ClientProjectAccessListRelationFilter
+  clientRequests?: Prisma.ClientRequestListRelationFilter
+  projectUpdates?: Prisma.ProjectUpdateListRelationFilter
+  clientMessages?: Prisma.ClientMessageListRelationFilter
+  clientFiles?: Prisma.ClientFileListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
@@ -250,12 +264,19 @@ export type ProjectOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientOrganizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   organization?: Prisma.OrganizationOrderByWithRelationInput
+  clientOrganization?: Prisma.ClientOrganizationOrderByWithRelationInput
   projectTeams?: Prisma.ProjectTeamOrderByRelationAggregateInput
   members?: Prisma.ProjectMemberOrderByRelationAggregateInput
   sprints?: Prisma.SprintOrderByRelationAggregateInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
   activities?: Prisma.ActivityOrderByRelationAggregateInput
+  clientAccess?: Prisma.ClientProjectAccessOrderByRelationAggregateInput
+  clientRequests?: Prisma.ClientRequestOrderByRelationAggregateInput
+  projectUpdates?: Prisma.ProjectUpdateOrderByRelationAggregateInput
+  clientMessages?: Prisma.ClientMessageOrderByRelationAggregateInput
+  clientFiles?: Prisma.ClientFileOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -274,12 +295,19 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
+  clientOrganizationId?: Prisma.UuidNullableFilter<"Project"> | string | null
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  clientOrganization?: Prisma.XOR<Prisma.ClientOrganizationNullableScalarRelationFilter, Prisma.ClientOrganizationWhereInput> | null
   projectTeams?: Prisma.ProjectTeamListRelationFilter
   members?: Prisma.ProjectMemberListRelationFilter
   sprints?: Prisma.SprintListRelationFilter
   tasks?: Prisma.TaskListRelationFilter
   activities?: Prisma.ActivityListRelationFilter
+  clientAccess?: Prisma.ClientProjectAccessListRelationFilter
+  clientRequests?: Prisma.ClientRequestListRelationFilter
+  projectUpdates?: Prisma.ProjectUpdateListRelationFilter
+  clientMessages?: Prisma.ClientMessageListRelationFilter
+  clientFiles?: Prisma.ClientFileListRelationFilter
 }, "id" | "organizationId_slug">
 
 export type ProjectOrderByWithAggregationInput = {
@@ -294,6 +322,7 @@ export type ProjectOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientOrganizationId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ProjectCountOrderByAggregateInput
   _max?: Prisma.ProjectMaxOrderByAggregateInput
   _min?: Prisma.ProjectMinOrderByAggregateInput
@@ -314,6 +343,7 @@ export type ProjectScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Project"> | Date | string | null
+  clientOrganizationId?: Prisma.UuidNullableWithAggregatesFilter<"Project"> | string | null
 }
 
 export type ProjectCreateInput = {
@@ -328,11 +358,17 @@ export type ProjectCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
   projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
@@ -347,11 +383,17 @@ export type ProjectUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
   projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
@@ -366,11 +408,17 @@ export type ProjectUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
   projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
@@ -385,11 +433,17 @@ export type ProjectUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
@@ -404,6 +458,7 @@ export type ProjectCreateManyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
 }
 
 export type ProjectUpdateManyMutationInput = {
@@ -431,6 +486,7 @@ export type ProjectUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ProjectNullableScalarRelationFilter = {
@@ -446,6 +502,11 @@ export type ProjectListRelationFilter = {
 
 export type ProjectOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ProjectScalarRelationFilter = {
+  is?: Prisma.ProjectWhereInput
+  isNot?: Prisma.ProjectWhereInput
 }
 
 export type ProjectOrganizationIdSlugCompoundUniqueInput = {
@@ -465,6 +526,7 @@ export type ProjectCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  clientOrganizationId?: Prisma.SortOrder
 }
 
 export type ProjectMaxOrderByAggregateInput = {
@@ -479,6 +541,7 @@ export type ProjectMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  clientOrganizationId?: Prisma.SortOrder
 }
 
 export type ProjectMinOrderByAggregateInput = {
@@ -493,11 +556,7 @@ export type ProjectMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
-}
-
-export type ProjectScalarRelationFilter = {
-  is?: Prisma.ProjectWhereInput
-  isNot?: Prisma.ProjectWhereInput
+  clientOrganizationId?: Prisma.SortOrder
 }
 
 export type ProjectCreateNestedOneWithoutActivitiesInput = {
@@ -514,6 +573,118 @@ export type ProjectUpdateOneWithoutActivitiesNestedInput = {
   delete?: Prisma.ProjectWhereInput | boolean
   connect?: Prisma.ProjectWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutActivitiesInput, Prisma.ProjectUpdateWithoutActivitiesInput>, Prisma.ProjectUncheckedUpdateWithoutActivitiesInput>
+}
+
+export type ProjectCreateNestedManyWithoutClientOrganizationInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientOrganizationInput, Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput> | Prisma.ProjectCreateWithoutClientOrganizationInput[] | Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientOrganizationInput | Prisma.ProjectCreateOrConnectWithoutClientOrganizationInput[]
+  createMany?: Prisma.ProjectCreateManyClientOrganizationInputEnvelope
+  connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+}
+
+export type ProjectUncheckedCreateNestedManyWithoutClientOrganizationInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientOrganizationInput, Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput> | Prisma.ProjectCreateWithoutClientOrganizationInput[] | Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientOrganizationInput | Prisma.ProjectCreateOrConnectWithoutClientOrganizationInput[]
+  createMany?: Prisma.ProjectCreateManyClientOrganizationInputEnvelope
+  connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+}
+
+export type ProjectUpdateManyWithoutClientOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientOrganizationInput, Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput> | Prisma.ProjectCreateWithoutClientOrganizationInput[] | Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientOrganizationInput | Prisma.ProjectCreateOrConnectWithoutClientOrganizationInput[]
+  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutClientOrganizationInput | Prisma.ProjectUpsertWithWhereUniqueWithoutClientOrganizationInput[]
+  createMany?: Prisma.ProjectCreateManyClientOrganizationInputEnvelope
+  set?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  disconnect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  delete?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutClientOrganizationInput | Prisma.ProjectUpdateWithWhereUniqueWithoutClientOrganizationInput[]
+  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutClientOrganizationInput | Prisma.ProjectUpdateManyWithWhereWithoutClientOrganizationInput[]
+  deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+}
+
+export type ProjectUncheckedUpdateManyWithoutClientOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientOrganizationInput, Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput> | Prisma.ProjectCreateWithoutClientOrganizationInput[] | Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientOrganizationInput | Prisma.ProjectCreateOrConnectWithoutClientOrganizationInput[]
+  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutClientOrganizationInput | Prisma.ProjectUpsertWithWhereUniqueWithoutClientOrganizationInput[]
+  createMany?: Prisma.ProjectCreateManyClientOrganizationInputEnvelope
+  set?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  disconnect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  delete?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
+  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutClientOrganizationInput | Prisma.ProjectUpdateWithWhereUniqueWithoutClientOrganizationInput[]
+  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutClientOrganizationInput | Prisma.ProjectUpdateManyWithWhereWithoutClientOrganizationInput[]
+  deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+}
+
+export type ProjectCreateNestedOneWithoutClientAccessInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientAccessInput, Prisma.ProjectUncheckedCreateWithoutClientAccessInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientAccessInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutClientAccessNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientAccessInput, Prisma.ProjectUncheckedCreateWithoutClientAccessInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientAccessInput
+  upsert?: Prisma.ProjectUpsertWithoutClientAccessInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutClientAccessInput, Prisma.ProjectUpdateWithoutClientAccessInput>, Prisma.ProjectUncheckedUpdateWithoutClientAccessInput>
+}
+
+export type ProjectCreateNestedOneWithoutClientRequestsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientRequestsInput, Prisma.ProjectUncheckedCreateWithoutClientRequestsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientRequestsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutClientRequestsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientRequestsInput, Prisma.ProjectUncheckedCreateWithoutClientRequestsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientRequestsInput
+  upsert?: Prisma.ProjectUpsertWithoutClientRequestsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutClientRequestsInput, Prisma.ProjectUpdateWithoutClientRequestsInput>, Prisma.ProjectUncheckedUpdateWithoutClientRequestsInput>
+}
+
+export type ProjectCreateNestedOneWithoutProjectUpdatesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutProjectUpdatesInput, Prisma.ProjectUncheckedCreateWithoutProjectUpdatesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutProjectUpdatesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutProjectUpdatesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutProjectUpdatesInput, Prisma.ProjectUncheckedCreateWithoutProjectUpdatesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutProjectUpdatesInput
+  upsert?: Prisma.ProjectUpsertWithoutProjectUpdatesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutProjectUpdatesInput, Prisma.ProjectUpdateWithoutProjectUpdatesInput>, Prisma.ProjectUncheckedUpdateWithoutProjectUpdatesInput>
+}
+
+export type ProjectCreateNestedOneWithoutClientMessagesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientMessagesInput, Prisma.ProjectUncheckedCreateWithoutClientMessagesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientMessagesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutClientMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientMessagesInput, Prisma.ProjectUncheckedCreateWithoutClientMessagesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientMessagesInput
+  upsert?: Prisma.ProjectUpsertWithoutClientMessagesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutClientMessagesInput, Prisma.ProjectUpdateWithoutClientMessagesInput>, Prisma.ProjectUncheckedUpdateWithoutClientMessagesInput>
+}
+
+export type ProjectCreateNestedOneWithoutClientFilesInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientFilesInput, Prisma.ProjectUncheckedCreateWithoutClientFilesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientFilesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutClientFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutClientFilesInput, Prisma.ProjectUncheckedCreateWithoutClientFilesInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutClientFilesInput
+  upsert?: Prisma.ProjectUpsertWithoutClientFilesInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutClientFilesInput, Prisma.ProjectUpdateWithoutClientFilesInput>, Prisma.ProjectUncheckedUpdateWithoutClientFilesInput>
 }
 
 export type ProjectCreateNestedManyWithoutOrganizationInput = {
@@ -630,10 +801,16 @@ export type ProjectCreateWithoutActivitiesInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
   projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutActivitiesInput = {
@@ -648,10 +825,16 @@ export type ProjectUncheckedCreateWithoutActivitiesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
   projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutActivitiesInput = {
@@ -682,10 +865,16 @@ export type ProjectUpdateWithoutActivitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
   projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutActivitiesInput = {
@@ -700,13 +889,19 @@ export type ProjectUncheckedUpdateWithoutActivitiesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectCreateWithoutOrganizationInput = {
+export type ProjectCreateWithoutClientOrganizationInput = {
   id?: string
   name: string
   slug: string
@@ -717,15 +912,22 @@ export type ProjectCreateWithoutOrganizationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
   projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
 }
 
-export type ProjectUncheckedCreateWithoutOrganizationInput = {
+export type ProjectUncheckedCreateWithoutClientOrganizationInput = {
   id?: string
+  organizationId: string
   name: string
   slug: string
   description?: string | null
@@ -740,6 +942,663 @@ export type ProjectUncheckedCreateWithoutOrganizationInput = {
   sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutClientOrganizationInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientOrganizationInput, Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput>
+}
+
+export type ProjectCreateManyClientOrganizationInputEnvelope = {
+  data: Prisma.ProjectCreateManyClientOrganizationInput | Prisma.ProjectCreateManyClientOrganizationInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProjectUpsertWithWhereUniqueWithoutClientOrganizationInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutClientOrganizationInput, Prisma.ProjectUncheckedUpdateWithoutClientOrganizationInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientOrganizationInput, Prisma.ProjectUncheckedCreateWithoutClientOrganizationInput>
+}
+
+export type ProjectUpdateWithWhereUniqueWithoutClientOrganizationInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutClientOrganizationInput, Prisma.ProjectUncheckedUpdateWithoutClientOrganizationInput>
+}
+
+export type ProjectUpdateManyWithWhereWithoutClientOrganizationInput = {
+  where: Prisma.ProjectScalarWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateManyMutationInput, Prisma.ProjectUncheckedUpdateManyWithoutClientOrganizationInput>
+}
+
+export type ProjectScalarWhereInput = {
+  AND?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+  OR?: Prisma.ProjectScalarWhereInput[]
+  NOT?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
+  id?: Prisma.UuidFilter<"Project"> | string
+  organizationId?: Prisma.UuidFilter<"Project"> | string
+  name?: Prisma.StringFilter<"Project"> | string
+  slug?: Prisma.StringFilter<"Project"> | string
+  description?: Prisma.StringNullableFilter<"Project"> | string | null
+  status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+  startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
+  dueDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
+  clientOrganizationId?: Prisma.UuidNullableFilter<"Project"> | string | null
+}
+
+export type ProjectCreateWithoutClientAccessInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
+  projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutClientAccessInput = {
+  id?: string
+  organizationId: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutClientAccessInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientAccessInput, Prisma.ProjectUncheckedCreateWithoutClientAccessInput>
+}
+
+export type ProjectUpsertWithoutClientAccessInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutClientAccessInput, Prisma.ProjectUncheckedUpdateWithoutClientAccessInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientAccessInput, Prisma.ProjectUncheckedCreateWithoutClientAccessInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutClientAccessInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutClientAccessInput, Prisma.ProjectUncheckedUpdateWithoutClientAccessInput>
+}
+
+export type ProjectUpdateWithoutClientAccessInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
+  projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutClientAccessInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutClientRequestsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
+  projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutClientRequestsInput = {
+  id?: string
+  organizationId: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutClientRequestsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientRequestsInput, Prisma.ProjectUncheckedCreateWithoutClientRequestsInput>
+}
+
+export type ProjectUpsertWithoutClientRequestsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutClientRequestsInput, Prisma.ProjectUncheckedUpdateWithoutClientRequestsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientRequestsInput, Prisma.ProjectUncheckedCreateWithoutClientRequestsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutClientRequestsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutClientRequestsInput, Prisma.ProjectUncheckedUpdateWithoutClientRequestsInput>
+}
+
+export type ProjectUpdateWithoutClientRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
+  projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutClientRequestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutProjectUpdatesInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
+  projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutProjectUpdatesInput = {
+  id?: string
+  organizationId: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutProjectUpdatesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutProjectUpdatesInput, Prisma.ProjectUncheckedCreateWithoutProjectUpdatesInput>
+}
+
+export type ProjectUpsertWithoutProjectUpdatesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutProjectUpdatesInput, Prisma.ProjectUncheckedUpdateWithoutProjectUpdatesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutProjectUpdatesInput, Prisma.ProjectUncheckedCreateWithoutProjectUpdatesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutProjectUpdatesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutProjectUpdatesInput, Prisma.ProjectUncheckedUpdateWithoutProjectUpdatesInput>
+}
+
+export type ProjectUpdateWithoutProjectUpdatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
+  projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutProjectUpdatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutClientMessagesInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
+  projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutClientMessagesInput = {
+  id?: string
+  organizationId: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutClientMessagesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientMessagesInput, Prisma.ProjectUncheckedCreateWithoutClientMessagesInput>
+}
+
+export type ProjectUpsertWithoutClientMessagesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutClientMessagesInput, Prisma.ProjectUncheckedUpdateWithoutClientMessagesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientMessagesInput, Prisma.ProjectUncheckedCreateWithoutClientMessagesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutClientMessagesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutClientMessagesInput, Prisma.ProjectUncheckedUpdateWithoutClientMessagesInput>
+}
+
+export type ProjectUpdateWithoutClientMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
+  projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutClientMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutClientFilesInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
+  projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutClientFilesInput = {
+  id?: string
+  organizationId: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutClientFilesInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientFilesInput, Prisma.ProjectUncheckedCreateWithoutClientFilesInput>
+}
+
+export type ProjectUpsertWithoutClientFilesInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutClientFilesInput, Prisma.ProjectUncheckedUpdateWithoutClientFilesInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutClientFilesInput, Prisma.ProjectUncheckedCreateWithoutClientFilesInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutClientFilesInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutClientFilesInput, Prisma.ProjectUncheckedUpdateWithoutClientFilesInput>
+}
+
+export type ProjectUpdateWithoutClientFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
+  projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutClientFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutOrganizationInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
+  projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutOrganizationInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
+  members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+  sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
+  activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutOrganizationInput = {
@@ -768,23 +1627,6 @@ export type ProjectUpdateManyWithWhereWithoutOrganizationInput = {
   data: Prisma.XOR<Prisma.ProjectUpdateManyMutationInput, Prisma.ProjectUncheckedUpdateManyWithoutOrganizationInput>
 }
 
-export type ProjectScalarWhereInput = {
-  AND?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
-  OR?: Prisma.ProjectScalarWhereInput[]
-  NOT?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Project"> | string
-  organizationId?: Prisma.UuidFilter<"Project"> | string
-  name?: Prisma.StringFilter<"Project"> | string
-  slug?: Prisma.StringFilter<"Project"> | string
-  description?: Prisma.StringNullableFilter<"Project"> | string | null
-  status?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
-  startDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
-  dueDate?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Project"> | Date | string | null
-}
-
 export type ProjectCreateWithoutProjectTeamsInput = {
   id?: string
   name: string
@@ -797,10 +1639,16 @@ export type ProjectCreateWithoutProjectTeamsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
   members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutProjectTeamsInput = {
@@ -815,10 +1663,16 @@ export type ProjectUncheckedCreateWithoutProjectTeamsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
   members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutProjectTeamsInput = {
@@ -849,10 +1703,16 @@ export type ProjectUpdateWithoutProjectTeamsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
   members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutProjectTeamsInput = {
@@ -867,10 +1727,16 @@ export type ProjectUncheckedUpdateWithoutProjectTeamsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutMembersInput = {
@@ -885,10 +1751,16 @@ export type ProjectCreateWithoutMembersInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
   projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutMembersInput = {
@@ -903,10 +1775,16 @@ export type ProjectUncheckedCreateWithoutMembersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
   projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutMembersInput = {
@@ -937,10 +1815,16 @@ export type ProjectUpdateWithoutMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
   projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutMembersInput = {
@@ -955,10 +1839,16 @@ export type ProjectUncheckedUpdateWithoutMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutSprintsInput = {
@@ -973,10 +1863,16 @@ export type ProjectCreateWithoutSprintsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
   projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutSprintsInput = {
@@ -991,10 +1887,16 @@ export type ProjectUncheckedCreateWithoutSprintsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
   projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutSprintsInput = {
@@ -1025,10 +1927,16 @@ export type ProjectUpdateWithoutSprintsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
   projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutSprintsInput = {
@@ -1043,10 +1951,16 @@ export type ProjectUncheckedUpdateWithoutSprintsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateWithoutTasksInput = {
@@ -1061,10 +1975,16 @@ export type ProjectCreateWithoutTasksInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutProjectsInput
+  clientOrganization?: Prisma.ClientOrganizationCreateNestedOneWithoutProjectsInput
   projectTeams?: Prisma.ProjectTeamCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutTasksInput = {
@@ -1079,10 +1999,16 @@ export type ProjectUncheckedCreateWithoutTasksInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
   projectTeams?: Prisma.ProjectTeamUncheckedCreateNestedManyWithoutProjectInput
   members?: Prisma.ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
   sprints?: Prisma.SprintUncheckedCreateNestedManyWithoutProjectInput
   activities?: Prisma.ActivityUncheckedCreateNestedManyWithoutProjectInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+  clientRequests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutProjectInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedCreateNestedManyWithoutProjectInput
+  clientMessages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutProjectInput
+  clientFiles?: Prisma.ClientFileUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -1113,10 +2039,16 @@ export type ProjectUpdateWithoutTasksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
   projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutTasksInput = {
@@ -1131,14 +2063,21 @@ export type ProjectUncheckedUpdateWithoutTasksInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectCreateManyOrganizationInput = {
+export type ProjectCreateManyClientOrganizationInput = {
   id?: string
+  organizationId: string
   name: string
   slug: string
   description?: string | null
@@ -1150,7 +2089,7 @@ export type ProjectCreateManyOrganizationInput = {
   deletedAt?: Date | string | null
 }
 
-export type ProjectUpdateWithoutOrganizationInput = {
+export type ProjectUpdateWithoutClientOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1161,15 +2100,22 @@ export type ProjectUpdateWithoutOrganizationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutProjectsNestedInput
   projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
   members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
   sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateWithoutOrganizationInput = {
+export type ProjectUncheckedUpdateWithoutClientOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1184,6 +2130,87 @@ export type ProjectUncheckedUpdateWithoutOrganizationInput = {
   sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
   activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateManyWithoutClientOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type ProjectCreateManyOrganizationInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  status?: $Enums.ProjectStatus
+  startDate?: Date | string | null
+  dueDate?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  clientOrganizationId?: string | null
+}
+
+export type ProjectUpdateWithoutOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneWithoutProjectsNestedInput
+  projectTeams?: Prisma.ProjectTeamUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+  startDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  projectTeams?: Prisma.ProjectTeamUncheckedUpdateManyWithoutProjectNestedInput
+  members?: Prisma.ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+  sprints?: Prisma.SprintUncheckedUpdateManyWithoutProjectNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutProjectNestedInput
+  activities?: Prisma.ActivityUncheckedUpdateManyWithoutProjectNestedInput
+  clientAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+  clientRequests?: Prisma.ClientRequestUncheckedUpdateManyWithoutProjectNestedInput
+  projectUpdates?: Prisma.ProjectUpdateUncheckedUpdateManyWithoutProjectNestedInput
+  clientMessages?: Prisma.ClientMessageUncheckedUpdateManyWithoutProjectNestedInput
+  clientFiles?: Prisma.ClientFileUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateManyWithoutOrganizationInput = {
@@ -1197,6 +2224,7 @@ export type ProjectUncheckedUpdateManyWithoutOrganizationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientOrganizationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1210,6 +2238,11 @@ export type ProjectCountOutputType = {
   sprints: number
   tasks: number
   activities: number
+  clientAccess: number
+  clientRequests: number
+  projectUpdates: number
+  clientMessages: number
+  clientFiles: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1218,6 +2251,11 @@ export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   sprints?: boolean | ProjectCountOutputTypeCountSprintsArgs
   tasks?: boolean | ProjectCountOutputTypeCountTasksArgs
   activities?: boolean | ProjectCountOutputTypeCountActivitiesArgs
+  clientAccess?: boolean | ProjectCountOutputTypeCountClientAccessArgs
+  clientRequests?: boolean | ProjectCountOutputTypeCountClientRequestsArgs
+  projectUpdates?: boolean | ProjectCountOutputTypeCountProjectUpdatesArgs
+  clientMessages?: boolean | ProjectCountOutputTypeCountClientMessagesArgs
+  clientFiles?: boolean | ProjectCountOutputTypeCountClientFilesArgs
 }
 
 /**
@@ -1265,6 +2303,41 @@ export type ProjectCountOutputTypeCountActivitiesArgs<ExtArgs extends runtime.Ty
   where?: Prisma.ActivityWhereInput
 }
 
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountClientAccessArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientProjectAccessWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountClientRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientRequestWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountProjectUpdatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectUpdateWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountClientMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientMessageWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountClientFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientFileWhereInput
+}
+
 
 export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1278,12 +2351,19 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  clientOrganizationId?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  clientOrganization?: boolean | Prisma.Project$clientOrganizationArgs<ExtArgs>
   projectTeams?: boolean | Prisma.Project$projectTeamsArgs<ExtArgs>
   members?: boolean | Prisma.Project$membersArgs<ExtArgs>
   sprints?: boolean | Prisma.Project$sprintsArgs<ExtArgs>
   tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
   activities?: boolean | Prisma.Project$activitiesArgs<ExtArgs>
+  clientAccess?: boolean | Prisma.Project$clientAccessArgs<ExtArgs>
+  clientRequests?: boolean | Prisma.Project$clientRequestsArgs<ExtArgs>
+  projectUpdates?: boolean | Prisma.Project$projectUpdatesArgs<ExtArgs>
+  clientMessages?: boolean | Prisma.Project$clientMessagesArgs<ExtArgs>
+  clientFiles?: boolean | Prisma.Project$clientFilesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
@@ -1299,7 +2379,9 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  clientOrganizationId?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  clientOrganization?: boolean | Prisma.Project$clientOrganizationArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1314,7 +2396,9 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  clientOrganizationId?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  clientOrganization?: boolean | Prisma.Project$clientOrganizationArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectScalar = {
@@ -1329,34 +2413,49 @@ export type ProjectSelectScalar = {
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  clientOrganizationId?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "name" | "slug" | "description" | "status" | "startDate" | "dueDate" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "name" | "slug" | "description" | "status" | "startDate" | "dueDate" | "createdAt" | "updatedAt" | "deletedAt" | "clientOrganizationId", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  clientOrganization?: boolean | Prisma.Project$clientOrganizationArgs<ExtArgs>
   projectTeams?: boolean | Prisma.Project$projectTeamsArgs<ExtArgs>
   members?: boolean | Prisma.Project$membersArgs<ExtArgs>
   sprints?: boolean | Prisma.Project$sprintsArgs<ExtArgs>
   tasks?: boolean | Prisma.Project$tasksArgs<ExtArgs>
   activities?: boolean | Prisma.Project$activitiesArgs<ExtArgs>
+  clientAccess?: boolean | Prisma.Project$clientAccessArgs<ExtArgs>
+  clientRequests?: boolean | Prisma.Project$clientRequestsArgs<ExtArgs>
+  projectUpdates?: boolean | Prisma.Project$projectUpdatesArgs<ExtArgs>
+  clientMessages?: boolean | Prisma.Project$clientMessagesArgs<ExtArgs>
+  clientFiles?: boolean | Prisma.Project$clientFilesArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  clientOrganization?: boolean | Prisma.Project$clientOrganizationArgs<ExtArgs>
 }
 export type ProjectIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  clientOrganization?: boolean | Prisma.Project$clientOrganizationArgs<ExtArgs>
 }
 
 export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Project"
   objects: {
     organization: Prisma.$OrganizationPayload<ExtArgs>
+    clientOrganization: Prisma.$ClientOrganizationPayload<ExtArgs> | null
     projectTeams: Prisma.$ProjectTeamPayload<ExtArgs>[]
     members: Prisma.$ProjectMemberPayload<ExtArgs>[]
     sprints: Prisma.$SprintPayload<ExtArgs>[]
     tasks: Prisma.$TaskPayload<ExtArgs>[]
     activities: Prisma.$ActivityPayload<ExtArgs>[]
+    clientAccess: Prisma.$ClientProjectAccessPayload<ExtArgs>[]
+    clientRequests: Prisma.$ClientRequestPayload<ExtArgs>[]
+    projectUpdates: Prisma.$ProjectUpdatePayload<ExtArgs>[]
+    clientMessages: Prisma.$ClientMessagePayload<ExtArgs>[]
+    clientFiles: Prisma.$ClientFilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1370,6 +2469,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
+    clientOrganizationId: string | null
   }, ExtArgs["result"]["project"]>
   composites: {}
 }
@@ -1765,11 +2865,17 @@ readonly fields: ProjectFieldRefs;
 export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  clientOrganization<T extends Prisma.Project$clientOrganizationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$clientOrganizationArgs<ExtArgs>>): Prisma.Prisma__ClientOrganizationClient<runtime.Types.Result.GetResult<Prisma.$ClientOrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   projectTeams<T extends Prisma.Project$projectTeamsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$projectTeamsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectTeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Project$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sprints<T extends Prisma.Project$sprintsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$sprintsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SprintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tasks<T extends Prisma.Project$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activities<T extends Prisma.Project$activitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientAccess<T extends Prisma.Project$clientAccessArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$clientAccessArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientProjectAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientRequests<T extends Prisma.Project$clientRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$clientRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectUpdates<T extends Prisma.Project$projectUpdatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$projectUpdatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientMessages<T extends Prisma.Project$clientMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$clientMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientFiles<T extends Prisma.Project$clientFilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$clientFilesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1810,6 +2916,7 @@ export interface ProjectFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Project", 'DateTime'>
+  readonly clientOrganizationId: Prisma.FieldRef<"Project", 'String'>
 }
     
 
@@ -2211,6 +3318,25 @@ export type ProjectDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Project.clientOrganization
+ */
+export type Project$clientOrganizationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientOrganization
+   */
+  select?: Prisma.ClientOrganizationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientOrganization
+   */
+  omit?: Prisma.ClientOrganizationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientOrganizationInclude<ExtArgs> | null
+  where?: Prisma.ClientOrganizationWhereInput
+}
+
+/**
  * Project.projectTeams
  */
 export type Project$projectTeamsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2328,6 +3454,126 @@ export type Project$activitiesArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.ActivityScalarFieldEnum | Prisma.ActivityScalarFieldEnum[]
+}
+
+/**
+ * Project.clientAccess
+ */
+export type Project$clientAccessArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientProjectAccess
+   */
+  select?: Prisma.ClientProjectAccessSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientProjectAccess
+   */
+  omit?: Prisma.ClientProjectAccessOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientProjectAccessInclude<ExtArgs> | null
+  where?: Prisma.ClientProjectAccessWhereInput
+  orderBy?: Prisma.ClientProjectAccessOrderByWithRelationInput | Prisma.ClientProjectAccessOrderByWithRelationInput[]
+  cursor?: Prisma.ClientProjectAccessWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientProjectAccessScalarFieldEnum | Prisma.ClientProjectAccessScalarFieldEnum[]
+}
+
+/**
+ * Project.clientRequests
+ */
+export type Project$clientRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientRequest
+   */
+  select?: Prisma.ClientRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientRequest
+   */
+  omit?: Prisma.ClientRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientRequestInclude<ExtArgs> | null
+  where?: Prisma.ClientRequestWhereInput
+  orderBy?: Prisma.ClientRequestOrderByWithRelationInput | Prisma.ClientRequestOrderByWithRelationInput[]
+  cursor?: Prisma.ClientRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientRequestScalarFieldEnum | Prisma.ClientRequestScalarFieldEnum[]
+}
+
+/**
+ * Project.projectUpdates
+ */
+export type Project$projectUpdatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectUpdate
+   */
+  select?: Prisma.ProjectUpdateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectUpdate
+   */
+  omit?: Prisma.ProjectUpdateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectUpdateInclude<ExtArgs> | null
+  where?: Prisma.ProjectUpdateWhereInput
+  orderBy?: Prisma.ProjectUpdateOrderByWithRelationInput | Prisma.ProjectUpdateOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectUpdateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectUpdateScalarFieldEnum | Prisma.ProjectUpdateScalarFieldEnum[]
+}
+
+/**
+ * Project.clientMessages
+ */
+export type Project$clientMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientMessage
+   */
+  select?: Prisma.ClientMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientMessage
+   */
+  omit?: Prisma.ClientMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientMessageInclude<ExtArgs> | null
+  where?: Prisma.ClientMessageWhereInput
+  orderBy?: Prisma.ClientMessageOrderByWithRelationInput | Prisma.ClientMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ClientMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientMessageScalarFieldEnum | Prisma.ClientMessageScalarFieldEnum[]
+}
+
+/**
+ * Project.clientFiles
+ */
+export type Project$clientFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientFile
+   */
+  select?: Prisma.ClientFileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientFile
+   */
+  omit?: Prisma.ClientFileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientFileInclude<ExtArgs> | null
+  where?: Prisma.ClientFileWhereInput
+  orderBy?: Prisma.ClientFileOrderByWithRelationInput | Prisma.ClientFileOrderByWithRelationInput[]
+  cursor?: Prisma.ClientFileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientFileScalarFieldEnum | Prisma.ClientFileScalarFieldEnum[]
 }
 
 /**

@@ -22,6 +22,13 @@ model Organization {
   auditLogs     AuditLog[]
   notifications Notification[]
   attachments   Attachment[]
+
+  clientOrganizations ClientOrganization[]
+  clientContacts      ClientContact[]
+  clientRequests      ClientRequest[]
+  projectUpdates      ProjectUpdate[]
+  clientMessages      ClientMessage[]
+  clientFiles         ClientFile[]
 }
 
 model Membership {
@@ -68,6 +75,13 @@ model Membership {
 
   // Files this membership has uploaded.
   uploadedAttachments Attachment[]
+
+  // Client portal: access grants, requests handled, content authored.
+  clientAccessGranted   ClientProjectAccess[] @relation("ClientAccessGrantedBy")
+  handledClientRequests ClientRequest[]       @relation("ClientRequestHandler")
+  projectUpdates        ProjectUpdate[]       @relation("ProjectUpdateAuthor")
+  clientMessages        ClientMessage[]       @relation("ClientMessageStaffAuthor")
+  clientFilesUploaded   ClientFile[]          @relation("ClientFileStaffUploader")
 
   @@unique([userId, organizationId])
   @@index([organizationId])

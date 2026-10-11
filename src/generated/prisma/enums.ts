@@ -97,3 +97,33 @@ export const TaskPriority = {
 } as const
 
 export type TaskPriority = (typeof TaskPriority)[keyof typeof TaskPriority]
+
+
+export const ClientContactStatus = {
+  INVITED: 'INVITED',
+  ACTIVE: 'ACTIVE',
+  DISABLED: 'DISABLED'
+} as const
+
+export type ClientContactStatus = (typeof ClientContactStatus)[keyof typeof ClientContactStatus]
+
+
+export const ClientRequestType = {
+  NEW_REQUIREMENT: 'NEW_REQUIREMENT',
+  CHANGE_REQUEST: 'CHANGE_REQUEST',
+  QUESTION: 'QUESTION',
+  FEEDBACK: 'FEEDBACK',
+  ISSUE: 'ISSUE'
+} as const
+
+export type ClientRequestType = (typeof ClientRequestType)[keyof typeof ClientRequestType]
+
+
+export const ClientRequestStatus = {
+  OPEN: 'OPEN',
+  IN_REVIEW: 'IN_REVIEW',
+  RESOLVED: 'RESOLVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ClientRequestStatus = (typeof ClientRequestStatus)[keyof typeof ClientRequestStatus]

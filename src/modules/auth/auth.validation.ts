@@ -9,7 +9,7 @@ import { z } from "zod";
  * maximum (128) to keep pathologically long input from being fed
  * into Argon2 hashing.
  */
-const passwordSchema = z
+export const passwordSchema = z
   .string()
   .min(8, "Password must be at least 8 characters")
   .max(128, "Password must be at most 128 characters");

@@ -1,22 +1,32 @@
 model Project {
-  id             String        @id @default(uuid()) @db.Uuid
-  organizationId String        @db.Uuid
-  name           String
-  slug           String
-  description    String?
-  status         ProjectStatus @default(PLANNING)
-  startDate      DateTime?
-  dueDate        DateTime?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  deletedAt      DateTime?
+  id                   String        @id @default(uuid()) @db.Uuid
+  organizationId       String        @db.Uuid
+  name                 String
+  slug                 String
+  description          String?
+  status               ProjectStatus @default(PLANNING)
+  startDate            DateTime?
+  dueDate              DateTime?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  deletedAt            DateTime?
+  // Which client organization this project is delivered for (optional).
+  // Contacts of that client can only be granted access to this project.
+  clientOrganizationId String?       @db.Uuid
 
-  organization Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  projectTeams ProjectTeam[]
-  members      ProjectMember[]
-  sprints      Sprint[]
-  tasks        Task[]
-  activities   Activity[]
+  organization       Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  clientOrganization ClientOrganization? @relation(fields: [clientOrganizationId], references: [id], onDelete: SetNull)
+  projectTeams       ProjectTeam[]
+  members            ProjectMember[]
+  sprints            Sprint[]
+  tasks              Task[]
+  activities         Activity[]
+
+  clientAccess   ClientProjectAccess[]
+  clientRequests ClientRequest[]
+  projectUpdates ProjectUpdate[]
+  clientMessages ClientMessage[]
+  clientFiles    ClientFile[]
 
   // Org-scoped slug uniqueness, not global — two different
   // organizations may each have a project with slug "website-redesign".
@@ -24,6 +34,7 @@ model Project {
   @@index([organizationId])
   @@index([organizationId, status])
   @@index([organizationId, deletedAt])
+  @@index([clientOrganizationId])
 }
 
 model ProjectTeam {
