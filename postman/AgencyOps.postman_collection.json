@@ -100,6 +100,11 @@
       "key": "organizationSlug",
       "value": "",
       "type": "string"
+    },
+    {
+      "key": "invoiceId",
+      "value": "",
+      "type": "string"
     }
   ],
   "item": [
@@ -4401,6 +4406,454 @@
                   "type": "string"
                 }
               ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Billing (platform subscription)",
+      "item": [
+        {
+          "name": "Get billing",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/billing",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "billing"
+              ]
+            },
+            "description": "Plan + subscription status (OWNER/MANAGER).",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Start Pro checkout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/billing/checkout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "billing",
+                "checkout"
+              ]
+            },
+            "description": "OWNER only. Returns a Stripe Checkout URL; the plan changes only after the webhook confirms payment.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Open billing portal",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/billing/portal",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "billing",
+                "portal"
+              ]
+            },
+            "description": "OWNER only. Requires an existing Stripe customer.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Invoices (staff)",
+      "item": [
+        {
+          "name": "Create invoice",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/invoices",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "invoices"
+              ]
+            },
+            "description": "Totals are computed server-side. Starts as DRAFT.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"issueDate\": \"2026-10-01\",\n  \"dueDate\": \"2026-10-31\",\n  \"currency\": \"usd\",\n  \"taxCents\": 0,\n  \"discountCents\": 0,\n  \"notes\": \"Thanks!\",\n  \"items\": [\n    {\n      \"description\": \"Design work\",\n      \"quantity\": 2,\n      \"unitAmountCents\": 10000\n    }\n  ]\n}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "  const data = pm.response.json().data;",
+                  "  { const v = data.id; if (v) pm.collectionVariables.set('invoiceId', v); }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List invoices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/invoices?page=1&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "invoices?page=1&limit=20"
+              ]
+            },
+            "description": "Filters: clientId, projectId, status.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get invoice",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/invoices/{{invoiceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "invoices",
+                "{{invoiceId}}"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update draft invoice",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/invoices/{{invoiceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "invoices",
+                "{{invoiceId}}"
+              ]
+            },
+            "description": "DRAFT only.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Updated\",\n  \"items\": [\n    {\n      \"description\": \"Design work\",\n      \"quantity\": 3,\n      \"unitAmountCents\": 10000\n    }\n  ]\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Send invoice",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/invoices/{{invoiceId}}/send",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "invoices",
+                "{{invoiceId}}",
+                "send"
+              ]
+            },
+            "description": "DRAFT \u2192 OPEN; the client can now see and pay it.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Void invoice",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/invoices/{{invoiceId}}/void",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "invoices",
+                "{{invoiceId}}",
+                "void"
+              ]
+            },
+            "description": "DRAFT/OPEN \u2192 VOID. Paid invoices cannot be voided.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Invoices (client portal)",
+      "item": [
+        {
+          "name": "List my invoices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/portal/invoices?page=1&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "portal",
+                "invoices?page=1&limit=20"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{clientAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get invoice",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/portal/invoices/{{invoiceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "portal",
+                "invoices",
+                "{{invoiceId}}"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{clientAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pay invoice (Stripe Checkout)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/portal/invoices/{{invoiceId}}/checkout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "portal",
+                "invoices",
+                "{{invoiceId}}",
+                "checkout"
+              ]
+            },
+            "description": "Returns a Stripe Checkout URL. The invoice becomes PAID only via the verified webhook.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{clientAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Stripe webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/stripe",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                "stripe"
+              ]
+            },
+            "description": "Called by Stripe only. Requires a valid Stripe-Signature header; use `stripe listen --forward-to localhost:5000/api/v1/webhooks/stripe` locally.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
             }
           },
           "response": []

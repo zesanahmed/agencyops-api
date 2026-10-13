@@ -1,34 +1,31 @@
 import { createHash } from "node:crypto";
-import argon2 from "argon2";
+import bcrypt from "bcryptjs";
 
 /**
- * OWASP's 2026 password-storage recommendation: Argon2id, with
- * memory/time/parallelism costs on the stronger end of OWASP's
- * suggested range (m=64MB, t=3, p=4). Kept as a single tuning point
- * so these can be revisited later without touching call sites.
+ * bcrypt cost factor (2^12 rounds). Kept as a single tuning point so it
+ * can be revisited without touching call sites. `bcryptjs` is pure
+ * JavaScript on purpose: no native `.node` binary, so it also loads on
+ * machines whose application-control policy blocks unsigned native
+ * modules (e.g. Windows Smart App Control).
+ *
+ * bcrypt only uses the first 72 bytes of a password; passwordSchema
+ * rejects anything longer so nothing is silently truncated.
  */
-const ARGON2_OPTIONS = {
-  type: argon2.argon2id,
-  memoryCost: 65536, // 64 MB
-  timeCost: 3,
-  parallelism: 4,
-} satisfies argon2.HashOptions;
+const BCRYPT_COST = 12;
 
 /**
  * Hashes a plaintext password. The returned string is
- * self-describing (algorithm, version, and parameters are encoded
- * in it), so comparePassword() doesn't need ARGON2_OPTIONS passed
- * back in to verify it later.
+ * self-describing (algorithm, cost and salt are encoded in it), so
+ * comparePassword() doesn't need the cost passed back in.
  *
- * Callers never touch the `argon2` package directly — everything
- * password-related goes through hashPassword/comparePassword, so
- * the hashing algorithm stays replaceable behind this one file if
- * it's ever changed later.
+ * Callers never touch the hashing package directly — everything
+ * password-related goes through hashPassword/comparePassword, so the
+ * algorithm stays replaceable behind this one file.
  *
  * Never logs the password or the resulting hash.
  */
 export async function hashPassword(password: string): Promise<string> {
-  return argon2.hash(password, ARGON2_OPTIONS);
+  return bcrypt.hash(password, BCRYPT_COST);
 }
 
 /**
@@ -39,17 +36,17 @@ export async function comparePassword(
   password: string,
   passwordHash: string,
 ): Promise<boolean> {
-  return argon2.verify(passwordHash, password);
+  return bcrypt.compare(password, passwordHash);
 }
 
 /**
  * Hashes a refresh token for storage in Session.refreshTokenHash.
- * Deliberately NOT argon2 — that's a slow, memory-hard algorithm
+ * Deliberately NOT bcrypt — that's a slow algorithm
  * designed for low-entropy human-chosen passwords, where the whole
  * point is making brute-force guessing expensive. A refresh token
  * is already a high-entropy, randomly-generated secret (a signed
  * JWT), so a fast cryptographic digest is the correct, standard
- * choice — using argon2 here would just add latency for no real
+ * choice — using bcrypt here would just add latency for no real
  * security benefit.
  */
 export function hashToken(token: string): string {

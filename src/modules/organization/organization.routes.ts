@@ -9,6 +9,8 @@ import { teamRouter } from "../team/team.routes.js";
 import { projectRouter } from "../project/project.routes.js";
 import { notificationRouter } from "../notification/notification.routes.js";
 import { clientRouter } from "../client/client.routes.js";
+import { invoiceRouter } from "../invoice/invoice.routes.js";
+import { billingRouter } from "../billing/billing.routes.js";
 import { collaborationRouter } from "../client-collaboration/collaboration.routes.js";
 import {
   createOrganizationSchema,
@@ -71,5 +73,7 @@ organizationRouter.use("/:organizationId/projects", projectRouter);
 organizationRouter.use("/:organizationId/notifications", notificationRouter);
 organizationRouter.use("/:organizationId/clients", clientRouter);
 organizationRouter.use("/:organizationId/client-portal", collaborationRouter);
+organizationRouter.use("/:organizationId/billing", billingRouter);
+organizationRouter.use("/:organizationId/invoices", invoiceRouter);
 
 export { organizationRouter };

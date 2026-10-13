@@ -1,0 +1,130 @@
+// Two separate billing concerns live here:
+//  1. Platform billing  — an Organization pays AgencyOps (FREE / PRO).
+//  2. Client billing    — an agency invoices its ClientOrganization, and a
+//                         client contact pays via Stripe Checkout.
+// Money is always stored as integer minor units (cents), never floats.
+
+model Plan {
+  id            String   @id @default(uuid()) @db.Uuid
+  code          PlanCode @unique
+  name          String
+  // null = unlimited. Stored and exposed; enforcement is a product decision.
+  maxMembers    Int?
+  maxProjects   Int?
+  stripePriceId String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  subscriptions PlatformSubscription[]
+}
+
+model PlatformSubscription {
+  id                   String             @id @default(uuid()) @db.Uuid
+  organizationId       String             @unique @db.Uuid
+  planId               String             @db.Uuid
+  status               SubscriptionStatus @default(ACTIVE)
+  stripeCustomerId     String?            @unique
+  stripeSubscriptionId String?            @unique
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean            @default(false)
+  // Creation time of the newest Stripe event applied; older, out-of-order events are ignored.
+  lastStripeEventAt    DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  plan         Plan         @relation(fields: [planId], references: [id], onDelete: Restrict)
+
+  @@index([planId])
+}
+
+// One row per Stripe event ever received. The unique (provider, eventId)
+// is what makes webhook handling idempotent.
+model WebhookEvent {
+  id          String    @id @default(uuid()) @db.Uuid
+  provider    String    @default("stripe")
+  eventId     String
+  type        String
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@unique([provider, eventId])
+  @@index([createdAt])
+}
+
+model ClientInvoice {
+  id                    String        @id @default(uuid()) @db.Uuid
+  organizationId        String        @db.Uuid
+  clientOrganizationId  String        @db.Uuid
+  projectId             String?       @db.Uuid
+  // Human-readable, sequential per organization, e.g. INV-0001.
+  number                String
+  status                InvoiceStatus @default(DRAFT)
+  issueDate             DateTime
+  dueDate               DateTime
+  currency              String
+  subtotalCents         Int
+  taxCents              Int           @default(0)
+  discountCents         Int           @default(0)
+  totalCents            Int
+  notes                 String?
+  createdByMembershipId String        @db.Uuid
+  sentAt                DateTime?
+  paidAt                DateTime?
+  voidedAt              DateTime?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  organization       Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  // Invoices are financial records: never cascade-deleted with a client.
+  clientOrganization ClientOrganization @relation(fields: [clientOrganizationId], references: [id], onDelete: Restrict)
+  project            Project?           @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdBy          Membership         @relation("InvoiceCreator", fields: [createdByMembershipId], references: [id], onDelete: Restrict)
+
+  items    ClientInvoiceItem[]
+  payments ClientInvoicePayment[]
+
+  @@unique([organizationId, number])
+  @@index([organizationId, status])
+  @@index([clientOrganizationId, status])
+  @@index([projectId])
+}
+
+model ClientInvoiceItem {
+  id              String @id @default(uuid()) @db.Uuid
+  invoiceId       String @db.Uuid
+  position        Int
+  description     String
+  quantity        Int
+  unitAmountCents Int
+  amountCents     Int
+
+  invoice ClientInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+}
+
+// An actual payment attempt (one per Stripe Checkout Session) and its
+// outcome — never a boolean "paid" flag set from the client.
+model ClientInvoicePayment {
+  id                      String        @id @default(uuid()) @db.Uuid
+  organizationId          String        @db.Uuid
+  invoiceId               String        @db.Uuid
+  clientContactId         String?       @db.Uuid
+  amountCents             Int
+  currency                String
+  status                  PaymentStatus @default(PENDING)
+  stripeCheckoutSessionId String        @unique
+  stripePaymentIntentId   String?
+  failureReason           String?
+  paidAt                  DateTime?
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+
+  organization  Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  invoice       ClientInvoice  @relation(fields: [invoiceId], references: [id], onDelete: Restrict)
+  clientContact ClientContact? @relation(fields: [clientContactId], references: [id], onDelete: SetNull)
+
+  @@index([invoiceId, status])
+  @@index([organizationId])
+}

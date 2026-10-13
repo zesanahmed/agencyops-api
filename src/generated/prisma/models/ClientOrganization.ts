@@ -209,6 +209,7 @@ export type ClientOrganizationWhereInput = {
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   contacts?: Prisma.ClientContactListRelationFilter
   projects?: Prisma.ProjectListRelationFilter
+  invoices?: Prisma.ClientInvoiceListRelationFilter
 }
 
 export type ClientOrganizationOrderByWithRelationInput = {
@@ -223,6 +224,7 @@ export type ClientOrganizationOrderByWithRelationInput = {
   organization?: Prisma.OrganizationOrderByWithRelationInput
   contacts?: Prisma.ClientContactOrderByRelationAggregateInput
   projects?: Prisma.ProjectOrderByRelationAggregateInput
+  invoices?: Prisma.ClientInvoiceOrderByRelationAggregateInput
 }
 
 export type ClientOrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -240,6 +242,7 @@ export type ClientOrganizationWhereUniqueInput = Prisma.AtLeast<{
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   contacts?: Prisma.ClientContactListRelationFilter
   projects?: Prisma.ProjectListRelationFilter
+  invoices?: Prisma.ClientInvoiceListRelationFilter
 }, "id">
 
 export type ClientOrganizationOrderByWithAggregationInput = {
@@ -281,6 +284,7 @@ export type ClientOrganizationCreateInput = {
   organization: Prisma.OrganizationCreateNestedOneWithoutClientOrganizationsInput
   contacts?: Prisma.ClientContactCreateNestedManyWithoutClientOrganizationInput
   projects?: Prisma.ProjectCreateNestedManyWithoutClientOrganizationInput
+  invoices?: Prisma.ClientInvoiceCreateNestedManyWithoutClientOrganizationInput
 }
 
 export type ClientOrganizationUncheckedCreateInput = {
@@ -294,6 +298,7 @@ export type ClientOrganizationUncheckedCreateInput = {
   deletedAt?: Date | string | null
   contacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutClientOrganizationInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrganizationInput
+  invoices?: Prisma.ClientInvoiceUncheckedCreateNestedManyWithoutClientOrganizationInput
 }
 
 export type ClientOrganizationUpdateInput = {
@@ -307,6 +312,7 @@ export type ClientOrganizationUpdateInput = {
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientOrganizationsNestedInput
   contacts?: Prisma.ClientContactUpdateManyWithoutClientOrganizationNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutClientOrganizationNestedInput
+  invoices?: Prisma.ClientInvoiceUpdateManyWithoutClientOrganizationNestedInput
 }
 
 export type ClientOrganizationUncheckedUpdateInput = {
@@ -320,6 +326,7 @@ export type ClientOrganizationUncheckedUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contacts?: Prisma.ClientContactUncheckedUpdateManyWithoutClientOrganizationNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrganizationNestedInput
+  invoices?: Prisma.ClientInvoiceUncheckedUpdateManyWithoutClientOrganizationNestedInput
 }
 
 export type ClientOrganizationCreateManyInput = {
@@ -352,6 +359,11 @@ export type ClientOrganizationUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type ClientOrganizationScalarRelationFilter = {
+  is?: Prisma.ClientOrganizationWhereInput
+  isNot?: Prisma.ClientOrganizationWhereInput
 }
 
 export type ClientOrganizationCountOrderByAggregateInput = {
@@ -387,11 +399,6 @@ export type ClientOrganizationMinOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
 }
 
-export type ClientOrganizationScalarRelationFilter = {
-  is?: Prisma.ClientOrganizationWhereInput
-  isNot?: Prisma.ClientOrganizationWhereInput
-}
-
 export type ClientOrganizationListRelationFilter = {
   every?: Prisma.ClientOrganizationWhereInput
   some?: Prisma.ClientOrganizationWhereInput
@@ -405,6 +412,20 @@ export type ClientOrganizationOrderByRelationAggregateInput = {
 export type ClientOrganizationNullableScalarRelationFilter = {
   is?: Prisma.ClientOrganizationWhereInput | null
   isNot?: Prisma.ClientOrganizationWhereInput | null
+}
+
+export type ClientOrganizationCreateNestedOneWithoutInvoicesInput = {
+  create?: Prisma.XOR<Prisma.ClientOrganizationCreateWithoutInvoicesInput, Prisma.ClientOrganizationUncheckedCreateWithoutInvoicesInput>
+  connectOrCreate?: Prisma.ClientOrganizationCreateOrConnectWithoutInvoicesInput
+  connect?: Prisma.ClientOrganizationWhereUniqueInput
+}
+
+export type ClientOrganizationUpdateOneRequiredWithoutInvoicesNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientOrganizationCreateWithoutInvoicesInput, Prisma.ClientOrganizationUncheckedCreateWithoutInvoicesInput>
+  connectOrCreate?: Prisma.ClientOrganizationCreateOrConnectWithoutInvoicesInput
+  upsert?: Prisma.ClientOrganizationUpsertWithoutInvoicesInput
+  connect?: Prisma.ClientOrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClientOrganizationUpdateToOneWithWhereWithoutInvoicesInput, Prisma.ClientOrganizationUpdateWithoutInvoicesInput>, Prisma.ClientOrganizationUncheckedUpdateWithoutInvoicesInput>
 }
 
 export type ClientOrganizationCreateNestedOneWithoutContactsInput = {
@@ -479,6 +500,74 @@ export type ClientOrganizationUpdateOneWithoutProjectsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ClientOrganizationUpdateToOneWithWhereWithoutProjectsInput, Prisma.ClientOrganizationUpdateWithoutProjectsInput>, Prisma.ClientOrganizationUncheckedUpdateWithoutProjectsInput>
 }
 
+export type ClientOrganizationCreateWithoutInvoicesInput = {
+  id?: string
+  name: string
+  website?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  organization: Prisma.OrganizationCreateNestedOneWithoutClientOrganizationsInput
+  contacts?: Prisma.ClientContactCreateNestedManyWithoutClientOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutClientOrganizationInput
+}
+
+export type ClientOrganizationUncheckedCreateWithoutInvoicesInput = {
+  id?: string
+  organizationId: string
+  name: string
+  website?: string | null
+  notes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  contacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutClientOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrganizationInput
+}
+
+export type ClientOrganizationCreateOrConnectWithoutInvoicesInput = {
+  where: Prisma.ClientOrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClientOrganizationCreateWithoutInvoicesInput, Prisma.ClientOrganizationUncheckedCreateWithoutInvoicesInput>
+}
+
+export type ClientOrganizationUpsertWithoutInvoicesInput = {
+  update: Prisma.XOR<Prisma.ClientOrganizationUpdateWithoutInvoicesInput, Prisma.ClientOrganizationUncheckedUpdateWithoutInvoicesInput>
+  create: Prisma.XOR<Prisma.ClientOrganizationCreateWithoutInvoicesInput, Prisma.ClientOrganizationUncheckedCreateWithoutInvoicesInput>
+  where?: Prisma.ClientOrganizationWhereInput
+}
+
+export type ClientOrganizationUpdateToOneWithWhereWithoutInvoicesInput = {
+  where?: Prisma.ClientOrganizationWhereInput
+  data: Prisma.XOR<Prisma.ClientOrganizationUpdateWithoutInvoicesInput, Prisma.ClientOrganizationUncheckedUpdateWithoutInvoicesInput>
+}
+
+export type ClientOrganizationUpdateWithoutInvoicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientOrganizationsNestedInput
+  contacts?: Prisma.ClientContactUpdateManyWithoutClientOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutClientOrganizationNestedInput
+}
+
+export type ClientOrganizationUncheckedUpdateWithoutInvoicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contacts?: Prisma.ClientContactUncheckedUpdateManyWithoutClientOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrganizationNestedInput
+}
+
 export type ClientOrganizationCreateWithoutContactsInput = {
   id?: string
   name: string
@@ -489,6 +578,7 @@ export type ClientOrganizationCreateWithoutContactsInput = {
   deletedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutClientOrganizationsInput
   projects?: Prisma.ProjectCreateNestedManyWithoutClientOrganizationInput
+  invoices?: Prisma.ClientInvoiceCreateNestedManyWithoutClientOrganizationInput
 }
 
 export type ClientOrganizationUncheckedCreateWithoutContactsInput = {
@@ -501,6 +591,7 @@ export type ClientOrganizationUncheckedCreateWithoutContactsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrganizationInput
+  invoices?: Prisma.ClientInvoiceUncheckedCreateNestedManyWithoutClientOrganizationInput
 }
 
 export type ClientOrganizationCreateOrConnectWithoutContactsInput = {
@@ -529,6 +620,7 @@ export type ClientOrganizationUpdateWithoutContactsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientOrganizationsNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutClientOrganizationNestedInput
+  invoices?: Prisma.ClientInvoiceUpdateManyWithoutClientOrganizationNestedInput
 }
 
 export type ClientOrganizationUncheckedUpdateWithoutContactsInput = {
@@ -541,6 +633,7 @@ export type ClientOrganizationUncheckedUpdateWithoutContactsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrganizationNestedInput
+  invoices?: Prisma.ClientInvoiceUncheckedUpdateManyWithoutClientOrganizationNestedInput
 }
 
 export type ClientOrganizationCreateWithoutOrganizationInput = {
@@ -553,6 +646,7 @@ export type ClientOrganizationCreateWithoutOrganizationInput = {
   deletedAt?: Date | string | null
   contacts?: Prisma.ClientContactCreateNestedManyWithoutClientOrganizationInput
   projects?: Prisma.ProjectCreateNestedManyWithoutClientOrganizationInput
+  invoices?: Prisma.ClientInvoiceCreateNestedManyWithoutClientOrganizationInput
 }
 
 export type ClientOrganizationUncheckedCreateWithoutOrganizationInput = {
@@ -565,6 +659,7 @@ export type ClientOrganizationUncheckedCreateWithoutOrganizationInput = {
   deletedAt?: Date | string | null
   contacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutClientOrganizationInput
   projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutClientOrganizationInput
+  invoices?: Prisma.ClientInvoiceUncheckedCreateNestedManyWithoutClientOrganizationInput
 }
 
 export type ClientOrganizationCreateOrConnectWithoutOrganizationInput = {
@@ -617,6 +712,7 @@ export type ClientOrganizationCreateWithoutProjectsInput = {
   deletedAt?: Date | string | null
   organization: Prisma.OrganizationCreateNestedOneWithoutClientOrganizationsInput
   contacts?: Prisma.ClientContactCreateNestedManyWithoutClientOrganizationInput
+  invoices?: Prisma.ClientInvoiceCreateNestedManyWithoutClientOrganizationInput
 }
 
 export type ClientOrganizationUncheckedCreateWithoutProjectsInput = {
@@ -629,6 +725,7 @@ export type ClientOrganizationUncheckedCreateWithoutProjectsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   contacts?: Prisma.ClientContactUncheckedCreateNestedManyWithoutClientOrganizationInput
+  invoices?: Prisma.ClientInvoiceUncheckedCreateNestedManyWithoutClientOrganizationInput
 }
 
 export type ClientOrganizationCreateOrConnectWithoutProjectsInput = {
@@ -657,6 +754,7 @@ export type ClientOrganizationUpdateWithoutProjectsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientOrganizationsNestedInput
   contacts?: Prisma.ClientContactUpdateManyWithoutClientOrganizationNestedInput
+  invoices?: Prisma.ClientInvoiceUpdateManyWithoutClientOrganizationNestedInput
 }
 
 export type ClientOrganizationUncheckedUpdateWithoutProjectsInput = {
@@ -669,6 +767,7 @@ export type ClientOrganizationUncheckedUpdateWithoutProjectsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contacts?: Prisma.ClientContactUncheckedUpdateManyWithoutClientOrganizationNestedInput
+  invoices?: Prisma.ClientInvoiceUncheckedUpdateManyWithoutClientOrganizationNestedInput
 }
 
 export type ClientOrganizationCreateManyOrganizationInput = {
@@ -691,6 +790,7 @@ export type ClientOrganizationUpdateWithoutOrganizationInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contacts?: Prisma.ClientContactUpdateManyWithoutClientOrganizationNestedInput
   projects?: Prisma.ProjectUpdateManyWithoutClientOrganizationNestedInput
+  invoices?: Prisma.ClientInvoiceUpdateManyWithoutClientOrganizationNestedInput
 }
 
 export type ClientOrganizationUncheckedUpdateWithoutOrganizationInput = {
@@ -703,6 +803,7 @@ export type ClientOrganizationUncheckedUpdateWithoutOrganizationInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   contacts?: Prisma.ClientContactUncheckedUpdateManyWithoutClientOrganizationNestedInput
   projects?: Prisma.ProjectUncheckedUpdateManyWithoutClientOrganizationNestedInput
+  invoices?: Prisma.ClientInvoiceUncheckedUpdateManyWithoutClientOrganizationNestedInput
 }
 
 export type ClientOrganizationUncheckedUpdateManyWithoutOrganizationInput = {
@@ -723,11 +824,13 @@ export type ClientOrganizationUncheckedUpdateManyWithoutOrganizationInput = {
 export type ClientOrganizationCountOutputType = {
   contacts: number
   projects: number
+  invoices: number
 }
 
 export type ClientOrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contacts?: boolean | ClientOrganizationCountOutputTypeCountContactsArgs
   projects?: boolean | ClientOrganizationCountOutputTypeCountProjectsArgs
+  invoices?: boolean | ClientOrganizationCountOutputTypeCountInvoicesArgs
 }
 
 /**
@@ -754,6 +857,13 @@ export type ClientOrganizationCountOutputTypeCountProjectsArgs<ExtArgs extends r
   where?: Prisma.ProjectWhereInput
 }
 
+/**
+ * ClientOrganizationCountOutputType without action
+ */
+export type ClientOrganizationCountOutputTypeCountInvoicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientInvoiceWhereInput
+}
+
 
 export type ClientOrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -767,6 +877,7 @@ export type ClientOrganizationSelect<ExtArgs extends runtime.Types.Extensions.In
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   contacts?: boolean | Prisma.ClientOrganization$contactsArgs<ExtArgs>
   projects?: boolean | Prisma.ClientOrganization$projectsArgs<ExtArgs>
+  invoices?: boolean | Prisma.ClientOrganization$invoicesArgs<ExtArgs>
   _count?: boolean | Prisma.ClientOrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientOrganization"]>
 
@@ -810,6 +921,7 @@ export type ClientOrganizationInclude<ExtArgs extends runtime.Types.Extensions.I
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   contacts?: boolean | Prisma.ClientOrganization$contactsArgs<ExtArgs>
   projects?: boolean | Prisma.ClientOrganization$projectsArgs<ExtArgs>
+  invoices?: boolean | Prisma.ClientOrganization$invoicesArgs<ExtArgs>
   _count?: boolean | Prisma.ClientOrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ClientOrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -825,6 +937,7 @@ export type $ClientOrganizationPayload<ExtArgs extends runtime.Types.Extensions.
     organization: Prisma.$OrganizationPayload<ExtArgs>
     contacts: Prisma.$ClientContactPayload<ExtArgs>[]
     projects: Prisma.$ProjectPayload<ExtArgs>[]
+    invoices: Prisma.$ClientInvoicePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1232,6 +1345,7 @@ export interface Prisma__ClientOrganizationClient<T, Null = never, ExtArgs exten
   organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   contacts<T extends Prisma.ClientOrganization$contactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientOrganization$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   projects<T extends Prisma.ClientOrganization$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientOrganization$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  invoices<T extends Prisma.ClientOrganization$invoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientOrganization$invoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientInvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1715,6 +1829,30 @@ export type ClientOrganization$projectsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.ProjectScalarFieldEnum | Prisma.ProjectScalarFieldEnum[]
+}
+
+/**
+ * ClientOrganization.invoices
+ */
+export type ClientOrganization$invoicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientInvoice
+   */
+  select?: Prisma.ClientInvoiceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientInvoice
+   */
+  omit?: Prisma.ClientInvoiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInvoiceInclude<ExtArgs> | null
+  where?: Prisma.ClientInvoiceWhereInput
+  orderBy?: Prisma.ClientInvoiceOrderByWithRelationInput | Prisma.ClientInvoiceOrderByWithRelationInput[]
+  cursor?: Prisma.ClientInvoiceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientInvoiceScalarFieldEnum | Prisma.ClientInvoiceScalarFieldEnum[]
 }
 
 /**

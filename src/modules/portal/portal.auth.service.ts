@@ -18,7 +18,7 @@ const INVALID_INVITE = "This invitation is invalid or has expired";
 // Verified against when no matching contact exists, so a missing
 // account costs the same time as a wrong password.
 const DUMMY_PASSWORD_HASH =
-  "$argon2id$v=19$m=65536,p=4,t=3$+zozk9h7tiiOI2MoWA8bww$hBL8ckLWO2XjNaKNsF/5msZho3sLycMN05snNlgpxzE";
+  "$2b$12$uyBD1cWet0m5WGHJKiwtU.enux.MktmBNY9OngwM/wXYUUnM679wi";
 
 export interface SafeClientSelf {
   id: string;

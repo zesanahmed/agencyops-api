@@ -21,6 +21,8 @@ import {
   portalTaskQuerySchema,
   projectIdParamSchema,
 } from "../client-collaboration/collaboration.validation.js";
+import { portalCheckout, portalGet, portalList } from "../invoice/invoice.controller.js";
+import { invoiceIdParamSchema } from "../invoice/invoice.validation.js";
 import { acceptInvite, login, logout, logoutAll, me, refresh } from "./portal.auth.controller.js";
 import { portalAuthenticate, requireProjectAccess } from "./portal.middleware.js";
 import { acceptInviteSchema, clientLoginSchema } from "./portal.validation.js";
@@ -71,5 +73,10 @@ portalRouter.post(
 
 portalRouter.get("/projects/:projectId/files", ...projectScope, paged, portalListFiles);
 portalRouter.post("/projects/:projectId/files", ...projectScope, uploadSingleFile, portalUploadFile);
+
+// ---- Invoices (visibility enforced in the service: own client org + project grants) ----
+portalRouter.get("/invoices", paged, portalList);
+portalRouter.get("/invoices/:invoiceId", validate({ params: invoiceIdParamSchema }), portalGet);
+portalRouter.post("/invoices/:invoiceId/checkout", validate({ params: invoiceIdParamSchema }), portalCheckout);
 
 export { portalRouter };

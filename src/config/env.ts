@@ -135,6 +135,26 @@ function resolveCloudinaryConfig(): CloudinaryConfig | undefined {
   return undefined;
 }
 
+export interface StripeConfig {
+  secretKey: string | undefined;
+  webhookSecret: string | undefined;
+  proPriceId: string | undefined;
+}
+
+// Optional, like Cloudinary: the app runs without Stripe; only the
+// billing/payment endpoints return a clear 503 when it is not configured.
+function resolveStripeConfig(): StripeConfig {
+  const read = (name: string): string | undefined => {
+    const value = process.env[name];
+    return value && value.trim() !== "" ? value.trim() : undefined;
+  };
+  return {
+    secretKey: read("STRIPE_SECRET_KEY"),
+    webhookSecret: read("STRIPE_WEBHOOK_SECRET"),
+    proPriceId: read("STRIPE_PRO_PRICE_ID"),
+  };
+}
+
 export interface EnvConfig {
   nodeEnv: NodeEnv;
   port: number;
@@ -145,6 +165,9 @@ export interface EnvConfig {
   refreshCookie: RefreshCookieConfig;
   corsOrigins: string[];
   cloudinary: CloudinaryConfig | undefined;
+  stripe: StripeConfig;
+  /** Base URL of the web app, used to build Stripe checkout return URLs. */
+  frontendUrl: string;
 }
 
 const nodeEnv = resolveNodeEnv(process.env["NODE_ENV"]);
@@ -175,4 +198,6 @@ export const env: EnvConfig = {
   },
   corsOrigins: resolveCorsOrigins(process.env["CORS_ORIGIN"], isProduction),
   cloudinary: resolveCloudinaryConfig(),
+  stripe: resolveStripeConfig(),
+  frontendUrl: (process.env["FRONTEND_URL"]?.trim() || "http://localhost:3000").replace(/\/+$/, ""),
 };

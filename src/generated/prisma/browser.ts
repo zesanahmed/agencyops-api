@@ -53,6 +53,36 @@ export type Session = Prisma.SessionModel
  */
 export type AuthToken = Prisma.AuthTokenModel
 /**
+ * Model Plan
+ * 
+ */
+export type Plan = Prisma.PlanModel
+/**
+ * Model PlatformSubscription
+ * 
+ */
+export type PlatformSubscription = Prisma.PlatformSubscriptionModel
+/**
+ * Model WebhookEvent
+ * 
+ */
+export type WebhookEvent = Prisma.WebhookEventModel
+/**
+ * Model ClientInvoice
+ * 
+ */
+export type ClientInvoice = Prisma.ClientInvoiceModel
+/**
+ * Model ClientInvoiceItem
+ * 
+ */
+export type ClientInvoiceItem = Prisma.ClientInvoiceItemModel
+/**
+ * Model ClientInvoicePayment
+ * 
+ */
+export type ClientInvoicePayment = Prisma.ClientInvoicePaymentModel
+/**
  * Model ClientOrganization
  * 
  */

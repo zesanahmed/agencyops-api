@@ -367,10 +367,6 @@ export type NotificationPreferenceOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type NotificationPreferenceCreateNestedManyWithoutMembershipInput = {
   create?: Prisma.XOR<Prisma.NotificationPreferenceCreateWithoutMembershipInput, Prisma.NotificationPreferenceUncheckedCreateWithoutMembershipInput> | Prisma.NotificationPreferenceCreateWithoutMembershipInput[] | Prisma.NotificationPreferenceUncheckedCreateWithoutMembershipInput[]
   connectOrCreate?: Prisma.NotificationPreferenceCreateOrConnectWithoutMembershipInput | Prisma.NotificationPreferenceCreateOrConnectWithoutMembershipInput[]

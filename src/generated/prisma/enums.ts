@@ -127,3 +127,41 @@ export const ClientRequestStatus = {
 } as const
 
 export type ClientRequestStatus = (typeof ClientRequestStatus)[keyof typeof ClientRequestStatus]
+
+
+export const PlanCode = {
+  FREE: 'FREE',
+  PRO: 'PRO'
+} as const
+
+export type PlanCode = (typeof PlanCode)[keyof typeof PlanCode]
+
+
+export const SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  PAST_DUE: 'PAST_DUE',
+  CANCELED: 'CANCELED',
+  INCOMPLETE: 'INCOMPLETE'
+} as const
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+
+
+export const InvoiceStatus = {
+  DRAFT: 'DRAFT',
+  OPEN: 'OPEN',
+  PAID: 'PAID',
+  VOID: 'VOID'
+} as const
+
+export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+  CANCELED: 'CANCELED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]

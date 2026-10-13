@@ -3,6 +3,7 @@ import cors from "cors";
 import express, { type Express } from "express";
 import helmet from "helmet";
 import { env } from "../config/env.js";
+import { webhookRouter } from "../modules/webhook/webhook.routes.js";
 import { apiV1Router } from "./api-v1.router.js";
 import { errorHandler } from "../middlewares/errorHandler.js";
 import { notFoundHandler } from "../middlewares/notFoundHandler.js";
@@ -19,6 +20,10 @@ export function createApp(): Express {
       credentials: true, // required for the refresh cookie to be sent cross-origin
     }),
   );
+
+  // Webhooks need the raw body for signature verification, so they must be
+  // mounted before the JSON body parser.
+  app.use("/api/v1/webhooks", webhookRouter);
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));

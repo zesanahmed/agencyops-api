@@ -9,6 +9,9 @@ try {
 
 process.env.NODE_ENV = "test";
 process.env.JWT_ACCESS_SECRET ??= "test-access-secret-not-for-production";
+process.env.STRIPE_SECRET_KEY ??= "sk_test_dummy";
+process.env.STRIPE_WEBHOOK_SECRET ??= "whsec_test_secret";
+process.env.STRIPE_PRO_PRICE_ID ??= "price_pro_test";
 process.env.JWT_REFRESH_SECRET ??= "test-refresh-secret-not-for-production";
 
 const dbUrl = process.env.DATABASE_URL ?? "";

@@ -58,6 +58,12 @@ export const ModelName = {
   Account: 'Account',
   Session: 'Session',
   AuthToken: 'AuthToken',
+  Plan: 'Plan',
+  PlatformSubscription: 'PlatformSubscription',
+  WebhookEvent: 'WebhookEvent',
+  ClientInvoice: 'ClientInvoice',
+  ClientInvoiceItem: 'ClientInvoiceItem',
+  ClientInvoicePayment: 'ClientInvoicePayment',
   ClientOrganization: 'ClientOrganization',
   ClientContact: 'ClientContact',
   ClientSession: 'ClientSession',
@@ -201,6 +207,107 @@ export const AuthTokenScalarFieldEnum = {
 } as const
 
 export type AuthTokenScalarFieldEnum = (typeof AuthTokenScalarFieldEnum)[keyof typeof AuthTokenScalarFieldEnum]
+
+
+export const PlanScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  maxMembers: 'maxMembers',
+  maxProjects: 'maxProjects',
+  stripePriceId: 'stripePriceId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
+
+
+export const PlatformSubscriptionScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  planId: 'planId',
+  status: 'status',
+  stripeCustomerId: 'stripeCustomerId',
+  stripeSubscriptionId: 'stripeSubscriptionId',
+  currentPeriodEnd: 'currentPeriodEnd',
+  cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+  lastStripeEventAt: 'lastStripeEventAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlatformSubscriptionScalarFieldEnum = (typeof PlatformSubscriptionScalarFieldEnum)[keyof typeof PlatformSubscriptionScalarFieldEnum]
+
+
+export const WebhookEventScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  eventId: 'eventId',
+  type: 'type',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type WebhookEventScalarFieldEnum = (typeof WebhookEventScalarFieldEnum)[keyof typeof WebhookEventScalarFieldEnum]
+
+
+export const ClientInvoiceScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  clientOrganizationId: 'clientOrganizationId',
+  projectId: 'projectId',
+  number: 'number',
+  status: 'status',
+  issueDate: 'issueDate',
+  dueDate: 'dueDate',
+  currency: 'currency',
+  subtotalCents: 'subtotalCents',
+  taxCents: 'taxCents',
+  discountCents: 'discountCents',
+  totalCents: 'totalCents',
+  notes: 'notes',
+  createdByMembershipId: 'createdByMembershipId',
+  sentAt: 'sentAt',
+  paidAt: 'paidAt',
+  voidedAt: 'voidedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientInvoiceScalarFieldEnum = (typeof ClientInvoiceScalarFieldEnum)[keyof typeof ClientInvoiceScalarFieldEnum]
+
+
+export const ClientInvoiceItemScalarFieldEnum = {
+  id: 'id',
+  invoiceId: 'invoiceId',
+  position: 'position',
+  description: 'description',
+  quantity: 'quantity',
+  unitAmountCents: 'unitAmountCents',
+  amountCents: 'amountCents'
+} as const
+
+export type ClientInvoiceItemScalarFieldEnum = (typeof ClientInvoiceItemScalarFieldEnum)[keyof typeof ClientInvoiceItemScalarFieldEnum]
+
+
+export const ClientInvoicePaymentScalarFieldEnum = {
+  id: 'id',
+  organizationId: 'organizationId',
+  invoiceId: 'invoiceId',
+  clientContactId: 'clientContactId',
+  amountCents: 'amountCents',
+  currency: 'currency',
+  status: 'status',
+  stripeCheckoutSessionId: 'stripeCheckoutSessionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  failureReason: 'failureReason',
+  paidAt: 'paidAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientInvoicePaymentScalarFieldEnum = (typeof ClientInvoicePaymentScalarFieldEnum)[keyof typeof ClientInvoicePaymentScalarFieldEnum]
 
 
 export const ClientOrganizationScalarFieldEnum = {

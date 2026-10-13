@@ -27,6 +27,7 @@ model Project {
   projectUpdates ProjectUpdate[]
   clientMessages ClientMessage[]
   clientFiles    ClientFile[]
+  invoices       ClientInvoice[]
 
   // Org-scoped slug uniqueness, not global — two different
   // organizations may each have a project with slug "website-redesign".

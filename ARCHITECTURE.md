@@ -85,7 +85,14 @@ Not yet implemented. Planned: Multer (upload handling) → Cloudinary (storage) 
 
 ## Payments
 
-Not yet implemented. Planned: Stripe, with webhook signature verification and idempotent webhook handling — a client-reported "payment succeeded" is never trusted on its own.
+Stripe, in two independent flows. **A payment status reported by the browser (the success redirect) is never trusted** — state only changes from a signature-verified webhook.
+
+- **Platform subscription** (`src/modules/billing/`, `billing.prisma`): an organization is on `FREE` or `PRO` (`Plan`, `PlatformSubscription`, rows created lazily; plans are upserted from code in `billing.plans.ts`). `POST /organizations/:id/billing/checkout` (OWNER) creates a Stripe Checkout Session in subscription mode and a Stripe customer; the plan changes only when `customer.subscription.*` / `checkout.session.completed` events arrive. `PAST_DUE` keeps `PRO` (grace period); `CANCELED`/`INCOMPLETE` fall back to `FREE`. Plan limits (`maxMembers`, `maxProjects`) are stored and returned but **not enforced yet**.
+- **Client invoices** (`src/modules/invoice/`): staff create/edit (DRAFT only)/send/void invoices (`invoice:*` permissions, OWNER/MANAGER). Money is integer cents; totals are computed server-side; numbers are `INV-0001` per organization (unique constraint + retry). A client contact lists/views non-draft invoices of their own client organization (project-linked invoices also need a `ClientProjectAccess` grant) and starts `POST /portal/invoices/:id/checkout`, which charges the amount stored in the database and records a `PENDING` `ClientInvoicePayment`.
+- **Webhook** (`POST /api/v1/webhooks/stripe`, `src/modules/webhook/`): mounted before `express.json()` so the raw body can be verified (`constructWebhookEvent`). Every event id is stored once in `WebhookEvent` (unique `(provider, eventId)`) — duplicates are acknowledged without reprocessing; an event that failed midway is retried by Stripe. State transitions use conditional `updateMany` inside transactions, subscription events are ordered by `lastStripeEventAt`, and a paid amount/currency that does not match the invoice is recorded as `FAILED` instead of marking it paid. Money arriving for a voided/already-paid invoice is flagged via audit log + notification for manual refund.
+- **Decision (flag for review):** client payments go to the **platform's single Stripe account** (no Stripe Connect). All Stripe calls go through `src/lib/stripe.ts`, so Connect can be added later without touching handlers.
+- **Config**: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRO_PRICE_ID`, `FRONTEND_URL` (see `.env.example`). Without them payment endpoints return 503; the app still boots.
+- **Not in this milestone**: invoice PDF generation and the BullMQ invoice job, refunds, emailing invoices.
 
 ## AI / RAG
 
@@ -100,7 +107,7 @@ A genuinely separate security boundary from internal organization membership (no
 - **Authorization**: every project-scoped portal route runs `requireProjectAccess` — an explicit `ClientProjectAccess` grant, on a live project in the contact's own organization and linked to the contact's own client. Anything else is a 404.
 - **Staff side**: `/organizations/:organizationId/clients/...` (client/contact/access management, `client:*` permissions) and `/organizations/:organizationId/client-portal/...` (task visibility, updates, message thread, shared files, request inbox, `client-portal:*` permissions). Access grants/revokes and contact/client disabling are written to `AuditLog`.
 - **Client-facing responses** use dedicated minimal shapes: no assignees, collaborators, internal comments, organization ids or Cloudinary public ids.
-- **Not yet in the portal**: invoice/payment views (arrive with the billing milestone) and email delivery of invite links (the raw invite token is currently returned once to the staff member who creates the contact).
+- **Invoices/payments** are available in the portal (see Payments). **Not yet**: email delivery of invite links (the raw invite token is currently returned once to the staff member who creates the contact).
 
 ## Deployment
 

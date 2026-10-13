@@ -476,7 +476,8 @@ export async function updateRequestInternal(
  */
 export async function notifyInternal(input: {
   organizationId: string;
-  projectId: string;
+  /** When omitted (e.g. an invoice with no project), only OWNER/MANAGER are notified. */
+  projectId?: string | undefined;
   type: string;
   title: string;
   message: string;
@@ -486,7 +487,10 @@ export async function notifyInternal(input: {
     where: {
       organizationId: input.organizationId,
       status: "ACTIVE",
-      OR: [{ role: { in: ["OWNER", "MANAGER"] } }, { projectMemberships: { some: { projectId: input.projectId } } }],
+      OR: [
+        { role: { in: ["OWNER", "MANAGER"] } },
+        ...(input.projectId ? [{ projectMemberships: { some: { projectId: input.projectId } } }] : []),
+      ],
     },
     select: { id: true, notificationPreferences: { where: { notificationType: input.type }, select: { inAppEnabled: true } } },
   });

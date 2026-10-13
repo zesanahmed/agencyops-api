@@ -12,7 +12,9 @@ import { z } from "zod";
 export const passwordSchema = z
   .string()
   .min(8, "Password must be at least 8 characters")
-  .max(128, "Password must be at most 128 characters");
+  .max(72, "Password must be at most 72 characters")
+  // bcrypt ignores everything past 72 *bytes*, so multi-byte characters count extra.
+  .refine((v) => Buffer.byteLength(v, "utf8") <= 72, "Password is too long");
 
 /**
  * Validation only — no .trim()/.toLowerCase() here. Normalization

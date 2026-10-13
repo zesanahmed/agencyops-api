@@ -24,7 +24,7 @@ Modular monolith — see [ARCHITECTURE.md](./ARCHITECTURE.md) for module boundar
 | Framework | Express 5 |
 | Database | PostgreSQL, Prisma 7 (`prisma-client` generator + `@prisma/adapter-pg`) |
 | Cache/Queue | Redis, BullMQ (infrastructure in place; not yet used by a feature) |
-| Auth | Argon2id (`argon2`), JWT (`jose`), `cookie-parser` |
+| Auth | bcrypt (`bcryptjs`), JWT (`jose`), `cookie-parser` |
 | Validation | Zod |
 
 ## Setup

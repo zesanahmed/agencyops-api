@@ -253,6 +253,7 @@ export type ClientContactWhereInput = {
   requests?: Prisma.ClientRequestListRelationFilter
   messages?: Prisma.ClientMessageListRelationFilter
   files?: Prisma.ClientFileListRelationFilter
+  payments?: Prisma.ClientInvoicePaymentListRelationFilter
 }
 
 export type ClientContactOrderByWithRelationInput = {
@@ -276,6 +277,7 @@ export type ClientContactOrderByWithRelationInput = {
   requests?: Prisma.ClientRequestOrderByRelationAggregateInput
   messages?: Prisma.ClientMessageOrderByRelationAggregateInput
   files?: Prisma.ClientFileOrderByRelationAggregateInput
+  payments?: Prisma.ClientInvoicePaymentOrderByRelationAggregateInput
 }
 
 export type ClientContactWhereUniqueInput = Prisma.AtLeast<{
@@ -303,6 +305,7 @@ export type ClientContactWhereUniqueInput = Prisma.AtLeast<{
   requests?: Prisma.ClientRequestListRelationFilter
   messages?: Prisma.ClientMessageListRelationFilter
   files?: Prisma.ClientFileListRelationFilter
+  payments?: Prisma.ClientInvoicePaymentListRelationFilter
 }, "id" | "inviteTokenHash" | "organizationId_email">
 
 export type ClientContactOrderByWithAggregationInput = {
@@ -362,6 +365,7 @@ export type ClientContactCreateInput = {
   requests?: Prisma.ClientRequestCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUncheckedCreateInput = {
@@ -383,6 +387,7 @@ export type ClientContactUncheckedCreateInput = {
   requests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUpdateInput = {
@@ -404,6 +409,7 @@ export type ClientContactUpdateInput = {
   requests?: Prisma.ClientRequestUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateInput = {
@@ -425,6 +431,7 @@ export type ClientContactUncheckedUpdateInput = {
   requests?: Prisma.ClientRequestUncheckedUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUncheckedUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactCreateManyInput = {
@@ -471,6 +478,11 @@ export type ClientContactUncheckedUpdateManyInput = {
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ClientContactNullableScalarRelationFilter = {
+  is?: Prisma.ClientContactWhereInput | null
+  isNot?: Prisma.ClientContactWhereInput | null
 }
 
 export type ClientContactListRelationFilter = {
@@ -541,9 +553,20 @@ export type ClientContactScalarRelationFilter = {
   isNot?: Prisma.ClientContactWhereInput
 }
 
-export type ClientContactNullableScalarRelationFilter = {
-  is?: Prisma.ClientContactWhereInput | null
-  isNot?: Prisma.ClientContactWhereInput | null
+export type ClientContactCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.ClientContactCreateWithoutPaymentsInput, Prisma.ClientContactUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.ClientContactCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.ClientContactWhereUniqueInput
+}
+
+export type ClientContactUpdateOneWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientContactCreateWithoutPaymentsInput, Prisma.ClientContactUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.ClientContactCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.ClientContactUpsertWithoutPaymentsInput
+  disconnect?: Prisma.ClientContactWhereInput | boolean
+  delete?: Prisma.ClientContactWhereInput | boolean
+  connect?: Prisma.ClientContactWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ClientContactUpdateToOneWithWhereWithoutPaymentsInput, Prisma.ClientContactUpdateWithoutPaymentsInput>, Prisma.ClientContactUncheckedUpdateWithoutPaymentsInput>
 }
 
 export type ClientContactCreateNestedManyWithoutClientOrganizationInput = {
@@ -708,6 +731,106 @@ export type ClientContactUncheckedUpdateManyWithoutOrganizationNestedInput = {
   deleteMany?: Prisma.ClientContactScalarWhereInput | Prisma.ClientContactScalarWhereInput[]
 }
 
+export type ClientContactCreateWithoutPaymentsInput = {
+  id?: string
+  name: string
+  email: string
+  jobTitle?: string | null
+  passwordHash?: string | null
+  status?: $Enums.ClientContactStatus
+  inviteTokenHash?: string | null
+  inviteExpiresAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  organization: Prisma.OrganizationCreateNestedOneWithoutClientContactsInput
+  clientOrganization: Prisma.ClientOrganizationCreateNestedOneWithoutContactsInput
+  sessions?: Prisma.ClientSessionCreateNestedManyWithoutClientContactInput
+  projectAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutClientContactInput
+  requests?: Prisma.ClientRequestCreateNestedManyWithoutClientContactInput
+  messages?: Prisma.ClientMessageCreateNestedManyWithoutClientAuthorInput
+  files?: Prisma.ClientFileCreateNestedManyWithoutClientUploaderInput
+}
+
+export type ClientContactUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  organizationId: string
+  clientOrganizationId: string
+  name: string
+  email: string
+  jobTitle?: string | null
+  passwordHash?: string | null
+  status?: $Enums.ClientContactStatus
+  inviteTokenHash?: string | null
+  inviteExpiresAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.ClientSessionUncheckedCreateNestedManyWithoutClientContactInput
+  projectAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutClientContactInput
+  requests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutClientContactInput
+  messages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutClientAuthorInput
+  files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientUploaderInput
+}
+
+export type ClientContactCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.ClientContactWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClientContactCreateWithoutPaymentsInput, Prisma.ClientContactUncheckedCreateWithoutPaymentsInput>
+}
+
+export type ClientContactUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.ClientContactUpdateWithoutPaymentsInput, Prisma.ClientContactUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.ClientContactCreateWithoutPaymentsInput, Prisma.ClientContactUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.ClientContactWhereInput
+}
+
+export type ClientContactUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.ClientContactWhereInput
+  data: Prisma.XOR<Prisma.ClientContactUpdateWithoutPaymentsInput, Prisma.ClientContactUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type ClientContactUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientContactStatusFieldUpdateOperationsInput | $Enums.ClientContactStatus
+  inviteTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientContactsNestedInput
+  clientOrganization?: Prisma.ClientOrganizationUpdateOneRequiredWithoutContactsNestedInput
+  sessions?: Prisma.ClientSessionUpdateManyWithoutClientContactNestedInput
+  projectAccess?: Prisma.ClientProjectAccessUpdateManyWithoutClientContactNestedInput
+  requests?: Prisma.ClientRequestUpdateManyWithoutClientContactNestedInput
+  messages?: Prisma.ClientMessageUpdateManyWithoutClientAuthorNestedInput
+  files?: Prisma.ClientFileUpdateManyWithoutClientUploaderNestedInput
+}
+
+export type ClientContactUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientOrganizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientContactStatusFieldUpdateOperationsInput | $Enums.ClientContactStatus
+  inviteTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.ClientSessionUncheckedUpdateManyWithoutClientContactNestedInput
+  projectAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutClientContactNestedInput
+  requests?: Prisma.ClientRequestUncheckedUpdateManyWithoutClientContactNestedInput
+  messages?: Prisma.ClientMessageUncheckedUpdateManyWithoutClientAuthorNestedInput
+  files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientUploaderNestedInput
+}
+
 export type ClientContactCreateWithoutClientOrganizationInput = {
   id?: string
   name: string
@@ -726,6 +849,7 @@ export type ClientContactCreateWithoutClientOrganizationInput = {
   requests?: Prisma.ClientRequestCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUncheckedCreateWithoutClientOrganizationInput = {
@@ -746,6 +870,7 @@ export type ClientContactUncheckedCreateWithoutClientOrganizationInput = {
   requests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactCreateOrConnectWithoutClientOrganizationInput = {
@@ -811,6 +936,7 @@ export type ClientContactCreateWithoutSessionsInput = {
   requests?: Prisma.ClientRequestCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUncheckedCreateWithoutSessionsInput = {
@@ -831,6 +957,7 @@ export type ClientContactUncheckedCreateWithoutSessionsInput = {
   requests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactCreateOrConnectWithoutSessionsInput = {
@@ -867,6 +994,7 @@ export type ClientContactUpdateWithoutSessionsInput = {
   requests?: Prisma.ClientRequestUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateWithoutSessionsInput = {
@@ -887,6 +1015,7 @@ export type ClientContactUncheckedUpdateWithoutSessionsInput = {
   requests?: Prisma.ClientRequestUncheckedUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUncheckedUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactCreateWithoutProjectAccessInput = {
@@ -907,6 +1036,7 @@ export type ClientContactCreateWithoutProjectAccessInput = {
   requests?: Prisma.ClientRequestCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUncheckedCreateWithoutProjectAccessInput = {
@@ -927,6 +1057,7 @@ export type ClientContactUncheckedCreateWithoutProjectAccessInput = {
   requests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactCreateOrConnectWithoutProjectAccessInput = {
@@ -963,6 +1094,7 @@ export type ClientContactUpdateWithoutProjectAccessInput = {
   requests?: Prisma.ClientRequestUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateWithoutProjectAccessInput = {
@@ -983,6 +1115,7 @@ export type ClientContactUncheckedUpdateWithoutProjectAccessInput = {
   requests?: Prisma.ClientRequestUncheckedUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUncheckedUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactCreateWithoutRequestsInput = {
@@ -1003,6 +1136,7 @@ export type ClientContactCreateWithoutRequestsInput = {
   projectAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUncheckedCreateWithoutRequestsInput = {
@@ -1023,6 +1157,7 @@ export type ClientContactUncheckedCreateWithoutRequestsInput = {
   projectAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactCreateOrConnectWithoutRequestsInput = {
@@ -1059,6 +1194,7 @@ export type ClientContactUpdateWithoutRequestsInput = {
   projectAccess?: Prisma.ClientProjectAccessUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateWithoutRequestsInput = {
@@ -1079,6 +1215,7 @@ export type ClientContactUncheckedUpdateWithoutRequestsInput = {
   projectAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUncheckedUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactCreateWithoutMessagesInput = {
@@ -1099,6 +1236,7 @@ export type ClientContactCreateWithoutMessagesInput = {
   projectAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutClientContactInput
   requests?: Prisma.ClientRequestCreateNestedManyWithoutClientContactInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUncheckedCreateWithoutMessagesInput = {
@@ -1119,6 +1257,7 @@ export type ClientContactUncheckedCreateWithoutMessagesInput = {
   projectAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutClientContactInput
   requests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutClientContactInput
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactCreateOrConnectWithoutMessagesInput = {
@@ -1155,6 +1294,7 @@ export type ClientContactUpdateWithoutMessagesInput = {
   projectAccess?: Prisma.ClientProjectAccessUpdateManyWithoutClientContactNestedInput
   requests?: Prisma.ClientRequestUpdateManyWithoutClientContactNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateWithoutMessagesInput = {
@@ -1175,6 +1315,7 @@ export type ClientContactUncheckedUpdateWithoutMessagesInput = {
   projectAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutClientContactNestedInput
   requests?: Prisma.ClientRequestUncheckedUpdateManyWithoutClientContactNestedInput
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactCreateWithoutFilesInput = {
@@ -1195,6 +1336,7 @@ export type ClientContactCreateWithoutFilesInput = {
   projectAccess?: Prisma.ClientProjectAccessCreateNestedManyWithoutClientContactInput
   requests?: Prisma.ClientRequestCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageCreateNestedManyWithoutClientAuthorInput
+  payments?: Prisma.ClientInvoicePaymentCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUncheckedCreateWithoutFilesInput = {
@@ -1215,6 +1357,7 @@ export type ClientContactUncheckedCreateWithoutFilesInput = {
   projectAccess?: Prisma.ClientProjectAccessUncheckedCreateNestedManyWithoutClientContactInput
   requests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutClientAuthorInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactCreateOrConnectWithoutFilesInput = {
@@ -1251,6 +1394,7 @@ export type ClientContactUpdateWithoutFilesInput = {
   projectAccess?: Prisma.ClientProjectAccessUpdateManyWithoutClientContactNestedInput
   requests?: Prisma.ClientRequestUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUpdateManyWithoutClientAuthorNestedInput
+  payments?: Prisma.ClientInvoicePaymentUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateWithoutFilesInput = {
@@ -1271,6 +1415,7 @@ export type ClientContactUncheckedUpdateWithoutFilesInput = {
   projectAccess?: Prisma.ClientProjectAccessUncheckedUpdateManyWithoutClientContactNestedInput
   requests?: Prisma.ClientRequestUncheckedUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUncheckedUpdateManyWithoutClientAuthorNestedInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactCreateWithoutOrganizationInput = {
@@ -1291,6 +1436,7 @@ export type ClientContactCreateWithoutOrganizationInput = {
   requests?: Prisma.ClientRequestCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactUncheckedCreateWithoutOrganizationInput = {
@@ -1311,6 +1457,7 @@ export type ClientContactUncheckedCreateWithoutOrganizationInput = {
   requests?: Prisma.ClientRequestUncheckedCreateNestedManyWithoutClientContactInput
   messages?: Prisma.ClientMessageUncheckedCreateNestedManyWithoutClientAuthorInput
   files?: Prisma.ClientFileUncheckedCreateNestedManyWithoutClientUploaderInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutClientContactInput
 }
 
 export type ClientContactCreateOrConnectWithoutOrganizationInput = {
@@ -1372,6 +1519,7 @@ export type ClientContactUpdateWithoutClientOrganizationInput = {
   requests?: Prisma.ClientRequestUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateWithoutClientOrganizationInput = {
@@ -1392,6 +1540,7 @@ export type ClientContactUncheckedUpdateWithoutClientOrganizationInput = {
   requests?: Prisma.ClientRequestUncheckedUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUncheckedUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateManyWithoutClientOrganizationInput = {
@@ -1442,6 +1591,7 @@ export type ClientContactUpdateWithoutOrganizationInput = {
   requests?: Prisma.ClientRequestUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateWithoutOrganizationInput = {
@@ -1462,6 +1612,7 @@ export type ClientContactUncheckedUpdateWithoutOrganizationInput = {
   requests?: Prisma.ClientRequestUncheckedUpdateManyWithoutClientContactNestedInput
   messages?: Prisma.ClientMessageUncheckedUpdateManyWithoutClientAuthorNestedInput
   files?: Prisma.ClientFileUncheckedUpdateManyWithoutClientUploaderNestedInput
+  payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutClientContactNestedInput
 }
 
 export type ClientContactUncheckedUpdateManyWithoutOrganizationInput = {
@@ -1490,6 +1641,7 @@ export type ClientContactCountOutputType = {
   requests: number
   messages: number
   files: number
+  payments: number
 }
 
 export type ClientContactCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1498,6 +1650,7 @@ export type ClientContactCountOutputTypeSelect<ExtArgs extends runtime.Types.Ext
   requests?: boolean | ClientContactCountOutputTypeCountRequestsArgs
   messages?: boolean | ClientContactCountOutputTypeCountMessagesArgs
   files?: boolean | ClientContactCountOutputTypeCountFilesArgs
+  payments?: boolean | ClientContactCountOutputTypeCountPaymentsArgs
 }
 
 /**
@@ -1545,6 +1698,13 @@ export type ClientContactCountOutputTypeCountFilesArgs<ExtArgs extends runtime.T
   where?: Prisma.ClientFileWhereInput
 }
 
+/**
+ * ClientContactCountOutputType without action
+ */
+export type ClientContactCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientInvoicePaymentWhereInput
+}
+
 
 export type ClientContactSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1567,6 +1727,7 @@ export type ClientContactSelect<ExtArgs extends runtime.Types.Extensions.Interna
   requests?: boolean | Prisma.ClientContact$requestsArgs<ExtArgs>
   messages?: boolean | Prisma.ClientContact$messagesArgs<ExtArgs>
   files?: boolean | Prisma.ClientContact$filesArgs<ExtArgs>
+  payments?: boolean | Prisma.ClientContact$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.ClientContactCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientContact"]>
 
@@ -1631,6 +1792,7 @@ export type ClientContactInclude<ExtArgs extends runtime.Types.Extensions.Intern
   requests?: boolean | Prisma.ClientContact$requestsArgs<ExtArgs>
   messages?: boolean | Prisma.ClientContact$messagesArgs<ExtArgs>
   files?: boolean | Prisma.ClientContact$filesArgs<ExtArgs>
+  payments?: boolean | Prisma.ClientContact$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.ClientContactCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ClientContactIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1652,6 +1814,7 @@ export type $ClientContactPayload<ExtArgs extends runtime.Types.Extensions.Inter
     requests: Prisma.$ClientRequestPayload<ExtArgs>[]
     messages: Prisma.$ClientMessagePayload<ExtArgs>[]
     files: Prisma.$ClientFilePayload<ExtArgs>[]
+    payments: Prisma.$ClientInvoicePaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2068,6 +2231,7 @@ export interface Prisma__ClientContactClient<T, Null = never, ExtArgs extends ru
   requests<T extends Prisma.ClientContact$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientContact$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messages<T extends Prisma.ClientContact$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientContact$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   files<T extends Prisma.ClientContact$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientContact$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientFilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.ClientContact$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientContact$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientInvoicePaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2628,6 +2792,30 @@ export type ClientContact$filesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ClientFileScalarFieldEnum | Prisma.ClientFileScalarFieldEnum[]
+}
+
+/**
+ * ClientContact.payments
+ */
+export type ClientContact$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientInvoicePayment
+   */
+  select?: Prisma.ClientInvoicePaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientInvoicePayment
+   */
+  omit?: Prisma.ClientInvoicePaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientInvoicePaymentInclude<ExtArgs> | null
+  where?: Prisma.ClientInvoicePaymentWhereInput
+  orderBy?: Prisma.ClientInvoicePaymentOrderByWithRelationInput | Prisma.ClientInvoicePaymentOrderByWithRelationInput[]
+  cursor?: Prisma.ClientInvoicePaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientInvoicePaymentScalarFieldEnum | Prisma.ClientInvoicePaymentScalarFieldEnum[]
 }
 
 /**

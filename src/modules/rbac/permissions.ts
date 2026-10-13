@@ -46,6 +46,10 @@ export const PERMISSIONS = [
   "client:manage-access",
   "client-portal:read",
   "client-portal:manage",
+  "billing:read",
+  "billing:manage",
+  "invoice:read",
+  "invoice:manage",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
@@ -98,6 +102,10 @@ const ROLE_PERMISSIONS: Record<MembershipRole, readonly Permission[]> = {
     "client:manage-access",
     "client-portal:read",
     "client-portal:manage",
+    "billing:read",
+    "billing:manage",
+    "invoice:read",
+    "invoice:manage",
   ],
   MANAGER: [
     "organization:read",
@@ -134,6 +142,9 @@ const ROLE_PERMISSIONS: Record<MembershipRole, readonly Permission[]> = {
     "client:manage-access",
     "client-portal:read",
     "client-portal:manage",
+    "billing:read",
+    "invoice:read",
+    "invoice:manage",
   ],
   TEAM_MEMBER: ["organization:read", "membership:read", "team:read", "project:read", "sprint:read", "task:create", "task:read", "task:update", "comment:create", "comment:read", "client:read", "client-portal:read"],
 };

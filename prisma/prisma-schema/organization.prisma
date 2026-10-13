@@ -29,6 +29,10 @@ model Organization {
   projectUpdates      ProjectUpdate[]
   clientMessages      ClientMessage[]
   clientFiles         ClientFile[]
+
+  platformSubscription  PlatformSubscription?
+  clientInvoices        ClientInvoice[]
+  clientInvoicePayments ClientInvoicePayment[]
 }
 
 model Membership {
@@ -82,6 +86,7 @@ model Membership {
   projectUpdates        ProjectUpdate[]       @relation("ProjectUpdateAuthor")
   clientMessages        ClientMessage[]       @relation("ClientMessageStaffAuthor")
   clientFilesUploaded   ClientFile[]          @relation("ClientFileStaffUploader")
+  createdInvoices       ClientInvoice[]       @relation("InvoiceCreator")
 
   @@unique([userId, organizationId])
   @@index([organizationId])
