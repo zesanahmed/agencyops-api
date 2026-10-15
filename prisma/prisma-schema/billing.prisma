@@ -72,6 +72,10 @@ model ClientInvoice {
   sentAt                DateTime?
   paidAt                DateTime?
   voidedAt              DateTime?
+  // Rendered by the invoice-pdf background job (Cloudinary); null until generated.
+  pdfUrl                String?
+  pdfPublicId           String?
+  pdfGeneratedAt        DateTime?
   createdAt             DateTime      @default(now())
   updatedAt             DateTime      @updatedAt
 

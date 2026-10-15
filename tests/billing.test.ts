@@ -1,5 +1,7 @@
 import Stripe from "stripe";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { renderInvoicePdf } from "../src/modules/invoice/invoice.pdf.js";
+import { generateInvoicePdf } from "../src/modules/invoice/invoice.pdf.service.js";
 import { addMember, api, app, auth, createOrg, PASSWORD, prisma, registerUser, request, resetDatabase } from "./helpers.js";
 import type { TestUser } from "./helpers.js";
 
@@ -21,6 +23,27 @@ const stripeMock = {
 vi.mock("../src/lib/stripe.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../src/lib/stripe.js")>();
   return { ...actual, getStripe: () => stripeMock };
+});
+
+// Redis/BullMQ and Cloudinary are never reached from tests.
+const enqueueMock = vi.fn(async (_invoiceId: string) => undefined);
+vi.mock("../src/modules/invoice/invoice.queue.js", () => ({
+  enqueueInvoicePdf: (id: string) => enqueueMock(id),
+  enqueueInvoicePdfQuietly: (id: string) => void enqueueMock(id),
+}));
+
+let uploadCounter = 0;
+const destroyMock = vi.fn(async (_publicId: string) => undefined);
+vi.mock("../src/lib/cloudinary.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../src/lib/cloudinary.js")>();
+  return {
+    ...actual,
+    uploadBufferToCloudinary: vi.fn(async () => {
+      uploadCounter += 1;
+      return { publicId: `invoices/pdf-${uploadCounter}`, url: `https://res.cloudinary.test/invoice-${uploadCounter}.pdf` };
+    }),
+    destroyCloudinaryAsset: (id: string) => destroyMock(id),
+  };
 });
 
 const WEBHOOK_SECRET = "whsec_test_secret";
@@ -417,5 +440,118 @@ describe("client invoices (portal + payment)", () => {
     expect((await prisma.clientInvoice.findUniqueOrThrow({ where: { id } })).status).toBe("VOID");
     expect(await prisma.auditLog.count({ where: { action: "invoice.payment.received_on_closed_invoice" } })).toBe(1);
     expect(await prisma.notification.count({ where: { type: "INVOICE_PAYMENT_ATTENTION" } })).toBe(2);
+  });
+});
+
+describe("invoice PDF", () => {
+  const pdfData = {
+    number: "INV-0042",
+    status: "OPEN" as const,
+    issueDate: new Date("2026-10-01"),
+    dueDate: new Date("2026-10-31"),
+    paidAt: null,
+    currency: "usd",
+    subtotalCents: 25000,
+    taxCents: 500,
+    discountCents: 1000,
+    totalCents: 24500,
+    notes: "Thank you for your business",
+    sellerName: "Agency Co",
+    clientName: "Acme Corp",
+    projectName: "Website",
+    items: [{ description: "Design work", quantity: 2, unitAmountCents: 10000, amountCents: 20000 }],
+  };
+
+  it("renders a valid PDF containing the invoice details", async () => {
+    const buffer = await renderInvoicePdf(pdfData, { compress: false });
+    expect(buffer.subarray(0, 5).toString()).toBe("%PDF-");
+    expect(buffer.length).toBeGreaterThan(1000);
+    const text = buffer.toString("latin1");
+    expect(text).toMatch(/%%EOF\s*$/);
+    // PDFKit writes text as kerned hex runs: [<494e56> 80 <2d30303432>] TJ — decode them back.
+    const shown = [...text.matchAll(/\[(.*?)\] TJ/g)].map((m) =>
+      [...(m[1] ?? "").matchAll(/<([0-9a-f]*)>/g)].map((h) => Buffer.from(h[1] ?? "", "hex").toString("latin1")).join(""),
+    );
+    for (const needle of ["INV-0042", "Acme Corp", "Design work", "$245.00"]) {
+      expect(shown).toContain(needle);
+    }
+  });
+
+  it("paginates long invoices without failing", async () => {
+    const items = Array.from({ length: 80 }, (_, i) => ({
+      description: `Line item number ${i + 1} with a reasonably long description to wrap`,
+      quantity: 1,
+      unitAmountCents: 100,
+      amountCents: 100,
+    }));
+    const buffer = await renderInvoicePdf({ ...pdfData, items }, { compress: false });
+    const pages = buffer.toString("latin1").match(/\/Type \/Page\b/g) ?? [];
+    expect(pages.length).toBeGreaterThan(1);
+  });
+
+  it("queues generation when an invoice is sent and when it is paid", async () => {
+    const ctx = await setup();
+    const id = await openInvoice(ctx);
+    expect(enqueueMock).toHaveBeenCalledWith(id);
+
+    enqueueMock.mockClear();
+    const sessionId = await startCheckout(ctx, id);
+    await sendEvent(makeEvent("checkout.session.completed", paidSession(sessionId, 24500)));
+    expect(enqueueMock).toHaveBeenCalledTimes(1);
+    expect(enqueueMock).toHaveBeenCalledWith(id);
+  });
+
+  it("generates and stores the PDF, replaces it on regeneration, and skips drafts and unknown ids", async () => {
+    const ctx = await setup();
+    const draft = (await request(app).post(`${org(ctx)}/invoices`).set(auth(ctx.owner)).send(invoiceBody(ctx))).body.data.id as string;
+    expect(await generateInvoicePdf(draft)).toBe("skipped");
+    expect(await generateInvoicePdf("00000000-0000-4000-8000-000000000000")).toBe("skipped");
+
+    const id = await openInvoice(ctx);
+    expect(await generateInvoicePdf(id)).toBe("generated");
+    const first = await prisma.clientInvoice.findUniqueOrThrow({ where: { id } });
+    expect(first.pdfUrl).toMatch(/invoice-\d+\.pdf$/);
+    expect(first.pdfGeneratedAt).not.toBeNull();
+    expect(destroyMock).not.toHaveBeenCalled();
+
+    expect(await generateInvoicePdf(id)).toBe("generated");
+    const second = await prisma.clientInvoice.findUniqueOrThrow({ where: { id } });
+    expect(second.pdfPublicId).not.toBe(first.pdfPublicId);
+    expect(destroyMock).toHaveBeenCalledWith(first.pdfPublicId);
+  });
+
+  it("exposes the PDF link to staff and the owning client only after generation", async () => {
+    const ctx = await setup();
+    const id = await openInvoice(ctx);
+    const before = await request(app).get(`${api}/portal/invoices/${id}`).set(bearer(ctx.clientToken));
+    expect(before.body.data.pdfUrl).toBeNull();
+
+    await generateInvoicePdf(id);
+    const portal = await request(app).get(`${api}/portal/invoices/${id}`).set(bearer(ctx.clientToken));
+    expect(portal.body.data.pdfUrl).toMatch(/\.pdf$/);
+    const staff = await request(app).get(`${org(ctx)}/invoices/${id}`).set(auth(ctx.owner));
+    expect(staff.body.data.pdfUrl).toBe(portal.body.data.pdfUrl);
+    expect(JSON.stringify(portal.body)).not.toContain("pdfPublicId");
+
+    // Another agency's client contact still cannot see it.
+    const other = await request(app).post(`${org(ctx)}/clients`).set(auth(ctx.owner)).send({ name: "Beta LLC" });
+    const otherToken = await portalContact(ctx, other.body.data.client.id, "bob@beta.test");
+    expect((await request(app).get(`${api}/portal/invoices/${id}`).set(bearer(otherToken))).status).toBe(404);
+  });
+
+  it("lets OWNER/MANAGER request regeneration but not members, outsiders or drafts", async () => {
+    const ctx = await setup();
+    const draft = (await request(app).post(`${org(ctx)}/invoices`).set(auth(ctx.owner)).send(invoiceBody(ctx))).body.data.id as string;
+    expect((await request(app).post(`${org(ctx)}/invoices/${draft}/pdf`).set(auth(ctx.owner))).status).toBe(409);
+
+    const id = await openInvoice(ctx);
+    enqueueMock.mockClear();
+    const res = await request(app).post(`${org(ctx)}/invoices/${id}/pdf`).set(auth(ctx.manager));
+    expect(res.status).toBe(202);
+    expect(res.body.data).toEqual({ queued: true });
+    expect(enqueueMock).toHaveBeenCalledWith(id);
+
+    expect((await request(app).post(`${org(ctx)}/invoices/${id}/pdf`).set(auth(ctx.member))).status).toBe(403);
+    expect((await request(app).post(`${org(ctx)}/invoices/${id}/pdf`).set(auth(ctx.outsider))).status).toBe(404);
   });
 });

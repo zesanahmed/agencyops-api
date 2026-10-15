@@ -5,6 +5,7 @@ import type { InvoiceStatus } from "../../generated/prisma/client.js";
 import { getStripe } from "../../lib/stripe.js";
 import { prisma } from "../../lib/prisma.js";
 import { recordAuditLog } from "../audit/audit.service.js";
+import { enqueueInvoicePdf, enqueueInvoicePdfQuietly } from "./invoice.queue.js";
 import { pageInfo, type PageInfo } from "../client-collaboration/collaboration.mappers.js";
 import {
   toPortalInvoiceView,
@@ -228,11 +229,15 @@ export async function sendInvoice(organizationId: string, invoiceId: string, act
     ipAddress: actor.ipAddress,
     userAgent: actor.userAgent,
   });
+  enqueueInvoicePdfQuietly(invoiceId);
   return getInvoice(organizationId, invoiceId);
 }
 
 export async function voidInvoice(organizationId: string, invoiceId: string, actor: InvoiceActor): Promise<StaffInvoiceView> {
-  const existing = await prisma.clientInvoice.findFirst({ where: { id: invoiceId, organizationId }, select: { status: true } });
+  const existing = await prisma.clientInvoice.findFirst({
+    where: { id: invoiceId, organizationId },
+    select: { status: true, pdfPublicId: true },
+  });
   if (!existing) throw new AppError("Invoice not found", 404);
   if (existing.status === "PAID") throw new AppError("A paid invoice cannot be voided", 409);
   if (existing.status === "VOID") throw new AppError("Invoice is already void", 409);
@@ -267,7 +272,17 @@ export async function voidInvoice(organizationId: string, invoiceId: string, act
     ipAddress: actor.ipAddress,
     userAgent: actor.userAgent,
   });
+  // A previously rendered PDF would still say "DUE" — refresh it to show VOID.
+  if (existing.pdfPublicId) enqueueInvoicePdfQuietly(invoiceId);
   return getInvoice(organizationId, invoiceId);
+}
+
+/** Staff-triggered (re)generation of the invoice PDF, e.g. after a failed job. */
+export async function requestInvoicePdf(organizationId: string, invoiceId: string): Promise<void> {
+  const invoice = await prisma.clientInvoice.findFirst({ where: { id: invoiceId, organizationId }, select: { status: true } });
+  if (!invoice) throw new AppError("Invoice not found", 404);
+  if (invoice.status === "DRAFT") throw new AppError("Send the invoice before generating its PDF", 409);
+  await enqueueInvoicePdf(invoiceId);
 }
 
 // ---------------------------------------------------------------------------

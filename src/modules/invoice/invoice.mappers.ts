@@ -21,6 +21,8 @@ type InvoiceRow = {
   sentAt: Date | null;
   paidAt: Date | null;
   voidedAt: Date | null;
+  pdfUrl: string | null;
+  pdfGeneratedAt: Date | null;
   createdAt: Date;
   items?: ItemRow[];
   payments?: PaymentRow[];
@@ -60,6 +62,9 @@ const base = (r: InvoiceRow) => ({
   notes: r.notes,
   sentAt: iso(r.sentAt),
   paidAt: iso(r.paidAt),
+  // Present once the background job has rendered it; the URL is unguessable but not authenticated.
+  pdfUrl: r.pdfUrl,
+  pdfGeneratedAt: iso(r.pdfGeneratedAt),
   createdAt: r.createdAt.toISOString(),
   items: (r.items ?? []).slice().sort((a, b) => a.position - b.position).map(toItem),
 });

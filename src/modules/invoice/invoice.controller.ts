@@ -7,6 +7,7 @@ import {
   getPortalInvoice,
   listInvoices,
   listPortalInvoices,
+  requestInvoicePdf,
   sendInvoice,
   updateInvoice,
   voidInvoice,
@@ -53,6 +54,11 @@ export async function send(req: Request, res: Response): Promise<void> {
 
 export async function voidOne(req: Request, res: Response): Promise<void> {
   sendSuccess(res, await voidInvoice(orgId(req), invoiceId(req), actor(req)), "Invoice voided successfully");
+}
+
+export async function generatePdf(req: Request, res: Response): Promise<void> {
+  await requestInvoicePdf(orgId(req), invoiceId(req));
+  sendSuccess(res, { queued: true }, "Invoice PDF generation queued", 202);
 }
 
 // ---- Portal ----

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { validate } from "../../middlewares/validate.js";
 import { organizationIdParamSchema } from "../organization/organization.validation.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
-import { create, getOne, list, send, update, voidOne } from "./invoice.controller.js";
+import { create, generatePdf, getOne, list, send, update, voidOne } from "./invoice.controller.js";
 import {
   createInvoiceSchema,
   invoiceIdParamSchema,
@@ -22,6 +22,7 @@ invoiceRouter.get("/", requirePermission("invoice:read"), validate({ query: invo
 invoiceRouter.get("/:invoiceId", requirePermission("invoice:read"), byId, getOne);
 invoiceRouter.patch("/:invoiceId", requirePermission("invoice:manage"), byId, validate({ body: updateInvoiceSchema }), update);
 invoiceRouter.post("/:invoiceId/send", requirePermission("invoice:manage"), byId, send);
+invoiceRouter.post("/:invoiceId/pdf", requirePermission("invoice:manage"), byId, generatePdf);
 invoiceRouter.post("/:invoiceId/void", requirePermission("invoice:manage"), byId, voidOne);
 
 export { invoiceRouter };

@@ -164,7 +164,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Zesan Ahmed\",\n  \"email\": \"owner@example.com\",\n  \"password\": \"StrongPassword123!\"\n}"
+              "raw": "{\n  \"name\": \"Zesan Ahmed\",\n  \"email\": \"owner@example.com\",\n  \"password\": \"StrongPassword123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": [],
@@ -209,7 +214,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"owner@example.com\",\n  \"password\": \"StrongPassword123!\"\n}"
+              "raw": "{\n  \"email\": \"owner@example.com\",\n  \"password\": \"StrongPassword123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": [],
@@ -368,7 +378,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Acme Corp\"\n}"
+              "raw": "{\n  \"name\": \"Acme Corp\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -473,7 +488,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Acme Corporation\"\n}"
+              "raw": "{\n  \"name\": \"Acme Corporation\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -620,7 +640,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"role\": \"MANAGER\"\n}"
+              "raw": "{\n  \"role\": \"MANAGER\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -696,7 +721,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"invitee@example.com\",\n  \"role\": \"TEAM_MEMBER\"\n}"
+              "raw": "{\n  \"email\": \"invitee@example.com\",\n  \"role\": \"TEAM_MEMBER\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -864,7 +894,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Backend Team\",\n  \"description\": \"Owns the API\"\n}"
+              "raw": "{\n  \"name\": \"Backend Team\",\n  \"description\": \"Owns the API\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -975,7 +1010,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Platform Team\"\n}"
+              "raw": "{\n  \"name\": \"Platform Team\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1079,7 +1119,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"membershipId\": \"{{membershipId}}\"\n}"
+              "raw": "{\n  \"membershipId\": \"{{membershipId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1157,7 +1202,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Website Redesign\",\n  \"description\": \"Q1 marketing site refresh\"\n}"
+              "raw": "{\n  \"name\": \"Website Redesign\",\n  \"description\": \"Q1 marketing site refresh\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1284,7 +1334,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"ACTIVE\"\n}"
+              "raw": "{\n  \"status\": \"ACTIVE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1388,7 +1443,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"teamId\": \"{{teamId}}\"\n}"
+              "raw": "{\n  \"teamId\": \"{{teamId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1494,7 +1554,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"membershipId\": \"{{membershipId}}\"\n}"
+              "raw": "{\n  \"membershipId\": \"{{membershipId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1574,7 +1639,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Sprint 1\",\n  \"goal\": \"Ship the login flow\",\n  \"startDate\": \"2026-01-01T00:00:00.000Z\",\n  \"endDate\": \"2026-01-14T00:00:00.000Z\"\n}"
+              "raw": "{\n  \"name\": \"Sprint 1\",\n  \"goal\": \"Ship the login flow\",\n  \"startDate\": \"2026-01-01T00:00:00.000Z\",\n  \"endDate\": \"2026-01-14T00:00:00.000Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1691,7 +1761,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"goal\": \"Ship login + signup\"\n}"
+              "raw": "{\n  \"goal\": \"Ship login + signup\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1839,7 +1914,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Build login page\",\n  \"priority\": \"HIGH\",\n  \"assigneeMembershipId\": \"{{membershipId}}\"\n}"
+              "raw": "{\n  \"title\": \"Build login page\",\n  \"priority\": \"HIGH\",\n  \"assigneeMembershipId\": \"{{membershipId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -1976,7 +2056,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"IN_PROGRESS\"\n}"
+              "raw": "{\n  \"status\": \"IN_PROGRESS\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -2086,7 +2171,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Design the form\"\n}"
+              "raw": "{\n  \"title\": \"Design the form\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -2163,7 +2253,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"membershipId\": \"{{membershipId}}\"\n}"
+              "raw": "{\n  \"membershipId\": \"{{membershipId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -2247,7 +2342,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"content\": \"Looks good, please check @mention\",\n  \"mentionedMembershipIds\": [\n    \"{{membershipId}}\"\n  ]\n}"
+              "raw": "{\n  \"content\": \"Looks good, please check @mention\",\n  \"mentionedMembershipIds\": [\n    \"{{membershipId}}\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -2335,7 +2435,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"content\": \"Edited: looks good\"\n}"
+              "raw": "{\n  \"content\": \"Edited: looks good\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -2555,7 +2660,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"emailEnabled\": false\n}"
+              "raw": "{\n  \"emailEnabled\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -2591,7 +2701,12 @@
             "description": "OWNER/MANAGER.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Acme Corp\",\n  \"website\": \"https://acme.example\",\n  \"notes\": \"Internal-only notes\"\n}"
+              "raw": "{\n  \"name\": \"Acme Corp\",\n  \"website\": \"https://acme.example\",\n  \"notes\": \"Internal-only notes\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -2728,7 +2843,12 @@
             "description": "",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Acme Corporation\"\n}"
+              "raw": "{\n  \"name\": \"Acme Corporation\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -2800,7 +2920,12 @@
             "description": "Returns a one-time inviteToken (shown once; email delivery is a later milestone).",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Jane Client\",\n  \"email\": \"jane@acme.example\",\n  \"jobTitle\": \"Product Manager\"\n}"
+              "raw": "{\n  \"name\": \"Jane Client\",\n  \"email\": \"jane@acme.example\",\n  \"jobTitle\": \"Product Manager\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -2889,7 +3014,12 @@
             "description": "",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"jobTitle\": \"Head of Product\"\n}"
+              "raw": "{\n  \"jobTitle\": \"Head of Product\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -3077,7 +3207,12 @@
             "description": "A project can belong to one client.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"projectId\": \"{{projectId}}\"\n}"
+              "raw": "{\n  \"projectId\": \"{{projectId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -3187,7 +3322,12 @@
             "description": "Project must be linked to the contact's client. Audit-logged.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"projectId\": \"{{projectId}}\"\n}"
+              "raw": "{\n  \"projectId\": \"{{projectId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -3272,7 +3412,12 @@
             "description": "Tasks are hidden from clients by default.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"clientVisible\": true\n}"
+              "raw": "{\n  \"clientVisible\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -3314,7 +3459,12 @@
             "description": "",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"Milestone 1\",\n  \"body\": \"Homepage is live on staging.\"\n}"
+              "raw": "{\n  \"title\": \"Milestone 1\",\n  \"body\": \"Homepage is live on staging.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -3447,7 +3597,12 @@
             "description": "",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"content\": \"Demo is Friday at 3pm.\"\n}"
+              "raw": "{\n  \"content\": \"Demo is Friday at 3pm.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -3804,7 +3959,12 @@
             "description": "OWNER/MANAGER.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"RESOLVED\",\n  \"resolutionNote\": \"Shipped in v1.2\"\n}"
+              "raw": "{\n  \"status\": \"RESOLVED\",\n  \"resolutionNote\": \"Shipped in v1.2\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -3849,7 +4009,12 @@
             "description": "Sets the password, activates the contact and starts a session (client refresh cookie, path /api/v1/portal/auth).",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"token\": \"{{clientInviteToken}}\",\n  \"password\": \"StrongPassword123!\"\n}"
+              "raw": "{\n  \"token\": \"{{clientInviteToken}}\",\n  \"password\": \"StrongPassword123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": [],
@@ -3892,7 +4057,12 @@
             "description": "Generic 401 \"Invalid credentials\" for every failure.",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"organizationSlug\": \"{{organizationSlug}}\",\n  \"email\": \"jane@acme.example\",\n  \"password\": \"StrongPassword123!\"\n}"
+              "raw": "{\n  \"organizationSlug\": \"{{organizationSlug}}\",\n  \"email\": \"jane@acme.example\",\n  \"password\": \"StrongPassword123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": [],
@@ -4232,7 +4402,12 @@
             "description": "",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"content\": \"When is the next demo?\"\n}"
+              "raw": "{\n  \"content\": \"When is the next demo?\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -4313,7 +4488,12 @@
             "description": "type: NEW_REQUIREMENT | CHANGE_REQUEST | QUESTION | FEEDBACK | ISSUE",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"type\": \"CHANGE_REQUEST\",\n  \"title\": \"Add dark mode\",\n  \"description\": \"Please add a dark theme to the dashboard.\"\n}"
+              "raw": "{\n  \"type\": \"CHANGE_REQUEST\",\n  \"title\": \"Add dark mode\",\n  \"description\": \"Please add a dark theme to the dashboard.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "auth": {
               "type": "bearer",
@@ -4546,7 +4726,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"issueDate\": \"2026-10-01\",\n  \"dueDate\": \"2026-10-31\",\n  \"currency\": \"usd\",\n  \"taxCents\": 0,\n  \"discountCents\": 0,\n  \"notes\": \"Thanks!\",\n  \"items\": [\n    {\n      \"description\": \"Design work\",\n      \"quantity\": 2,\n      \"unitAmountCents\": 10000\n    }\n  ]\n}"
+              "raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"issueDate\": \"2026-10-01\",\n  \"dueDate\": \"2026-10-31\",\n  \"currency\": \"usd\",\n  \"taxCents\": 0,\n  \"discountCents\": 0,\n  \"notes\": \"Thanks!\",\n  \"items\": [\n    {\n      \"description\": \"Design work\",\n      \"quantity\": 2,\n      \"unitAmountCents\": 10000\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": [],
@@ -4661,7 +4846,12 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"notes\": \"Updated\",\n  \"items\": [\n    {\n      \"description\": \"Design work\",\n      \"quantity\": 3,\n      \"unitAmountCents\": 10000\n    }\n  ]\n}"
+              "raw": "{\n  \"notes\": \"Updated\",\n  \"items\": [\n    {\n      \"description\": \"Design work\",\n      \"quantity\": 3,\n      \"unitAmountCents\": 10000\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -4727,6 +4917,38 @@
                 }
               ]
             }
+          },
+          "response": []
+        },
+        {
+          "name": "Generate PDF",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/invoices/{{invoiceId}}/pdf",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "invoices",
+                "{{invoiceId}}",
+                "pdf"
+              ]
+            },
+            "description": "Queues PDF generation (202). Needs the worker running (npm run worker) and Cloudinary configured. The invoice then exposes pdfUrl."
           },
           "response": []
         }
@@ -4853,7 +5075,12 @@
             "description": "Called by Stripe only. Requires a valid Stripe-Signature header; use `stripe listen --forward-to localhost:5000/api/v1/webhooks/stripe` locally.",
             "body": {
               "mode": "raw",
-              "raw": "{}"
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []

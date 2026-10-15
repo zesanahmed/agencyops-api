@@ -271,6 +271,9 @@ export const ClientInvoiceScalarFieldEnum = {
   sentAt: 'sentAt',
   paidAt: 'paidAt',
   voidedAt: 'voidedAt',
+  pdfUrl: 'pdfUrl',
+  pdfPublicId: 'pdfPublicId',
+  pdfGeneratedAt: 'pdfGeneratedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

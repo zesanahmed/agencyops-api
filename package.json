@@ -7,6 +7,8 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "worker": "tsx watch src/worker.ts",
+    "start:worker": "node dist/worker.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
@@ -28,6 +30,7 @@
     "@types/express": "^5.0.6",
     "@types/multer": "^2.3.0",
     "@types/node": "^26.6.4",
+    "@types/pdfkit": "^0.17.6",
     "@types/pg": "^8.23.1",
     "@types/supertest": "^7.2.1",
     "prisma": "^7.10.0",
@@ -51,6 +54,7 @@
     "ioredis": "^6.0.0",
     "jose": "^6.2.12",
     "multer": "^2.4.0",
+    "pdfkit": "^0.20.2",
     "pg": "^8.23.0",
     "stripe": "^23.0.0",
     "zod": "^4.6.5"

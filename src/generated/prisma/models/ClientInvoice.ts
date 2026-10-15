@@ -59,6 +59,9 @@ export type ClientInvoiceMinAggregateOutputType = {
   sentAt: Date | null
   paidAt: Date | null
   voidedAt: Date | null
+  pdfUrl: string | null
+  pdfPublicId: string | null
+  pdfGeneratedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -82,6 +85,9 @@ export type ClientInvoiceMaxAggregateOutputType = {
   sentAt: Date | null
   paidAt: Date | null
   voidedAt: Date | null
+  pdfUrl: string | null
+  pdfPublicId: string | null
+  pdfGeneratedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -105,6 +111,9 @@ export type ClientInvoiceCountAggregateOutputType = {
   sentAt: number
   paidAt: number
   voidedAt: number
+  pdfUrl: number
+  pdfPublicId: number
+  pdfGeneratedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -144,6 +153,9 @@ export type ClientInvoiceMinAggregateInputType = {
   sentAt?: true
   paidAt?: true
   voidedAt?: true
+  pdfUrl?: true
+  pdfPublicId?: true
+  pdfGeneratedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -167,6 +179,9 @@ export type ClientInvoiceMaxAggregateInputType = {
   sentAt?: true
   paidAt?: true
   voidedAt?: true
+  pdfUrl?: true
+  pdfPublicId?: true
+  pdfGeneratedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -190,6 +205,9 @@ export type ClientInvoiceCountAggregateInputType = {
   sentAt?: true
   paidAt?: true
   voidedAt?: true
+  pdfUrl?: true
+  pdfPublicId?: true
+  pdfGeneratedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -300,6 +318,9 @@ export type ClientInvoiceGroupByOutputType = {
   sentAt: Date | null
   paidAt: Date | null
   voidedAt: Date | null
+  pdfUrl: string | null
+  pdfPublicId: string | null
+  pdfGeneratedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ClientInvoiceCountAggregateOutputType | null
@@ -346,6 +367,9 @@ export type ClientInvoiceWhereInput = {
   sentAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   paidAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   voidedAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
+  pdfUrl?: Prisma.StringNullableFilter<"ClientInvoice"> | string | null
+  pdfPublicId?: Prisma.StringNullableFilter<"ClientInvoice"> | string | null
+  pdfGeneratedAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ClientInvoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClientInvoice"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
@@ -375,6 +399,9 @@ export type ClientInvoiceOrderByWithRelationInput = {
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   voidedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdfPublicId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdfGeneratedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   organization?: Prisma.OrganizationOrderByWithRelationInput
@@ -408,6 +435,9 @@ export type ClientInvoiceWhereUniqueInput = Prisma.AtLeast<{
   sentAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   paidAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   voidedAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
+  pdfUrl?: Prisma.StringNullableFilter<"ClientInvoice"> | string | null
+  pdfPublicId?: Prisma.StringNullableFilter<"ClientInvoice"> | string | null
+  pdfGeneratedAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ClientInvoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClientInvoice"> | Date | string
   organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
@@ -437,6 +467,9 @@ export type ClientInvoiceOrderByWithAggregationInput = {
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
   voidedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdfUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdfPublicId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdfGeneratedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ClientInvoiceCountOrderByAggregateInput
@@ -468,6 +501,9 @@ export type ClientInvoiceScalarWhereWithAggregatesInput = {
   sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClientInvoice"> | Date | string | null
   paidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClientInvoice"> | Date | string | null
   voidedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClientInvoice"> | Date | string | null
+  pdfUrl?: Prisma.StringNullableWithAggregatesFilter<"ClientInvoice"> | string | null
+  pdfPublicId?: Prisma.StringNullableWithAggregatesFilter<"ClientInvoice"> | string | null
+  pdfGeneratedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"ClientInvoice"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ClientInvoice"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ClientInvoice"> | Date | string
 }
@@ -487,6 +523,9 @@ export type ClientInvoiceCreateInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutClientInvoicesInput
@@ -516,6 +555,9 @@ export type ClientInvoiceUncheckedCreateInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ClientInvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
@@ -537,6 +579,9 @@ export type ClientInvoiceUpdateInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientInvoicesNestedInput
@@ -566,6 +611,9 @@ export type ClientInvoiceUncheckedUpdateInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ClientInvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -591,6 +639,9 @@ export type ClientInvoiceCreateManyInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -610,6 +661,9 @@ export type ClientInvoiceUpdateManyMutationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -633,6 +687,9 @@ export type ClientInvoiceUncheckedUpdateManyInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -661,6 +718,9 @@ export type ClientInvoiceCountOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
   voidedAt?: Prisma.SortOrder
+  pdfUrl?: Prisma.SortOrder
+  pdfPublicId?: Prisma.SortOrder
+  pdfGeneratedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -691,6 +751,9 @@ export type ClientInvoiceMaxOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
   voidedAt?: Prisma.SortOrder
+  pdfUrl?: Prisma.SortOrder
+  pdfPublicId?: Prisma.SortOrder
+  pdfGeneratedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -714,6 +777,9 @@ export type ClientInvoiceMinOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
   voidedAt?: Prisma.SortOrder
+  pdfUrl?: Prisma.SortOrder
+  pdfPublicId?: Prisma.SortOrder
+  pdfGeneratedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -955,6 +1021,9 @@ export type ClientInvoiceCreateWithoutItemsInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutClientInvoicesInput
@@ -983,6 +1052,9 @@ export type ClientInvoiceUncheckedCreateWithoutItemsInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   payments?: Prisma.ClientInvoicePaymentUncheckedCreateNestedManyWithoutInvoiceInput
@@ -1019,6 +1091,9 @@ export type ClientInvoiceUpdateWithoutItemsInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientInvoicesNestedInput
@@ -1047,6 +1122,9 @@ export type ClientInvoiceUncheckedUpdateWithoutItemsInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.ClientInvoicePaymentUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -1067,6 +1145,9 @@ export type ClientInvoiceCreateWithoutPaymentsInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutClientInvoicesInput
@@ -1095,6 +1176,9 @@ export type ClientInvoiceUncheckedCreateWithoutPaymentsInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ClientInvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
@@ -1131,6 +1215,9 @@ export type ClientInvoiceUpdateWithoutPaymentsInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientInvoicesNestedInput
@@ -1159,6 +1246,9 @@ export type ClientInvoiceUncheckedUpdateWithoutPaymentsInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ClientInvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -1179,6 +1269,9 @@ export type ClientInvoiceCreateWithoutClientOrganizationInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutClientInvoicesInput
@@ -1206,6 +1299,9 @@ export type ClientInvoiceUncheckedCreateWithoutClientOrganizationInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ClientInvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
@@ -1260,6 +1356,9 @@ export type ClientInvoiceScalarWhereInput = {
   sentAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   paidAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   voidedAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
+  pdfUrl?: Prisma.StringNullableFilter<"ClientInvoice"> | string | null
+  pdfPublicId?: Prisma.StringNullableFilter<"ClientInvoice"> | string | null
+  pdfGeneratedAt?: Prisma.DateTimeNullableFilter<"ClientInvoice"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"ClientInvoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClientInvoice"> | Date | string
 }
@@ -1279,6 +1378,9 @@ export type ClientInvoiceCreateWithoutOrganizationInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   clientOrganization: Prisma.ClientOrganizationCreateNestedOneWithoutInvoicesInput
@@ -1306,6 +1408,9 @@ export type ClientInvoiceUncheckedCreateWithoutOrganizationInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ClientInvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
@@ -1353,6 +1458,9 @@ export type ClientInvoiceCreateWithoutCreatedByInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutClientInvoicesInput
@@ -1380,6 +1488,9 @@ export type ClientInvoiceUncheckedCreateWithoutCreatedByInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ClientInvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
@@ -1427,6 +1538,9 @@ export type ClientInvoiceCreateWithoutProjectInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   organization: Prisma.OrganizationCreateNestedOneWithoutClientInvoicesInput
@@ -1454,6 +1568,9 @@ export type ClientInvoiceUncheckedCreateWithoutProjectInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.ClientInvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
@@ -1504,6 +1621,9 @@ export type ClientInvoiceCreateManyClientOrganizationInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1523,6 +1643,9 @@ export type ClientInvoiceUpdateWithoutClientOrganizationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientInvoicesNestedInput
@@ -1550,6 +1673,9 @@ export type ClientInvoiceUncheckedUpdateWithoutClientOrganizationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ClientInvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -1574,6 +1700,9 @@ export type ClientInvoiceUncheckedUpdateManyWithoutClientOrganizationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1596,6 +1725,9 @@ export type ClientInvoiceCreateManyOrganizationInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1615,6 +1747,9 @@ export type ClientInvoiceUpdateWithoutOrganizationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientOrganization?: Prisma.ClientOrganizationUpdateOneRequiredWithoutInvoicesNestedInput
@@ -1642,6 +1777,9 @@ export type ClientInvoiceUncheckedUpdateWithoutOrganizationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ClientInvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -1666,6 +1804,9 @@ export type ClientInvoiceUncheckedUpdateManyWithoutOrganizationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1688,6 +1829,9 @@ export type ClientInvoiceCreateManyCreatedByInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1707,6 +1851,9 @@ export type ClientInvoiceUpdateWithoutCreatedByInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientInvoicesNestedInput
@@ -1734,6 +1881,9 @@ export type ClientInvoiceUncheckedUpdateWithoutCreatedByInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ClientInvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -1758,6 +1908,9 @@ export type ClientInvoiceUncheckedUpdateManyWithoutCreatedByInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1780,6 +1933,9 @@ export type ClientInvoiceCreateManyProjectInput = {
   sentAt?: Date | string | null
   paidAt?: Date | string | null
   voidedAt?: Date | string | null
+  pdfUrl?: string | null
+  pdfPublicId?: string | null
+  pdfGeneratedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1799,6 +1955,9 @@ export type ClientInvoiceUpdateWithoutProjectInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutClientInvoicesNestedInput
@@ -1826,6 +1985,9 @@ export type ClientInvoiceUncheckedUpdateWithoutProjectInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.ClientInvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
@@ -1850,6 +2012,9 @@ export type ClientInvoiceUncheckedUpdateManyWithoutProjectInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   voidedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdfUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdfGeneratedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1913,6 +2078,9 @@ export type ClientInvoiceSelect<ExtArgs extends runtime.Types.Extensions.Interna
   sentAt?: boolean
   paidAt?: boolean
   voidedAt?: boolean
+  pdfUrl?: boolean
+  pdfPublicId?: boolean
+  pdfGeneratedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -1943,6 +2111,9 @@ export type ClientInvoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   sentAt?: boolean
   paidAt?: boolean
   voidedAt?: boolean
+  pdfUrl?: boolean
+  pdfPublicId?: boolean
+  pdfGeneratedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -1970,6 +2141,9 @@ export type ClientInvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   sentAt?: boolean
   paidAt?: boolean
   voidedAt?: boolean
+  pdfUrl?: boolean
+  pdfPublicId?: boolean
+  pdfGeneratedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
@@ -1997,11 +2171,14 @@ export type ClientInvoiceSelectScalar = {
   sentAt?: boolean
   paidAt?: boolean
   voidedAt?: boolean
+  pdfUrl?: boolean
+  pdfPublicId?: boolean
+  pdfGeneratedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ClientInvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "clientOrganizationId" | "projectId" | "number" | "status" | "issueDate" | "dueDate" | "currency" | "subtotalCents" | "taxCents" | "discountCents" | "totalCents" | "notes" | "createdByMembershipId" | "sentAt" | "paidAt" | "voidedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["clientInvoice"]>
+export type ClientInvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "organizationId" | "clientOrganizationId" | "projectId" | "number" | "status" | "issueDate" | "dueDate" | "currency" | "subtotalCents" | "taxCents" | "discountCents" | "totalCents" | "notes" | "createdByMembershipId" | "sentAt" | "paidAt" | "voidedAt" | "pdfUrl" | "pdfPublicId" | "pdfGeneratedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["clientInvoice"]>
 export type ClientInvoiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   clientOrganization?: boolean | Prisma.ClientOrganizationDefaultArgs<ExtArgs>
@@ -2053,6 +2230,9 @@ export type $ClientInvoicePayload<ExtArgs extends runtime.Types.Extensions.Inter
     sentAt: Date | null
     paidAt: Date | null
     voidedAt: Date | null
+    pdfUrl: string | null
+    pdfPublicId: string | null
+    pdfGeneratedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["clientInvoice"]>
@@ -2502,6 +2682,9 @@ export interface ClientInvoiceFieldRefs {
   readonly sentAt: Prisma.FieldRef<"ClientInvoice", 'DateTime'>
   readonly paidAt: Prisma.FieldRef<"ClientInvoice", 'DateTime'>
   readonly voidedAt: Prisma.FieldRef<"ClientInvoice", 'DateTime'>
+  readonly pdfUrl: Prisma.FieldRef<"ClientInvoice", 'String'>
+  readonly pdfPublicId: Prisma.FieldRef<"ClientInvoice", 'String'>
+  readonly pdfGeneratedAt: Prisma.FieldRef<"ClientInvoice", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"ClientInvoice", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ClientInvoice", 'DateTime'>
 }

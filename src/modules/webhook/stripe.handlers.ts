@@ -3,6 +3,7 @@ import type { SubscriptionStatus } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { recordAuditLog } from "../audit/audit.service.js";
 import { applySubscriptionSync } from "../billing/billing.service.js";
+import { enqueueInvoicePdfQuietly } from "../invoice/invoice.queue.js";
 import { notifyInternal } from "../client-collaboration/collaboration.service.js";
 
 const idOf = (v: string | { id: string } | null | undefined): string | null => (typeof v === "string" ? v : (v?.id ?? null));
@@ -130,6 +131,8 @@ async function markPaymentSucceeded(session: Stripe.Checkout.Session): Promise<v
       message: `Invoice ${payment.invoice.number} was paid.`,
       data: { invoiceId: payment.invoiceId },
     });
+    // Re-render so the stored PDF shows PAID.
+    enqueueInvoicePdfQuietly(payment.invoiceId);
   } else {
     // Money arrived for an invoice that is no longer OPEN (voided, or paid twice) — needs a human.
     await recordAuditLog({
