@@ -171,6 +171,37 @@ function resolveEmailConfig(): EmailConfig {
   };
 }
 
+export interface OAuthProviderConfig {
+  clientId: string;
+  clientSecret: string;
+}
+
+export interface OAuthConfig {
+  /** Public base URL of THIS API; provider redirect URIs are built from it. */
+  apiPublicUrl: string;
+  google: OAuthProviderConfig | undefined;
+  github: OAuthProviderConfig | undefined;
+}
+
+// Optional, like Stripe: a provider without credentials simply returns 503
+// from its sign-in endpoint; password login is unaffected.
+function resolveOAuthConfig(port: number): OAuthConfig {
+  const read = (name: string): string | undefined => {
+    const value = process.env[name]?.trim();
+    return value ? value : undefined;
+  };
+  const provider = (prefix: string): OAuthProviderConfig | undefined => {
+    const clientId = read(`${prefix}_CLIENT_ID`);
+    const clientSecret = read(`${prefix}_CLIENT_SECRET`);
+    return clientId && clientSecret ? { clientId, clientSecret } : undefined;
+  };
+  return {
+    apiPublicUrl: (read("API_PUBLIC_URL") ?? `http://localhost:${port}`).replace(/\/+$/, ""),
+    google: provider("GOOGLE"),
+    github: provider("GITHUB"),
+  };
+}
+
 export interface EnvConfig {
   nodeEnv: NodeEnv;
   port: number;
@@ -183,6 +214,7 @@ export interface EnvConfig {
   cloudinary: CloudinaryConfig | undefined;
   stripe: StripeConfig;
   email: EmailConfig;
+  oauth: OAuthConfig;
   /** Base URL of the web app, used to build Stripe checkout return URLs. */
   frontendUrl: string;
 }
@@ -217,5 +249,6 @@ export const env: EnvConfig = {
   cloudinary: resolveCloudinaryConfig(),
   stripe: resolveStripeConfig(),
   email: resolveEmailConfig(),
+  oauth: resolveOAuthConfig(resolvePort(process.env["PORT"])),
   frontendUrl: (process.env["FRONTEND_URL"]?.trim() || "http://localhost:3000").replace(/\/+$/, ""),
 };

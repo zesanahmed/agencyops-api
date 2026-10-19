@@ -23,6 +23,18 @@ export type EmailJob =
       token: string;
     }
   | {
+      type: "VERIFY_EMAIL";
+      to: string;
+      name: string;
+      token: string;
+    }
+  | {
+      type: "PASSWORD_RESET";
+      to: string;
+      name: string;
+      token: string;
+    }
+  | {
       type: "NOTIFICATION";
       to: string;
       recipientName: string;

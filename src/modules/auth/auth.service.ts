@@ -11,6 +11,7 @@ import {
   rotateAuthSession,
 } from "./session.service.js";
 import { verifyRefreshToken } from "./token.service.js";
+import { sendVerificationEmail } from "./account.service.js";
 
 export interface RegisterInput {
   name: string;
@@ -113,6 +114,8 @@ export async function registerUser(input: RegisterInput): Promise<AuthResult> {
 
       return { user: createdUser, session: createdSession };
     });
+
+    await sendVerificationEmail(user);
 
     return {
       user: toSafeUser(user),

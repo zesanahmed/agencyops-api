@@ -40,6 +40,26 @@ export const loginSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
+const tokenSchema = z.string().trim().min(16, "Invalid token").max(256, "Invalid token");
+
+export const verifyEmailSchema = z.object({ token: tokenSchema });
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email("Enter a valid email address").max(255),
+});
+
+export const resetPasswordSchema = z.object({ token: tokenSchema, password: passwordSchema });
+
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, "Current password is required"),
+  newPassword: passwordSchema,
+});
+
+export const sessionIdParamSchema = z.object({ sessionId: z.string().uuid("Invalid session id") });
+
+// Express 5 leaves req.body undefined when no body is sent; treat that as {}.
+export const deleteAccountSchema = z.preprocess((v) => v ?? {}, z.object({ password: z.string().min(1).optional() }));
+
 // Named "Body" (not "Input") specifically to avoid colliding with
 // auth.service.ts's RegisterInput/LoginInput, which are the fuller
 // service-layer shape (body + request metadata like userAgent/

@@ -128,6 +128,7 @@ describe("invitation emails", () => {
   it("does not email when the invitation is rejected", async () => {
     const owner = await registerUser();
     const orgId = await createOrg(owner);
+    enqueueEmailQuietly.mockClear(); // registering queued a verification email; that is not what is under test
     expect((await invite(owner.accessToken, orgId, owner.email)).status).toBe(409);
     expect((await invite(owner.accessToken, orgId, "not-an-email")).status).toBe(400);
     expect(enqueueEmailQuietly).not.toHaveBeenCalled();
@@ -214,6 +215,7 @@ describe("notification delivery", () => {
     const project = await prisma.project.create({ data: { organizationId: orgId, name: "P", slug: "p" } });
     projectId = project.id;
     taskId = (await prisma.task.create({ data: { projectId, title: "T" } })).id;
+    enqueueEmailQuietly.mockClear(); // registering the users queued verification emails
   });
 
   const comment = (mentioned: string[]) =>
@@ -264,6 +266,7 @@ describe("notification delivery", () => {
     const otherMid = (await prisma.membership.findFirstOrThrow({ where: { organizationId: otherOrgId, userId: otherOwner.id } })).id;
     await prisma.membership.update({ where: { id: memberMid }, data: { status: "REMOVED", removedAt: new Date() } });
 
+    enqueueEmailQuietly.mockClear(); // the extra sign-up above queued a verification email
     await notifyMemberships({ organizationId: orgId, membershipIds: [otherMid, memberMid], type: "X", title: "T", message: "M" });
 
     expect(enqueueEmailQuietly).not.toHaveBeenCalled();

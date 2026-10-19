@@ -7,6 +7,8 @@ const escapeHtml = (value: string): string =>
 // Frontend routes the links point at. They must match agencyops-web.
 export const INVITATION_PATH = "/invitations/accept";
 export const CLIENT_INVITE_PATH = "/portal/accept-invite";
+export const VERIFY_EMAIL_PATH = "/verify-email";
+export const RESET_PASSWORD_PATH = "/reset-password";
 
 function link(path: string, token?: string): string {
   const url = new URL(path, `${env.frontendUrl}/`);
@@ -47,6 +49,27 @@ export function renderEmail(job: EmailJob): EmailMessage {
           url,
         }),
         text: `${intro}\n\nSet up your account: ${url}\n\nThe link can be used once.`,
+      };
+    }
+    case "VERIFY_EMAIL": {
+      const url = link(VERIFY_EMAIL_PATH, job.token);
+      const intro = `Hi ${job.name}, please confirm your email address to finish setting up your AgencyOps account.`;
+      return {
+        to: job.to,
+        subject: "Confirm your email address",
+        html: layout("Confirm your email", [intro, "This link expires in 24 hours and can be used once."], { label: "Confirm email", url }),
+        text: `${intro}\n\nConfirm your email: ${url}\n\nThis link expires in 24 hours and can be used once.`,
+      };
+    }
+    case "PASSWORD_RESET": {
+      const url = link(RESET_PASSWORD_PATH, job.token);
+      const intro = `Hi ${job.name}, we received a request to reset your AgencyOps password.`;
+      const outro = "This link expires in 1 hour and can be used once. If you did not ask for this, you can ignore this email — your password will not change.";
+      return {
+        to: job.to,
+        subject: "Reset your password",
+        html: layout("Reset your password", [intro, outro], { label: "Choose a new password", url }),
+        text: `${intro}\n\nChoose a new password: ${url}\n\n${outro}`,
       };
     }
     case "NOTIFICATION": {
