@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { AppError } from "../../errors/AppError.js";
 import { sendSuccess } from "../../lib/apiResponse.js";
+import { shouldExposeInviteTokens } from "../email/email.service.js";
 import { getCurrentUser } from "../auth/auth.service.js";
 import type { PaginationQuery } from "../organization/organization.validation.js";
 import {
@@ -29,7 +30,9 @@ export async function create(req: Request, res: Response): Promise<void> {
 
   sendSuccess(
     res,
-    { invitation: result.invitation, inviteToken: result.rawToken },
+    shouldExposeInviteTokens()
+      ? { invitation: result.invitation, inviteToken: result.rawToken }
+      : { invitation: result.invitation },
     "Invitation created successfully",
     201,
   );

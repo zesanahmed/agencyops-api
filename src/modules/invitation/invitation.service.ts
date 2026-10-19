@@ -3,6 +3,7 @@ import { hashToken } from "../auth/auth.utils.js";
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 import type { MembershipRole } from "../../generated/prisma/client.js";
+import { enqueueEmailQuietly } from "../email/email.queue.js";
 import {
   toSafeInvitation,
   type InvitationPreview,
@@ -74,6 +75,19 @@ export async function createInvitation(
         expiresAt,
       },
     });
+  });
+
+  const [organization, inviter] = await Promise.all([
+    prisma.organization.findUnique({ where: { id: input.organizationId }, select: { name: true } }),
+    prisma.membership.findUnique({ where: { id: input.invitedByMembershipId }, select: { user: { select: { name: true } } } }),
+  ]);
+  enqueueEmailQuietly({
+    type: "ORGANIZATION_INVITATION",
+    to: email,
+    organizationName: organization?.name ?? "an organization",
+    inviterName: inviter?.user.name ?? "A teammate",
+    role: input.role,
+    token: rawToken,
   });
 
   return { invitation: toSafeInvitation(invitation), rawToken };

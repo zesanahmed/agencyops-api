@@ -4,6 +4,7 @@ import { Prisma } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
 import { hashToken, normalizeEmail } from "../auth/auth.utils.js";
 import { recordAuditLog } from "../audit/audit.service.js";
+import { enqueueEmailQuietly } from "../email/email.queue.js";
 import {
   toSafeClientContact,
   toSafeClientOrganization,
@@ -15,6 +16,21 @@ import {
 import type { ClientListQuery } from "./client.validation.js";
 
 const INVITE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+
+async function emailContactInvite(
+  organizationId: string,
+  contact: { name: string; email: string },
+  token: string,
+): Promise<void> {
+  const organization = await prisma.organization.findUnique({ where: { id: organizationId }, select: { name: true } });
+  enqueueEmailQuietly({
+    type: "CLIENT_PORTAL_INVITE",
+    to: contact.email,
+    contactName: contact.name,
+    organizationName: organization?.name ?? "Your agency",
+    token,
+  });
+}
 
 export interface RequestMeta {
   actorMembershipId: string;
@@ -168,6 +184,7 @@ export async function createContact(
         inviteExpiresAt: invite.expiresAt,
       },
     });
+    await emailContactInvite(organizationId, contact, invite.rawToken);
     return { contact: toSafeClientContact(contact), inviteToken: invite.rawToken };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
@@ -218,6 +235,7 @@ export async function reinviteContact(
     where: { id: contactId },
     data: { inviteTokenHash: invite.tokenHash, inviteExpiresAt: invite.expiresAt },
   });
+  await emailContactInvite(organizationId, updated, invite.rawToken);
   return { contact: toSafeClientContact(updated), inviteToken: invite.rawToken };
 }
 
@@ -280,6 +298,7 @@ export async function enableContact(
     ipAddress: meta.ipAddress,
     userAgent: meta.userAgent,
   });
+  if (invite) await emailContactInvite(organizationId, updated, invite.rawToken);
   return { contact: toSafeClientContact(updated), inviteToken: invite ? invite.rawToken : null };
 }
 

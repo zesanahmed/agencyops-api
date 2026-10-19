@@ -2,6 +2,7 @@ import { AppError } from "../../errors/AppError.js";
 import type { ClientRequestStatus, ClientRequestType } from "../../generated/prisma/client.js";
 import { Prisma } from "../../generated/prisma/client.js";
 import { prisma } from "../../lib/prisma.js";
+import { notifyMemberships } from "../notification/notification.service.js";
 import {
   iso,
   pageInfo,
@@ -471,8 +472,8 @@ export async function updateRequestInternal(
 
 /**
  * Notifies the people who should hear about client activity on a
- * project: org OWNERs/MANAGERs plus the project's own members. Honours
- * each recipient's in-app preference for the notification type.
+ * project: org OWNERs/MANAGERs plus the project's own members. Delivery
+ * (in-app and email, per each recipient's preferences) is notifyMemberships'.
  */
 export async function notifyInternal(input: {
   organizationId: string;
@@ -492,20 +493,15 @@ export async function notifyInternal(input: {
         ...(input.projectId ? [{ projectMemberships: { some: { projectId: input.projectId } } }] : []),
       ],
     },
-    select: { id: true, notificationPreferences: { where: { notificationType: input.type }, select: { inAppEnabled: true } } },
+    select: { id: true },
   });
 
-  const recipients = members.filter((m) => m.notificationPreferences[0]?.inAppEnabled !== false);
-  if (recipients.length === 0) return;
-
-  await prisma.notification.createMany({
-    data: recipients.map((m) => ({
-      organizationId: input.organizationId,
-      recipientMembershipId: m.id,
-      type: input.type,
-      title: input.title,
-      message: input.message,
-      data: input.data,
-    })),
+  await notifyMemberships({
+    organizationId: input.organizationId,
+    membershipIds: members.map((m) => m.id),
+    type: input.type,
+    title: input.title,
+    message: input.message,
+    data: input.data,
   });
 }

@@ -1,8 +1,9 @@
 import "./config/load-env.js";
 
+import { startEmailWorker } from "./jobs/email.worker.js";
 import { startInvoicePdfWorker } from "./jobs/invoice-pdf.worker.js";
 
-const workers = [startInvoicePdfWorker()];
+const workers = [startInvoicePdfWorker(), startEmailWorker()];
 
 // eslint-disable-next-line no-console
 console.log(`[agencyops-worker] started ${workers.length} worker(s)`);

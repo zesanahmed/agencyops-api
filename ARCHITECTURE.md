@@ -73,11 +73,21 @@ Soft deletes (`deletedAt`) on long-lived business records (`User`, `Organization
 
 ## Redis / BullMQ
 
-Infrastructure exists (`src/lib/redis.ts`, `src/lib/queue.ts`) but nothing currently uses it — no feature has needed an async job yet. Planned consumers: invitation/notification emails, invoice PDF generation.
+`src/lib/redis.ts` (shared ioredis connection) and `src/lib/queue.ts` (`createQueue`). Two queues run today: `invoice-pdf` and `email`. Queues are created lazily on first enqueue, so the API (and its tests) never touch Redis until something is queued; enqueue has a 3 s timeout and the "quiet" variants never fail the request that triggered them. Workers live in `src/jobs/*` and are started by one separate process (`npm run worker` in dev, `npm run start:worker` after `npm run build`) — **the API alone only enqueues; mail and PDFs are produced by the worker.**
 
 ## Email
 
-Not yet implemented. Planned provider: Resend, dispatched via BullMQ so email delivery never blocks a request.
+`src/modules/email`: `email.provider.ts` is the only file that knows Resend (a plain `fetch` to the Resend REST API — no SDK); `email.templates.ts` turns a typed `EmailJob` into subject/HTML/text (all dynamic text HTML-escaped); `email.queue.ts` enqueues; `src/jobs/email.worker.ts` delivers.
+
+- **Jobs:** `ORGANIZATION_INVITATION`, `CLIENT_PORTAL_INVITE`, `NOTIFICATION`. 5 attempts with exponential backoff; the BullMQ job id is sent to Resend as `Idempotency-Key`, so a retried job cannot send twice.
+- **Tokens.** Invite emails carry a raw one-time token, so jobs hold it in Redis. Completed jobs are removed immediately and failed ones after 24 h. Tokens, email bodies and job payloads are never logged — failures log only the status/job type.
+- **No key configured:** in development the worker just logs recipient + subject (never the body); in production the job fails loudly instead of silently dropping mail. `RESEND_API_KEY` and `EMAIL_FROM` are the only settings. Resend's default `onboarding@resend.dev` sender can only deliver to the Resend account owner; a verified domain is needed for real recipients.
+- **Invite tokens in API responses.** While `RESEND_API_KEY` is unset, invitation / client-invite responses still include the raw token so the flow can be tried locally. Once Resend is configured the token reaches the invitee by email only.
+- **Links** point at the frontend (`FRONTEND_URL`): `/invitations/accept?token=…` and `/portal/accept-invite?token=…` (constants in `email.templates.ts`; they must match agencyops-web).
+
+### Notifications
+
+`notifyMemberships` (`notification/notification.service.ts`) is the single place a business event becomes notifications. Callers decide who to notify; it re-checks that every recipient is an active member of the organization, then honours each recipient's per-type preference **separately per channel** (in-app row, email job — both default on). `notifyInternal` (client activity, invoice events) and comment mentions go through it. Mention delivery now happens after the comment commits, and an author is not notified about mentioning themselves. Not implemented: a task-assignment notification, digest/batching of emails.
 
 ## File Storage
 

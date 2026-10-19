@@ -1,3 +1,5 @@
+import type { SafeClientContact } from "./client.mappers.js";
+import { shouldExposeInviteTokens } from "../email/email.service.js";
 import type { Request, Response } from "express";
 import { sendSuccess } from "../../lib/apiResponse.js";
 import {
@@ -69,9 +71,14 @@ export async function remove(req: Request, res: Response): Promise<void> {
   sendSuccess(res, null, "Client deleted successfully");
 }
 
+/** The invite token reaches the contact by email; staff only see it while email delivery is unconfigured (local dev). */
+function withInviteToken(result: { contact: SafeClientContact; inviteToken: string | null }) {
+  return shouldExposeInviteTokens() ? result : { contact: result.contact };
+}
+
 export async function createContactHandler(req: Request, res: Response): Promise<void> {
   const result = await createContact(orgId(req), p(req).clientId, req.body as CreateContactBody);
-  sendSuccess(res, result, "Contact created successfully", 201);
+  sendSuccess(res, withInviteToken(result), "Contact created successfully", 201);
 }
 
 export async function listContactsHandler(req: Request, res: Response): Promise<void> {
@@ -88,7 +95,7 @@ export async function updateContactHandler(req: Request, res: Response): Promise
 export async function reinvite(req: Request, res: Response): Promise<void> {
   const { clientId, contactId } = p(req);
   const result = await reinviteContact(orgId(req), clientId, contactId);
-  sendSuccess(res, result, "Invitation re-issued successfully");
+  sendSuccess(res, withInviteToken(result), "Invitation re-issued successfully");
 }
 
 export async function disable(req: Request, res: Response): Promise<void> {
@@ -100,7 +107,7 @@ export async function disable(req: Request, res: Response): Promise<void> {
 export async function enable(req: Request, res: Response): Promise<void> {
   const { clientId, contactId } = p(req);
   const result = await enableContact(orgId(req), clientId, contactId, meta(req));
-  sendSuccess(res, result, "Contact enabled successfully");
+  sendSuccess(res, withInviteToken(result), "Contact enabled successfully");
 }
 
 export async function listProjectsHandler(req: Request, res: Response): Promise<void> {

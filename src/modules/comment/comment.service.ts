@@ -1,5 +1,6 @@
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
+import { notifyMemberships } from "../notification/notification.service.js";
 import { roleHasPermission } from "../rbac/permissions.js";
 import type { MembershipRole } from "../../generated/prisma/client.js";
 import { toSafeComment, type SafeComment } from "./comment.mappers.js";
@@ -35,7 +36,7 @@ export async function createComment(input: {
   }
 
   const comment = await prisma.$transaction(async (tx) => {
-    const txClient = tx as unknown as Pick<typeof prisma, "comment" | "commentMention" | "notification">;
+    const txClient = tx as unknown as Pick<typeof prisma, "comment" | "commentMention">;
 
     const created = await txClient.comment.create({
       data: { taskId: input.taskId, authorMembershipId: input.authorMembershipId, content: input.content },
@@ -43,18 +44,20 @@ export async function createComment(input: {
 
     for (const membershipId of mentionIds) {
       await txClient.commentMention.create({ data: { commentId: created.id, membershipId } });
-      await txClient.notification.create({
-        data: {
-          organizationId: input.organizationId,
-          recipientMembershipId: membershipId,
-          type: "MENTION",
-          title: "You were mentioned in a comment",
-          message: input.content.slice(0, 200),
-        },
-      });
     }
 
     return created;
+  });
+
+  // Delivery (in-app + email, per preference) happens after the comment is
+  // committed; you are not notified about mentioning yourself.
+  await notifyMemberships({
+    organizationId: input.organizationId,
+    membershipIds: mentionIds.filter((id) => id !== input.authorMembershipId),
+    type: "MENTION",
+    title: "You were mentioned in a comment",
+    message: input.content.slice(0, 200),
+    data: { projectId: input.projectId, taskId: input.taskId, commentId: comment.id },
   });
 
   return toSafeComment(comment);

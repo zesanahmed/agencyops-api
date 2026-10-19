@@ -155,6 +155,22 @@ function resolveStripeConfig(): StripeConfig {
   };
 }
 
+export interface EmailConfig {
+  resendApiKey: string | undefined;
+  from: string;
+}
+
+// Optional, like Stripe/Cloudinary. Without a key, emails are not sent: in
+// development the worker just logs recipient + subject; in production the
+// job fails loudly instead of silently dropping mail.
+function resolveEmailConfig(): EmailConfig {
+  const resendApiKey = process.env["RESEND_API_KEY"]?.trim();
+  return {
+    resendApiKey: resendApiKey ? resendApiKey : undefined,
+    from: process.env["EMAIL_FROM"]?.trim() || "AgencyOps <onboarding@resend.dev>",
+  };
+}
+
 export interface EnvConfig {
   nodeEnv: NodeEnv;
   port: number;
@@ -166,6 +182,7 @@ export interface EnvConfig {
   corsOrigins: string[];
   cloudinary: CloudinaryConfig | undefined;
   stripe: StripeConfig;
+  email: EmailConfig;
   /** Base URL of the web app, used to build Stripe checkout return URLs. */
   frontendUrl: string;
 }
@@ -199,5 +216,6 @@ export const env: EnvConfig = {
   corsOrigins: resolveCorsOrigins(process.env["CORS_ORIGIN"], isProduction),
   cloudinary: resolveCloudinaryConfig(),
   stripe: resolveStripeConfig(),
+  email: resolveEmailConfig(),
   frontendUrl: (process.env["FRONTEND_URL"]?.trim() || "http://localhost:3000").replace(/\/+$/, ""),
 };
