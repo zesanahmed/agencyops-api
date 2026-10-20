@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { costlyActionRateLimiter } from "../../middlewares/rateLimit.js";
 import { uploadSingleFile } from "../../middlewares/upload.js";
 import { validate } from "../../middlewares/validate.js";
 import { organizationIdParamSchema } from "../organization/organization.validation.js";
@@ -96,7 +97,7 @@ collaborationRouter.delete(
 
 // Shared files
 collaborationRouter.get("/projects/:projectId/files", project, paged, read, internalListFiles);
-collaborationRouter.post("/projects/:projectId/files", project, manage, uploadSingleFile, internalUploadFile);
+collaborationRouter.post("/projects/:projectId/files", project, manage, costlyActionRateLimiter, uploadSingleFile, internalUploadFile);
 collaborationRouter.delete(
   "/projects/:projectId/files/:fileId",
   validate({ params: projectIdParamSchema.merge(fileIdParamSchema) }),

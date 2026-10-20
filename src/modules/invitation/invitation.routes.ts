@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { costlyActionRateLimiter } from "../../middlewares/rateLimit.js";
 import { validate } from "../../middlewares/validate.js";
 import {
   loadOrganizationContext,
@@ -25,6 +26,7 @@ invitationRouter.post(
   "/",
   validate({ body: createInvitationSchema }),
   requirePermission("invitation:create"),
+  costlyActionRateLimiter,
   create,
 );
 

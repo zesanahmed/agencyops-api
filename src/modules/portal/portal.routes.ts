@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { uploadSingleFile } from "../../middlewares/upload.js";
-import { authRateLimiter, refreshRateLimiter } from "../../middlewares/rateLimit.js";
+import { authRateLimiter, costlyActionRateLimiter, refreshRateLimiter } from "../../middlewares/rateLimit.js";
 import { validate } from "../../middlewares/validate.js";
 import {
   portalCreateRequest,
@@ -72,7 +72,7 @@ portalRouter.post(
 );
 
 portalRouter.get("/projects/:projectId/files", ...projectScope, paged, portalListFiles);
-portalRouter.post("/projects/:projectId/files", ...projectScope, uploadSingleFile, portalUploadFile);
+portalRouter.post("/projects/:projectId/files", ...projectScope, costlyActionRateLimiter, uploadSingleFile, portalUploadFile);
 
 // ---- Invoices (visibility enforced in the service: own client org + project grants) ----
 portalRouter.get("/invoices", paged, portalList);

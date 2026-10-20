@@ -5,11 +5,15 @@ import helmet from "helmet";
 import { env } from "../config/env.js";
 import { webhookRouter } from "../modules/webhook/webhook.routes.js";
 import { apiV1Router } from "./api-v1.router.js";
+import { apiRateLimiter } from "../middlewares/rateLimit.js";
 import { errorHandler } from "../middlewares/errorHandler.js";
 import { notFoundHandler } from "../middlewares/notFoundHandler.js";
 
 export function createApp(): Express {
   const app = express();
+
+  // Must be set before any middleware that reads req.ip (rate limiting).
+  app.set("trust proxy", env.trustProxy);
 
   app.use(helmet());
   app.use(
@@ -30,7 +34,7 @@ export function createApp(): Express {
 
   app.use(cookieParser());
 
-  app.use("/api/v1", apiV1Router);
+  app.use("/api/v1", apiRateLimiter, apiV1Router);
 
   // Must be registered after all routes.
   app.use(notFoundHandler);

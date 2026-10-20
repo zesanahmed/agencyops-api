@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { costlyActionRateLimiter } from "../../middlewares/rateLimit.js";
 import { validate } from "../../middlewares/validate.js";
 import { uploadSingleFile } from "../../middlewares/upload.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
@@ -15,7 +16,7 @@ const attachmentRouter: Router = Router({ mergeParams: true });
 attachmentRouter.use(validate({ params: organizationIdParamSchema }), loadOrganizationContext());
 
 attachmentRouter.get("/", requirePermission("task:read"), list);
-attachmentRouter.post("/", requirePermission("task:update"), uploadSingleFile, upload);
+attachmentRouter.post("/", requirePermission("task:update"), costlyActionRateLimiter, uploadSingleFile, upload);
 attachmentRouter.delete(
   "/:attachmentId",
   validate({ params: attachmentIdParamSchema }),

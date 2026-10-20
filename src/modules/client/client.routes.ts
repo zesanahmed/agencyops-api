@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { costlyActionRateLimiter } from "../../middlewares/rateLimit.js";
 import { validate } from "../../middlewares/validate.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
 import { organizationIdParamSchema } from "../organization/organization.validation.js";
@@ -58,6 +59,7 @@ clientRouter.post(
   "/:clientId/contacts",
   validate({ params: clientIdParamSchema, body: createContactSchema }),
   requirePermission("client:create"),
+  costlyActionRateLimiter,
   createContactHandler,
 );
 clientRouter.get("/:clientId/contacts", clientId, requirePermission("client:read"), listContactsHandler);
@@ -67,7 +69,7 @@ clientRouter.patch(
   requirePermission("client:update"),
   updateContactHandler,
 );
-clientRouter.post("/:clientId/contacts/:contactId/reinvite", contactParams, requirePermission("client:update"), reinvite);
+clientRouter.post("/:clientId/contacts/:contactId/reinvite", contactParams, requirePermission("client:update"), costlyActionRateLimiter, reinvite);
 clientRouter.post("/:clientId/contacts/:contactId/enable", contactParams, requirePermission("client:update"), enable);
 clientRouter.delete("/:clientId/contacts/:contactId", contactParams, requirePermission("client:update"), disable);
 

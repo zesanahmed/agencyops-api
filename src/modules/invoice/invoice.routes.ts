@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { costlyActionRateLimiter } from "../../middlewares/rateLimit.js";
 import { validate } from "../../middlewares/validate.js";
 import { organizationIdParamSchema } from "../organization/organization.validation.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
@@ -21,8 +22,8 @@ invoiceRouter.post("/", requirePermission("invoice:manage"), validate({ body: cr
 invoiceRouter.get("/", requirePermission("invoice:read"), validate({ query: invoiceListQuerySchema }), list);
 invoiceRouter.get("/:invoiceId", requirePermission("invoice:read"), byId, getOne);
 invoiceRouter.patch("/:invoiceId", requirePermission("invoice:manage"), byId, validate({ body: updateInvoiceSchema }), update);
-invoiceRouter.post("/:invoiceId/send", requirePermission("invoice:manage"), byId, send);
-invoiceRouter.post("/:invoiceId/pdf", requirePermission("invoice:manage"), byId, generatePdf);
+invoiceRouter.post("/:invoiceId/send", requirePermission("invoice:manage"), byId, costlyActionRateLimiter, send);
+invoiceRouter.post("/:invoiceId/pdf", requirePermission("invoice:manage"), byId, costlyActionRateLimiter, generatePdf);
 invoiceRouter.post("/:invoiceId/void", requirePermission("invoice:manage"), byId, voidOne);
 
 export { invoiceRouter };

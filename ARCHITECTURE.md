@@ -82,6 +82,13 @@ One documented quirk: Prisma 7's own exported `Prisma.TransactionClient` type ha
 
 Soft deletes (`deletedAt`) on long-lived business records (`User`, `Organization`, `Project`, `Task`, `Team`) — never hard-deleted. Hard deletes only for pure join/junction rows (`TeamMember`, `ProjectMember`, `ProjectTeam`, `TaskCollaborator`) where there's no history worth preserving.
 
+## Security Hardening
+
+- **Rate limiting** (`middlewares/rateLimit.ts`, in-memory per process, skipped when `NODE_ENV=test`): `authRateLimiter` (10/15 min) on credential and token endpoints, `refreshRateLimiter` (30/15 min), `apiRateLimiter` (1000/15 min per IP, health checks exempt) in front of the whole API, and `costlyActionRateLimiter` (30/min per signed-in user, IP fallback for the client portal) on actions that send email, call Stripe, render PDFs or upload files. A multi-instance deployment would need a shared (Redis) store.
+- **`TRUST_PROXY`**: off by default; set to the hop count behind a reverse proxy so `req.ip` (and therefore rate limiting) sees the real client.
+- **Error handling**: AppErrors and body-parser errors (malformed JSON -> 400, oversized body -> 413) keep the standard envelope. Unexpected errors return a generic 500 and are logged in every environment; in production Prisma errors are logged by name/code only because their messages can embed query arguments. Request bodies, headers and cookies are never logged.
+- Helmet defaults, fail-closed CORS (empty allow-list in production), HttpOnly/Secure/SameSite refresh cookies with path scoping, and a 100 kB JSON body limit are unchanged.
+
 ## Redis / BullMQ
 
 `src/lib/redis.ts` (shared ioredis connection) and `src/lib/queue.ts` (`createQueue`). Two queues run today: `invoice-pdf` and `email`. Queues are created lazily on first enqueue, so the API (and its tests) never touch Redis until something is queued; enqueue has a 3 s timeout and the "quiet" variants never fail the request that triggered them. Workers live in `src/jobs/*` and are started by one separate process (`npm run worker` in dev, `npm run start:worker` after `npm run build`) — **the API alone only enqueues; mail and PDFs are produced by the worker.**

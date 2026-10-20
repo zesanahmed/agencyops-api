@@ -108,6 +108,20 @@ function requireEnv(name: string): string {
 // common local dev ports when unset, EXCEPT in production, where an
 // unset value means "no cross-origin requests allowed" rather than
 // silently falling back to a permissive default.
+/**
+ * Express "trust proxy" setting. Behind a reverse proxy (Render, Vercel, nginx) every request
+ * arrives from the proxy's IP unless this is set, which would make all users share one rate-limit
+ * bucket. Defaults to off: trusting X-Forwarded-For without a proxy lets clients spoof their IP.
+ * Accepts "true"/"false", a hop count ("1"), or an Express subnet/IP list string.
+ */
+function resolveTrustProxy(value: string | undefined): boolean | number | string {
+  const v = value?.trim();
+  if (!v || v.toLowerCase() === "false") return false;
+  if (v.toLowerCase() === "true") return true;
+  if (/^\d+$/.test(v)) return Number(v);
+  return v;
+}
+
 function resolveCorsOrigins(value: string | undefined, isProduction: boolean): string[] {
   if (value && value.trim() !== "") {
     return value.split(",").map((o) => o.trim()).filter(Boolean);
@@ -211,6 +225,7 @@ export interface EnvConfig {
   jwt: JwtConfig;
   refreshCookie: RefreshCookieConfig;
   corsOrigins: string[];
+  trustProxy: boolean | number | string;
   cloudinary: CloudinaryConfig | undefined;
   stripe: StripeConfig;
   email: EmailConfig;
@@ -246,6 +261,7 @@ export const env: EnvConfig = {
     sameSite: resolveSameSite(process.env["REFRESH_TOKEN_COOKIE_SAME_SITE"]),
   },
   corsOrigins: resolveCorsOrigins(process.env["CORS_ORIGIN"], isProduction),
+  trustProxy: resolveTrustProxy(process.env["TRUST_PROXY"]),
   cloudinary: resolveCloudinaryConfig(),
   stripe: resolveStripeConfig(),
   email: resolveEmailConfig(),
