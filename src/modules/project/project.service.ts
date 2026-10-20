@@ -1,4 +1,5 @@
 import { AppError } from "../../errors/AppError.js";
+import { assertDateOrder } from "../../lib/dateRange.js";
 import { prisma } from "../../lib/prisma.js";
 import {
   toSafeProject,
@@ -97,7 +98,18 @@ export async function updateProject(
   projectId: string,
   input: Record<string, unknown>,
 ): Promise<SafeProject> {
-  await getProject(organizationId, projectId);
+  const existing = await prisma.project.findFirst({
+    where: { id: projectId, organizationId, deletedAt: null },
+    select: { startDate: true, dueDate: true },
+  });
+  if (!existing) {
+    throw new AppError("Project not found", 404);
+  }
+  assertDateOrder(
+    (input.startDate as Date | undefined) ?? existing.startDate,
+    (input.dueDate as Date | undefined) ?? existing.dueDate,
+    "dueDate",
+  );
   if (typeof input.slug === "string") {
     await assertSlugAvailable(organizationId, input.slug, projectId);
   }

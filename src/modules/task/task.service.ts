@@ -1,4 +1,5 @@
 import { AppError } from "../../errors/AppError.js";
+import { assertDateOrder } from "../../lib/dateRange.js";
 import { prisma } from "../../lib/prisma.js";
 import { toSafeTask, toSafeTaskCollaborator, type SafeTask, type SafeTaskCollaborator } from "./task.mappers.js";
 import type { TaskListQuery } from "./task.validation.js";
@@ -135,7 +136,12 @@ export async function updateTask(
   taskId: string,
   input: Record<string, unknown> & { sprintId?: string | null | undefined; assigneeMembershipId?: string | null | undefined },
 ): Promise<SafeTask> {
-  await getTaskOrThrow(organizationId, projectId, taskId);
+  const existing = await getTaskOrThrow(organizationId, projectId, taskId);
+  assertDateOrder(
+    (input.startDate as Date | undefined) ?? existing.startDate,
+    (input.dueDate as Date | undefined) ?? existing.dueDate,
+    "dueDate",
+  );
   await validateTaskRefs({
     organizationId,
     projectId,

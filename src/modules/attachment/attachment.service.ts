@@ -1,5 +1,6 @@
 import { AppError } from "../../errors/AppError.js";
-import { getCloudinary } from "../../lib/cloudinary.js";
+import { destroyCloudinaryAsset, uploadBufferToCloudinary } from "../../lib/cloudinary.js";
+import { fileSignatureMatches } from "../../lib/fileSignature.js";
 import { prisma } from "../../lib/prisma.js";
 import { toSafeAttachment, type SafeAttachment } from "./attachment.mappers.js";
 
@@ -24,18 +25,15 @@ export async function uploadAttachment(input: {
 }): Promise<SafeAttachment> {
   await assertTaskInOrg(input.organizationId, input.projectId, input.taskId);
 
-  const cloudinary = getCloudinary(); // throws if not configured — caller gets a clean 503, not a crash
+  // Multer only saw the client-claimed Content-Type; confirm the bytes agree.
+  if (!fileSignatureMatches(input.mimeType, input.buffer)) {
+    throw new AppError("File content does not match its declared type", 400);
+  }
 
-  const uploadResult = await new Promise<{ public_id: string; secure_url: string }>((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      { folder: `agencyops/${input.organizationId}/tasks/${input.taskId}`, resource_type: "auto" },
-      (error, result) => {
-        if (error || !result) reject(error ?? new Error("Cloudinary upload failed"));
-        else resolve(result);
-      },
-    );
-    stream.end(input.buffer);
-  });
+  const stored = await uploadBufferToCloudinary(
+    `agencyops/${input.organizationId}/tasks/${input.taskId}`,
+    input.buffer,
+  );
 
   const attachment = await prisma.attachment.create({
     data: {
@@ -43,8 +41,8 @@ export async function uploadAttachment(input: {
       taskId: input.taskId,
       uploadedByMembershipId: input.uploadedByMembershipId,
       originalFilename: input.originalFilename,
-      publicId: uploadResult.public_id,
-      url: uploadResult.secure_url,
+      publicId: stored.publicId,
+      url: stored.url,
       mimeType: input.mimeType,
       sizeBytes: input.buffer.length,
     },
@@ -75,12 +73,8 @@ export async function deleteAttachment(
     throw new AppError("Attachment not found", 404);
   }
 
-  const cloudinary = getCloudinary();
-  await cloudinary.uploader.destroy(attachment.publicId).catch(() => {
-    // Best-effort — if Cloudinary deletion fails (e.g. already gone),
-    // still remove our own record rather than leaving a dangling
-    // reference the user can't get rid of.
-  });
+  // Best-effort: a Cloudinary failure must not leave a record the user cannot remove.
+  await destroyCloudinaryAsset(attachment.publicId);
 
   await prisma.attachment.delete({ where: { id: attachmentId } });
 }

@@ -1,4 +1,5 @@
 import { AppError } from "../../errors/AppError.js";
+import { assertDateOrder } from "../../lib/dateRange.js";
 import { prisma } from "../../lib/prisma.js";
 import { toSafeSprint, type SafeSprint } from "./sprint.mappers.js";
 
@@ -68,7 +69,12 @@ export async function updateSprint(
   sprintId: string,
   input: Record<string, unknown>,
 ): Promise<SafeSprint> {
-  await getSprintOrThrow(organizationId, projectId, sprintId);
+  const existing = await getSprintOrThrow(organizationId, projectId, sprintId);
+  assertDateOrder(
+    (input.startDate as Date | undefined) ?? existing.startDate,
+    (input.endDate as Date | undefined) ?? existing.endDate,
+    "endDate",
+  );
   const sprint = await prisma.sprint.update({ where: { id: sprintId }, data: input });
   return toSafeSprint(sprint);
 }
