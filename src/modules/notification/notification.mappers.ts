@@ -8,6 +8,8 @@ export interface SafeNotification {
   type: string;
   title: string;
   message: string;
+  /** Link target, e.g. `{ projectId, taskId, commentId }`; null when the type carries none. */
+  data: JsonValue;
   readAt: string | null;
   createdAt: string;
   [key: string]: JsonValue;
@@ -21,6 +23,7 @@ export function toSafeNotification(n: Notification): SafeNotification {
     type: n.type,
     title: n.title,
     message: n.message,
+    data: (n.data ?? null) as JsonValue,
     readAt: n.readAt ? n.readAt.toISOString() : null,
     createdAt: n.createdAt.toISOString(),
   };

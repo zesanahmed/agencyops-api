@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { clearableDate } from "../../lib/zodDates.js";
 
 const PROJECT_STATUS = ["PLANNING", "ACTIVE", "ON_HOLD", "COMPLETED", "CANCELLED"] as const;
 
@@ -14,8 +15,8 @@ export const createProjectSchema = z
       .optional(),
     description: z.string().trim().max(5000).optional(),
     status: z.enum(PROJECT_STATUS).optional(),
-    startDate: z.coerce.date().optional(),
-    dueDate: z.coerce.date().optional(),
+    startDate: clearableDate,
+    dueDate: clearableDate,
   })
   .refine((v) => !v.startDate || !v.dueDate || v.dueDate >= v.startDate, {
     message: "dueDate must be on or after startDate",
@@ -34,8 +35,8 @@ export const updateProjectSchema = z
       .optional(),
     description: z.string().trim().max(5000).optional(),
     status: z.enum(PROJECT_STATUS).optional(),
-    startDate: z.coerce.date().optional(),
-    dueDate: z.coerce.date().optional(),
+    startDate: clearableDate,
+    dueDate: clearableDate,
   })
   .refine((v) => !v.startDate || !v.dueDate || v.dueDate >= v.startDate, {
     message: "dueDate must be on or after startDate",

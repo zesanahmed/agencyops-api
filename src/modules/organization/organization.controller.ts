@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { sendSuccess } from "../../lib/apiResponse.js";
+import { permissionsForRole } from "../rbac/permissions.js";
 import { toSafeOrganization } from "./organization.mappers.js";
 import {
   createOrganization,
@@ -64,7 +65,12 @@ export async function list(req: Request, res: Response): Promise<void> {
  */
 export async function getOne(req: Request, res: Response): Promise<void> {
   const organization = toSafeOrganization(req.orgContext!.organization);
-  sendSuccess(res, { organization }, "Organization retrieved successfully");
+  const { membership } = req.orgContext!;
+  sendSuccess(
+    res,
+    { organization, membership: { id: membership.id, role: membership.role, permissions: permissionsForRole(membership.role) } },
+    "Organization retrieved successfully",
+  );
 }
 
 /**

@@ -1,114 +1,113 @@
 # AgencyOps API
 
-Operations-management backend for small software agencies — clients, teams, projects, sprints, tasks, and collaboration in one multi-tenant SaaS.
+Operations-management backend for small software agencies — clients, teams, projects, sprints, tasks, collaboration, a client portal and payments in one multi-tenant SaaS.
 
 ## Key Features
 
-- Multi-tenant organizations with role-based access control (OWNER / MANAGER / TEAM_MEMBER)
-- Email/password authentication: Argon2id hashing, short-lived JWT access tokens, HttpOnly-cookie refresh tokens with rotation and reuse detection
-- Organization invitations (token-based, one-time use, expiring)
-- Teams, Projects, Sprints, Tasks (with one-level subtasks and collaborators)
-- Comments with @mentions and in-app notifications
-- Centralized, whitelisted RBAC permission matrix (no scattered role checks)
-- Strict tenant isolation on every organization-scoped resource
+- Multi-tenant organizations with role-based access control (OWNER / MANAGER / TEAM_MEMBER) and strict tenant isolation
+- Email/password auth (bcrypt), Google/GitHub OAuth, JWT access tokens, HttpOnly-cookie refresh tokens with rotation + reuse detection, email verification, password reset, session management
+- Invitations, Teams, Projects (with stats), Sprints, Tasks (subtasks, collaborators), Comments with @mentions
+- In-app + email notifications with per-type preferences, organization activity feed
+- File attachments (Cloudinary), client portal (separate identity/boundary), client invoices with Stripe Checkout, PDF invoices, platform subscription (FREE/PRO)
+- Background jobs (BullMQ): email delivery, invoice PDFs
+- Rate limiting, Helmet, strict CORS, centralized error handling
 
-## Architecture
-
-Modular monolith — see [ARCHITECTURE.md](./ARCHITECTURE.md) for module boundaries, request flow, and the full design rationale.
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for design rationale and [docs/FRONTEND_CONTRACT.md](./docs/FRONTEND_CONTRACT.md) for the contract the web app builds against.
 
 ## Tech Stack
 
 | Layer | Choice |
 |---|---|
-| Runtime | Node.js 24, TypeScript (strict) |
+| Runtime | Node.js 22+ (24 supported), TypeScript (strict) |
 | Framework | Express 5 |
 | Database | PostgreSQL, Prisma 7 (`prisma-client` generator + `@prisma/adapter-pg`) |
-| Cache/Queue | Redis, BullMQ (infrastructure in place; not yet used by a feature) |
-| Auth | bcrypt (`bcryptjs`), JWT (`jose`), `cookie-parser` |
+| Queue | Redis + BullMQ (separate worker process) |
+| Auth | `bcryptjs`, JWT (`jose`), `cookie-parser` |
 | Validation | Zod |
+| Payments / Email / Files | Stripe, Resend, Cloudinary |
+| Tests | Vitest + supertest |
 
 ## Setup
 
 ### Prerequisites
-- Node.js 24+
-- A PostgreSQL database
-- A Redis instance (see below for a no-install option)
+Node.js 22+, PostgreSQL, Redis (Docker: `docker run -d -p 6379:6379 redis`, or a free Upstash database).
 
-### 1. Install dependencies
+### 1. Install and configure
 ```bash
 npm install
+cp .env.example .env     # then fill in DATABASE_URL, REDIS_URL and the two JWT secrets
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"   # run twice: one per JWT secret
 ```
+Stripe / Resend / Cloudinary / OAuth variables are optional locally — the related endpoints return 503 (or log, for email) until set. Every variable is documented in `.env.example`.
 
-### 2. Configure environment
+### 2. Database
 ```bash
-cp .env.example .env
+npx prisma generate --config prisma7.config.ts
+npm run migrate:deploy
 ```
-Then fill in `.env`:
 
-**`DATABASE_URL`** — your Postgres connection string, e.g.
-`postgresql://user:password@localhost:5432/agencyops`
-
-**`REDIS_URL`** — a running Redis instance. Easiest without installing anything locally: create a free database at [Upstash](https://upstash.com) and copy its connection URL. (Docker alternative: `docker run -d -p 6379:6379 redis` → `redis://127.0.0.1:6379`.)
-
-**`JWT_ACCESS_SECRET`** / **`JWT_REFRESH_SECRET`** — two different random strings:
+### 3. Run
 ```bash
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+npm run dev       # API on http://localhost:5000  (GET /api/v1/health)
+npm run worker    # second terminal: sends emails, renders invoice PDFs
 ```
-Run twice, use one output for each variable. Never reuse the same value for both.
 
-Everything else in `.env.example` has a safe default — copy as-is.
+### Scripts
+| Script | Purpose |
+|---|---|
+| `npm run dev` / `npm run worker` | API / worker with reload |
+| `npm run build` → `npm start` / `npm run start:worker` | compiled production run |
+| `npm run migrate:deploy` | apply committed migrations (safe for production) |
+| `npm run seed` / `npm run seed -- --reset` | demo data (below) |
+| `npm run typecheck`, `npm test` | type check, test suite (needs a separate test database, see `.env.test`) |
 
-### 3. Database
+## Demo Data
+
 ```bash
-npx prisma generate --schema prisma/prisma-schema
-npx prisma migrate deploy --schema prisma/prisma-schema
+npm run seed              # idempotent: running twice changes nothing
+npm run seed -- --reset   # removes ONLY the demo organization + demo users, then rebuilds with fresh dates
 ```
+Deployed (compiled) environment: `npm run seed:built`. In `NODE_ENV=production` the script refuses to run unless `ALLOW_SEED_IN_PRODUCTION=true` — the demo password is public, so only seed a public demo deployment. Override the shared password with `SEED_DEMO_PASSWORD`.
 
-### 4. Run
+Organization **Brightline Studio** (slug `brightline-studio`), Pro plan, with 3 projects (active / overdue / completed), sprints (completed, active, planned), ~25 tasks across all statuses, subtasks, comments with @mentions, activity feed, notifications, a client organization with a portal contact, invoices (paid, open, draft), a client thread, shared file, request and project updates. Demo accounts never receive e-mail.
+
+| Role | Email | Password |
+|---|---|---|
+| OWNER | `owner@demo.agencyops.test` | `DemoPass123!` |
+| MANAGER | `manager@demo.agencyops.test` | `DemoPass123!` |
+| TEAM_MEMBER | `member@demo.agencyops.test` | `DemoPass123!` |
+| Client portal | `client@demo.agencyops.test` (organization slug `brightline-studio`) | `DemoPass123!` |
+
+Extra team members (`sara@…`, `imran@…`) exist for realistic assignees.
+
+## Payments (Stripe test mode)
+
+Set `STRIPE_SECRET_KEY` (`sk_test_…`), `STRIPE_PRO_PRICE_ID`, `STRIPE_WEBHOOK_SECRET`. Locally:
 ```bash
-npm run dev
+stripe listen --forward-to localhost:5000/api/v1/webhooks/stripe   # prints the whsec_… to use
 ```
-Health check: `GET http://localhost:5000/api/v1/health`
-
-### Other scripts
-```bash
-npm run typecheck   # tsc --noEmit
-npm run build       # compile to dist/
-npm start            # run the compiled build
-```
-
-## API Documentation
-
-Postman collection + environment: [`postman/`](./postman). Import both files into Postman, select the "AgencyOps Local" environment, and run **Auth → Register** first — it auto-saves `accessToken` into the environment for every subsequent request.
-
-## Authentication
-
-- `POST /api/v1/auth/register`, `/login` — returns an access token in the response body and sets an HttpOnly refresh-token cookie
-- `POST /api/v1/auth/refresh` — rotates the refresh token (reused/stale tokens are detected and the session is revoked)
-- `POST /api/v1/auth/logout`, `/logout-all`
-- `GET /api/v1/auth/me`
-- Protected routes: `Authorization: Bearer <accessToken>`
-
-## Roles & Authorization
-
-Three fixed roles per organization — **OWNER**, **MANAGER**, **TEAM_MEMBER**. Permissions are a static, centralized matrix (`src/modules/rbac/permissions.ts`), enforced on every organization-scoped route via `loadOrganizationContext()` + `requirePermission()`. A user's role in one organization has no bearing on another — memberships are fully per-organization.
-
-## Security
-
-- Argon2id password hashing; SHA-256 hashing for refresh/invitation tokens (never stored raw)
-- Refresh tokens: HttpOnly, `SameSite=Strict`, `Secure` in production, rotated on every use, reuse triggers session revocation
-- Generic auth error messages (no account/session enumeration)
-- Every list/detail/write endpoint scoped by `organizationId` server-side — a caller can never reach another tenant's data by guessing an id
-- Centralized error handling; no stack traces or internals leaked in responses
+Test card `4242 4242 4242 4242`, any future expiry, any CVC (declined: `4000 0000 0000 0002`). Browser redirects are never trusted: state only changes from the signature-verified webhook. Checkout returns to `FRONTEND_URL/payment/success|cancel` (see the frontend contract).
 
 ## Deployment
 
-Not yet configured — planned for a later milestone.
+A [`render.yaml`](./render.yaml) blueprint defines a **web service** (API) and a **worker**. Checklist:
 
-## Demo Credentials
+1. Create PostgreSQL and Redis (Render Key Value / Upstash). Set `DATABASE_URL`, `REDIS_URL`.
+2. Set `NODE_ENV=production`, `TRUST_PROXY=1`, both JWT secrets, `FRONTEND_URL`, `CORS_ORIGIN` (exact web-app origin, no trailing slash) and `API_PUBLIC_URL`.
+3. Frontend on a **different site** than the API (e.g. Vercel + Render): set `REFRESH_TOKEN_COOKIE_SAME_SITE=none` (cookie is `Secure` in production) and have the frontend send `credentials: "include"`. Same site (shared parent domain) → `lax`.
+4. Migrations run as the web service's pre-deploy command (`npm run migrate:deploy`).
+5. The **worker must be running** or emails and invoice PDFs never go out. It needs an always-on instance.
+6. Stripe dashboard: add webhook endpoint `<API_PUBLIC_URL>/api/v1/webhooks/stripe` (events `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`, `customer.subscription.created|updated|deleted`, `invoice.payment_failed`), copy its signing secret to `STRIPE_WEBHOOK_SECRET`.
+7. Optionally seed a demo (`ALLOW_SEED_IN_PRODUCTION=true npm run seed:built`).
 
-Not yet seeded — planned for a later milestone.
+## API Documentation
 
-## Notes on Current Scope
+Postman collection + environment in [`postman/`](./postman). Run **Auth → Login** first; it saves `accessToken` for later requests. Endpoint-level contract with examples: [docs/FRONTEND_CONTRACT.md](./docs/FRONTEND_CONTRACT.md).
 
-Implemented through Organization/RBAC, Invitations, Teams, Projects, Sprints, Tasks, Comments/Mentions, and in-app Notifications. Not yet implemented: file uploads, client portal, payments, invoice PDFs, AI assistant, OAuth, email verification/password reset, automated test suite, rate limiting, and deployment — see [ARCHITECTURE.md](./ARCHITECTURE.md) for what's planned.
+## Security (summary)
+
+Every organization-scoped query is filtered by `organizationId` server-side (404 for non-members); permissions come from one static matrix (`src/modules/rbac/permissions.ts`); tokens are hashed at rest; generic auth errors; rate limits (auth 10/15 min, API 1000/15 min per IP); Helmet; strict CORS; no internals in error responses. Details in ARCHITECTURE.md → Security Hardening.
+
+## Not implemented
+
+AI assistant (parked), plan-limit enforcement, refunds, Stripe Connect, invoice e-mailing.

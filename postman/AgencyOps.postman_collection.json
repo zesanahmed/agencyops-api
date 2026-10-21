@@ -2153,7 +2153,7 @@
                 "complete"
               ]
             },
-            "description": "ACTIVE -> COMPLETED only.",
+            "description": "Optional body. moveOpenTasksTo: \"BACKLOG\" or a sprint id of the same project (PLANNED/ACTIVE). Omit the body to leave open tasks in the completed sprint. Response: { sprint, movedTaskCount }.",
             "auth": {
               "type": "bearer",
               "bearer": [
@@ -2163,6 +2163,15 @@
                   "type": "string"
                 }
               ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"moveOpenTasksTo\": \"BACKLOG\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             }
           },
           "response": []
@@ -2300,7 +2309,7 @@
                 }
               ]
             },
-            "description": "",
+            "description": "Filters: status, priority, sprintId (uuid or \"none\" for tasks in no sprint), assigneeMembershipId, search. Each task includes assignee {membershipId,user}, subtaskCount, doneSubtaskCount, commentCount.",
             "auth": {
               "type": "bearer",
               "bearer": [
@@ -3000,6 +3009,67 @@
         }
       ],
       "description": ""
+    },
+    {
+      "name": "Activity",
+      "item": [
+        {
+          "name": "List activity feed",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/organizations/{{organizationId}}/activity?page=1&limit=20&projectId=&taskId=&actorMembershipId=&entityType=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations",
+                "{{organizationId}}",
+                "activity"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "projectId",
+                  "value": ""
+                },
+                {
+                  "key": "taskId",
+                  "value": ""
+                },
+                {
+                  "key": "actorMembershipId",
+                  "value": ""
+                },
+                {
+                  "key": "entityType",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Newest-first activity feed. OWNER/MANAGER see the whole organization; TEAM_MEMBER only projects they belong to (explicit member or via an assigned team). entityType: Project | Sprint | Task | Comment | Membership.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "Clients",
@@ -5362,6 +5432,43 @@
               ]
             },
             "description": "Returns a Stripe Checkout URL. The invoice becomes PAID only via the verified webhook.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{clientAccessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Payment status (after Stripe redirect)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/portal/invoices/{{invoiceId}}/payment-status?session_id=",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "portal",
+                "invoices",
+                "{{invoiceId}}",
+                "payment-status"
+              ],
+              "query": [
+                {
+                  "key": "session_id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Server-confirmed state after returning from Stripe Checkout. confirmed is true only once the verified webhook marked the invoice PAID. session_id (from the success redirect) is optional.",
             "auth": {
               "type": "bearer",
               "bearer": [

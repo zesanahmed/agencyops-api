@@ -1,3 +1,4 @@
+import { activityRouter } from "../activity/activity.routes.js";
 import { Router } from "express";
 import { validate } from "../../middlewares/validate.js";
 import { authenticate } from "../auth/auth.middleware.js";
@@ -75,5 +76,6 @@ organizationRouter.use("/:organizationId/clients", clientRouter);
 organizationRouter.use("/:organizationId/client-portal", collaborationRouter);
 organizationRouter.use("/:organizationId/billing", billingRouter);
 organizationRouter.use("/:organizationId/invoices", invoiceRouter);
+organizationRouter.use("/:organizationId/activity", activityRouter);
 
 export { organizationRouter };

@@ -54,6 +54,9 @@ export const invoiceListQuerySchema = z.object({
 
 export const invoiceIdParamSchema = z.object({ invoiceId: z.string().uuid("Invalid invoice id") });
 
+/** Optional: narrow the status to one Stripe Checkout attempt (the `session_id` of the redirect). */
+export const paymentStatusQuerySchema = z.object({ session_id: z.string().trim().min(1).max(255).optional() });
+
 export type CreateInvoiceBody = z.infer<typeof createInvoiceSchema>;
 export type UpdateInvoiceBody = z.infer<typeof updateInvoiceSchema>;
 export type InvoiceListQuery = z.infer<typeof invoiceListQuerySchema>;

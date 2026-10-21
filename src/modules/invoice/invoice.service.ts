@@ -1,7 +1,7 @@
 import { env } from "../../config/env.js";
 import { AppError } from "../../errors/AppError.js";
 import { Prisma } from "../../generated/prisma/client.js";
-import type { InvoiceStatus } from "../../generated/prisma/client.js";
+import type { InvoiceStatus, PaymentStatus } from "../../generated/prisma/client.js";
 import { getStripe } from "../../lib/stripe.js";
 import { prisma } from "../../lib/prisma.js";
 import { recordAuditLog } from "../audit/audit.service.js";
@@ -364,8 +364,9 @@ export async function createPortalCheckout(who: PortalIdentity, invoiceId: strin
     ],
     metadata: { purpose: "client_invoice", invoiceId: invoice.id, organizationId: who.organizationId },
     payment_intent_data: { metadata: { invoiceId: invoice.id, organizationId: who.organizationId } },
-    success_url: `${env.frontendUrl}/portal/invoices/${invoice.id}?payment=success`,
-    cancel_url: `${env.frontendUrl}/portal/invoices/${invoice.id}?payment=cancelled`,
+    // Shared frontend payment pages; the redirect itself proves nothing (see getPortalPaymentStatus).
+    success_url: `${env.frontendUrl}/payment/success?type=invoice&invoiceId=${invoice.id}&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${env.frontendUrl}/payment/cancel?type=invoice&invoiceId=${invoice.id}`,
   });
   if (!session.url) throw new AppError("Could not start checkout", 502);
 
@@ -380,4 +381,45 @@ export async function createPortalCheckout(who: PortalIdentity, invoiceId: strin
     },
   });
   return { url: session.url };
+}
+
+export type PortalPaymentStatus = {
+  invoiceStatus: InvoiceStatus;
+  /** True only when the verified webhook has marked the invoice PAID. */
+  confirmed: boolean;
+  payment: { status: PaymentStatus; failureReason: string | null; paidAt: string | null } | null;
+};
+
+/**
+ * What the frontend reads AFTER returning from Stripe Checkout. It reflects only our own
+ * database (written by the signature-verified webhook), so a forged or replayed redirect
+ * cannot make an invoice look paid. `sessionId` narrows to one checkout attempt.
+ */
+export async function getPortalPaymentStatus(
+  who: PortalIdentity,
+  invoiceId: string,
+  sessionId?: string,
+): Promise<PortalPaymentStatus> {
+  const invoice = await prisma.clientInvoice.findFirst({
+    where: { id: invoiceId, ...(await portalVisibilityWhere(who)) },
+    select: { id: true, status: true },
+  });
+  if (!invoice) throw new AppError("Invoice not found", 404);
+
+  const payment = await prisma.clientInvoicePayment.findFirst({
+    where: {
+      invoiceId: invoice.id,
+      clientContactId: who.contactId,
+      ...(sessionId ? { stripeCheckoutSessionId: sessionId } : {}),
+    },
+    orderBy: { createdAt: "desc" },
+    select: { status: true, failureReason: true, paidAt: true },
+  });
+  return {
+    invoiceStatus: invoice.status,
+    confirmed: invoice.status === "PAID",
+    payment: payment
+      ? { status: payment.status, failureReason: payment.failureReason, paidAt: payment.paidAt ? payment.paidAt.toISOString() : null }
+      : null,
+  };
 }

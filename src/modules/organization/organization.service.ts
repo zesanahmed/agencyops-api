@@ -1,6 +1,7 @@
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 import { Prisma } from "../../generated/prisma/client.js";
+import type { MembershipRole } from "../../generated/prisma/client.js";
 import {
   toSafeMembership,
   toSafeOrganization,
@@ -154,7 +155,8 @@ export interface ListOrganizationsInput {
 }
 
 export interface ListOrganizationsResult {
-  organizations: SafeOrganization[];
+  /** Each organization carries the caller's own membership in it (id + role). */
+  organizations: (SafeOrganization & { membership: { id: string; role: MembershipRole } })[];
   pagination: { page: number; limit: number; total: number; totalPages: number };
 }
 
@@ -186,7 +188,10 @@ export async function listUserOrganizations(
   const total = await prisma.membership.count({ where });
 
   return {
-    organizations: memberships.map((m) => toSafeOrganization(m.organization)),
+    organizations: memberships.map((m) => ({
+      ...toSafeOrganization(m.organization),
+      membership: { id: m.id, role: m.role },
+    })),
     pagination: {
       page: input.page,
       limit: input.limit,

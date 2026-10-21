@@ -1,3 +1,4 @@
+import { recordActivity } from "../activity/activity.service.js";
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 import { Prisma } from "../../generated/prisma/client.js";
@@ -160,6 +161,7 @@ export async function updateMemberRole(
 export async function removeMember(
   organizationId: string,
   membershipId: string,
+  actorMembershipId: string,
 ): Promise<void> {
   const membership = await findActiveMembership(organizationId, membershipId);
   if (!membership) {
@@ -176,5 +178,13 @@ export async function removeMember(
   await prisma.membership.update({
     where: { id: membershipId },
     data: { status: "REMOVED", removedAt: new Date() },
+  });
+  await recordActivity({
+    organizationId,
+    actorMembershipId,
+    action: "member.removed",
+    entityType: "Membership",
+    entityId: membershipId,
+    metadata: { memberMembershipId: membershipId },
   });
 }

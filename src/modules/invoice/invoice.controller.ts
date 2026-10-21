@@ -5,6 +5,7 @@ import {
   createPortalCheckout,
   getInvoice,
   getPortalInvoice,
+  getPortalPaymentStatus,
   listInvoices,
   listPortalInvoices,
   requestInvoicePdf,
@@ -70,6 +71,11 @@ export async function portalList(req: Request, res: Response): Promise<void> {
 
 export async function portalGet(req: Request, res: Response): Promise<void> {
   sendSuccess(res, await getPortalInvoice(req.client!, invoiceId(req)), "Invoice retrieved successfully");
+}
+
+export async function portalPaymentStatus(req: Request, res: Response): Promise<void> {
+  const { session_id: sessionId } = req.query as { session_id?: string | undefined };
+  sendSuccess(res, await getPortalPaymentStatus(req.client!, invoiceId(req), sessionId), "Payment status retrieved successfully");
 }
 
 export async function portalCheckout(req: Request, res: Response): Promise<void> {

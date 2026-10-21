@@ -3,6 +3,7 @@ import { hashToken } from "../auth/auth.utils.js";
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 import type { MembershipRole } from "../../generated/prisma/client.js";
+import { recordActivity } from "../activity/activity.service.js";
 import { enqueueEmailQuietly } from "../email/email.queue.js";
 import {
   toSafeInvitation,
@@ -221,6 +222,7 @@ export async function acceptInvitation(
     );
   }
 
+  let membershipId = "";
   await prisma.$transaction(async (tx) => {
     const txClient = tx as unknown as Pick<
       typeof prisma,
@@ -247,19 +249,30 @@ export async function acceptInvitation(
           removedAt: null,
         },
       });
+      membershipId = existingMembership.id;
     } else {
-      await txClient.membership.create({
+      const created = await txClient.membership.create({
         data: {
           userId: input.userId,
           organizationId: invitation.organizationId,
           role: invitation.role,
         },
       });
+      membershipId = created.id;
     }
 
     await txClient.invitation.update({
       where: { id: invitation.id },
       data: { acceptedAt: new Date() },
     });
+  });
+
+  await recordActivity({
+    organizationId: invitation.organizationId,
+    actorMembershipId: membershipId,
+    action: "member.joined",
+    entityType: "Membership",
+    entityId: membershipId,
+    metadata: { memberMembershipId: membershipId, role: invitation.role },
   });
 }

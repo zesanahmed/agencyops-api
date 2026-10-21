@@ -1,5 +1,6 @@
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
+import { loadMembershipUsers, type UserInfo } from "../../lib/userInfo.js";
 import { toSafeTeam, toSafeTeamMember, type SafeTeam, type SafeTeamMember } from "./team.mappers.js";
 
 async function assertNameAvailable(organizationId: string, name: string, excludeTeamId?: string) {
@@ -75,7 +76,7 @@ export async function addTeamMember(
   organizationId: string,
   teamId: string,
   membershipId: string,
-): Promise<SafeTeamMember> {
+): Promise<SafeTeamMember & { user: UserInfo }> {
   await getTeam(organizationId, teamId);
 
   const membership = await prisma.membership.findFirst({
@@ -91,7 +92,8 @@ export async function addTeamMember(
   }
 
   const member = await prisma.teamMember.create({ data: { teamId, membershipId } });
-  return toSafeTeamMember(member);
+  const users = await loadMembershipUsers([membershipId]);
+  return { ...toSafeTeamMember(member), user: users.get(membershipId)! };
 }
 
 export async function removeTeamMember(
@@ -107,8 +109,15 @@ export async function removeTeamMember(
   await prisma.teamMember.delete({ where: { id: teamMemberId } });
 }
 
-export async function listTeamMembers(organizationId: string, teamId: string): Promise<SafeTeamMember[]> {
+export async function listTeamMembers(
+  organizationId: string,
+  teamId: string,
+): Promise<(SafeTeamMember & { user: UserInfo })[]> {
   await getTeam(organizationId, teamId);
   const members = await prisma.teamMember.findMany({ where: { teamId }, orderBy: { createdAt: "asc" } });
-  return members.map(toSafeTeamMember);
+  const users = await loadMembershipUsers(members.map((m) => m.membershipId));
+  return members.flatMap((member) => {
+    const user = users.get(member.membershipId);
+    return user ? [{ ...toSafeTeamMember(member), user }] : [];
+  });
 }

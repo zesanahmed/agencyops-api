@@ -3,7 +3,7 @@ import { validate } from "../../middlewares/validate.js";
 import { loadOrganizationContext, requirePermission } from "../rbac/rbac.middleware.js";
 import { organizationIdParamSchema, paginationQuerySchema } from "../organization/organization.validation.js";
 import { complete, create, getOne, list, remove, start, update } from "./sprint.controller.js";
-import { createSprintSchema, sprintIdParamSchema, updateSprintSchema } from "./sprint.validation.js";
+import { completeSprintSchema, createSprintSchema, sprintIdParamSchema, updateSprintSchema } from "./sprint.validation.js";
 
 const sprintRouter: Router = Router({ mergeParams: true });
 
@@ -19,7 +19,12 @@ sprintRouter.patch(
   update,
 );
 sprintRouter.post("/:sprintId/start", validate({ params: sprintIdParamSchema }), requirePermission("sprint:update"), start);
-sprintRouter.post("/:sprintId/complete", validate({ params: sprintIdParamSchema }), requirePermission("sprint:update"), complete);
+sprintRouter.post(
+  "/:sprintId/complete",
+  validate({ params: sprintIdParamSchema, body: completeSprintSchema }),
+  requirePermission("sprint:update"),
+  complete,
+);
 sprintRouter.delete("/:sprintId", validate({ params: sprintIdParamSchema }), requirePermission("sprint:delete"), remove);
 
 export { sprintRouter };

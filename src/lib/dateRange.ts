@@ -17,3 +17,15 @@ export function assertDateOrder(
     ]);
   }
 }
+
+/**
+ * The value a date field will have after a PATCH: the body's value when the key is present
+ * (including an explicit `null`, which clears it), otherwise the stored one.
+ */
+export function mergedDate(
+  input: Record<string, unknown>,
+  key: string,
+  stored: Date | null,
+): Date | null {
+  return key in input && input[key] !== undefined ? (input[key] as Date | null) : stored;
+}

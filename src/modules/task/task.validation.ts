@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { clearableDate } from "../../lib/zodDates.js";
 
 const TASK_STATUS = ["BACKLOG", "TODO", "IN_PROGRESS", "IN_REVIEW", "DONE"] as const;
 const TASK_PRIORITY = ["LOW", "MEDIUM", "HIGH", "URGENT"] as const;
 
-const dateOrderRefine = (v: { startDate?: Date | undefined; dueDate?: Date | undefined }) =>
+const dateOrderRefine = (v: { startDate?: Date | null | undefined; dueDate?: Date | null | undefined }) =>
   !v.startDate || !v.dueDate || v.dueDate >= v.startDate;
 
 export const createTaskSchema = z
@@ -14,8 +15,8 @@ export const createTaskSchema = z
     assigneeMembershipId: z.string().uuid().optional(),
     status: z.enum(TASK_STATUS).optional(),
     priority: z.enum(TASK_PRIORITY).optional(),
-    startDate: z.coerce.date().optional(),
-    dueDate: z.coerce.date().optional(),
+    startDate: clearableDate,
+    dueDate: clearableDate,
   })
   .refine(dateOrderRefine, { message: "dueDate must be on or after startDate", path: ["dueDate"] });
 
@@ -27,8 +28,8 @@ export const updateTaskSchema = z
     assigneeMembershipId: z.string().uuid().nullable().optional(),
     status: z.enum(TASK_STATUS).optional(),
     priority: z.enum(TASK_PRIORITY).optional(),
-    startDate: z.coerce.date().optional(),
-    dueDate: z.coerce.date().optional(),
+    startDate: clearableDate,
+    dueDate: clearableDate,
   })
   .refine(dateOrderRefine, { message: "dueDate must be on or after startDate", path: ["dueDate"] });
 
@@ -45,7 +46,8 @@ export const taskListQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(20),
   status: z.enum(TASK_STATUS).optional(),
   priority: z.enum(TASK_PRIORITY).optional(),
-  sprintId: z.string().uuid().optional(),
+  // "none" = tasks that are in no sprint (the backlog).
+  sprintId: z.union([z.literal("none"), z.string().uuid()]).optional(),
   assigneeMembershipId: z.string().uuid().optional(),
   search: z.string().trim().max(200).optional(),
   sortBy: z.enum(["createdAt", "dueDate", "priority"]).default("createdAt"),

@@ -28,7 +28,12 @@ function ctx(req: Request) {
 export async function create(req: Request, res: Response): Promise<void> {
   const { projectId } = req.params as { projectId: string };
   const body = req.body as CreateTaskBody;
-  const task = await createTask({ organizationId: req.orgContext!.organization.id, projectId, ...body });
+  const task = await createTask({
+    organizationId: req.orgContext!.organization.id,
+    actorMembershipId: req.orgContext!.membership.id,
+    projectId,
+    ...body,
+  });
   sendSuccess(res, { task }, "Task created successfully", 201);
 }
 
@@ -48,13 +53,13 @@ export async function getOne(req: Request, res: Response): Promise<void> {
 export async function update(req: Request, res: Response): Promise<void> {
   const { organizationId, projectId, taskId } = ctx(req);
   const body = req.body as UpdateTaskBody;
-  const task = await updateTask(organizationId, projectId, taskId, body);
+  const task = await updateTask(organizationId, projectId, taskId, body, req.orgContext!.membership.id);
   sendSuccess(res, { task }, "Task updated successfully");
 }
 
 export async function remove(req: Request, res: Response): Promise<void> {
   const { organizationId, projectId, taskId } = ctx(req);
-  await deleteTask(organizationId, projectId, taskId);
+  await deleteTask(organizationId, projectId, taskId, req.orgContext!.membership.id);
   sendSuccess(res, null, "Task deleted successfully");
 }
 
@@ -67,7 +72,7 @@ export async function listSubtasksHandler(req: Request, res: Response): Promise<
 export async function createSubtaskHandler(req: Request, res: Response): Promise<void> {
   const { organizationId, projectId, taskId } = ctx(req);
   const body = req.body as CreateSubtaskBody;
-  const subtask = await createSubtask(organizationId, projectId, taskId, body);
+  const subtask = await createSubtask(organizationId, projectId, taskId, req.orgContext!.membership.id, body);
   sendSuccess(res, { subtask }, "Subtask created successfully", 201);
 }
 

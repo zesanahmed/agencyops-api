@@ -5,7 +5,7 @@ import {
   assignTeam,
   createProject,
   deleteProject,
-  getProject,
+  getProjectDetail,
   listProjectMembers,
   listProjectTeams,
   listProjects,
@@ -23,7 +23,11 @@ import type {
 
 export async function create(req: Request, res: Response): Promise<void> {
   const body = req.body as CreateProjectBody;
-  const project = await createProject({ organizationId: req.orgContext!.organization.id, ...body });
+  const project = await createProject({
+    organizationId: req.orgContext!.organization.id,
+    actorMembershipId: req.orgContext!.membership.id,
+    ...body,
+  });
   sendSuccess(res, { project }, "Project created successfully", 201);
 }
 
@@ -35,20 +39,20 @@ export async function list(req: Request, res: Response): Promise<void> {
 
 export async function getOne(req: Request, res: Response): Promise<void> {
   const { projectId } = req.params as { projectId: string };
-  const project = await getProject(req.orgContext!.organization.id, projectId);
+  const project = await getProjectDetail(req.orgContext!.organization.id, projectId);
   sendSuccess(res, { project }, "Project retrieved successfully");
 }
 
 export async function update(req: Request, res: Response): Promise<void> {
   const { projectId } = req.params as { projectId: string };
   const body = req.body as UpdateProjectBody;
-  const project = await updateProject(req.orgContext!.organization.id, projectId, body);
+  const project = await updateProject(req.orgContext!.organization.id, projectId, body, req.orgContext!.membership.id);
   sendSuccess(res, { project }, "Project updated successfully");
 }
 
 export async function remove(req: Request, res: Response): Promise<void> {
   const { projectId } = req.params as { projectId: string };
-  await deleteProject(req.orgContext!.organization.id, projectId);
+  await deleteProject(req.orgContext!.organization.id, projectId, req.orgContext!.membership.id);
   sendSuccess(res, null, "Project deleted successfully");
 }
 

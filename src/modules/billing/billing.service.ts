@@ -90,8 +90,10 @@ export async function createProCheckout(organizationId: string, organizationName
     client_reference_id: organizationId,
     metadata: { organizationId, purpose: "platform_subscription" },
     subscription_data: { metadata: { organizationId } },
-    success_url: `${env.frontendUrl}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${env.frontendUrl}/billing/cancel`,
+    // Both land on the shared frontend payment pages. The redirect is informational only:
+    // the plan changes when the verified webhook arrives, never because the browser came back.
+    success_url: `${env.frontendUrl}/payment/success?type=subscription&organizationId=${organizationId}&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${env.frontendUrl}/payment/cancel?type=subscription&organizationId=${organizationId}`,
   });
   if (!session.url) throw new AppError("Could not start checkout", 502);
 

@@ -138,6 +138,22 @@ A genuinely separate security boundary from internal organization membership (no
 - **Client-facing responses** use dedicated minimal shapes: no assignees, collaborators, internal comments, organization ids or Cloudinary public ids.
 - **Invoices/payments** are available in the portal (see Payments). **Not yet**: email delivery of invite links (the raw invite token is currently returned once to the staff member who creates the contact).
 
+## Activity Feed
+
+`Activity` rows are written best-effort by `recordActivity()` (a failure never fails the business action) for project/sprint/task/comment/member events. `GET /organizations/:id/activity` (permission `activity:read`) returns OWNER/MANAGER the whole organization and TEAM_MEMBER only entries of projects they belong to (explicit member or through an assigned team; organization-level entries are hidden from them). Only short non-sensitive metadata is stored (titles, statuses, ids) and a human `summary` is built at read time.
+
+## Notifications (types)
+
+`MENTION`, `TASK_ASSIGNED`, `TASK_STATUS_CHANGED`, `SPRINT_STARTED`, `CLIENT_MESSAGE`, `CLIENT_REQUEST`, `CLIENT_FILE`, `INVOICE_PAID`, `INVOICE_PAYMENT_ATTENTION`. Each carries `data` ids for deep links. Recipients are re-validated as active members, the actor is never notified, and per-type in-app/email preferences are honored by `notifyMemberships()`.
+
+## Payment redirects
+
+Checkout success/cancel URLs are `FRONTEND_URL/payment/success|cancel?type=subscription|invoice&…`. The success page must **poll our own API** (`GET /billing` for subscriptions, `GET /portal/invoices/:id/payment-status` for invoices) because only the webhook changes state.
+
+## Demo seed
+
+`src/seed/demo.ts` (CLI `src/scripts/seed.ts`) builds the *Brightline Studio* organization with direct Prisma writes (no e-mail/job side effects) while reusing `createOrganization`, plan helpers, password hashing, invoice math and the activity recorder. Idempotent by stable keys (fixed emails + slug); `--reset` deletes only that organization and the demo users, refusing to touch a same-slug organization owned by a non-demo user. Production runs require `ALLOW_SEED_IN_PRODUCTION=true`.
+
 ## Deployment
 
-Not yet configured.
+`render.yaml` defines the API web service (pre-deploy `npm run migrate:deploy`, health check `/api/v1/health`) and the BullMQ worker (`npm run start:worker`, must be always-on). Cross-site frontends need `REFRESH_TOKEN_COOKIE_SAME_SITE=none`, `CORS_ORIGIN` and `TRUST_PROXY=1`. Rate limiting is in-memory per process — move to a Redis store before running multiple API instances.

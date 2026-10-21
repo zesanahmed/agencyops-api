@@ -10,7 +10,7 @@ import {
   startSprint,
   updateSprint,
 } from "./sprint.service.js";
-import type { CreateSprintBody, UpdateSprintBody } from "./sprint.validation.js";
+import type { CompleteSprintBody, CreateSprintBody, UpdateSprintBody } from "./sprint.validation.js";
 
 function ids(req: Request) {
   const { projectId, sprintId } = req.params as { projectId: string; sprintId: string };
@@ -20,7 +20,12 @@ function ids(req: Request) {
 export async function create(req: Request, res: Response): Promise<void> {
   const { projectId } = req.params as { projectId: string };
   const body = req.body as CreateSprintBody;
-  const sprint = await createSprint({ organizationId: req.orgContext!.organization.id, projectId, ...body });
+  const sprint = await createSprint({
+    organizationId: req.orgContext!.organization.id,
+    actorMembershipId: req.orgContext!.membership.id,
+    projectId,
+    ...body,
+  });
   sendSuccess(res, { sprint }, "Sprint created successfully", 201);
 }
 
@@ -40,24 +45,25 @@ export async function getOne(req: Request, res: Response): Promise<void> {
 export async function update(req: Request, res: Response): Promise<void> {
   const { organizationId, projectId, sprintId } = ids(req);
   const body = req.body as UpdateSprintBody;
-  const sprint = await updateSprint(organizationId, projectId, sprintId, body);
+  const sprint = await updateSprint(organizationId, projectId, sprintId, body, req.orgContext!.membership.id);
   sendSuccess(res, { sprint }, "Sprint updated successfully");
 }
 
 export async function start(req: Request, res: Response): Promise<void> {
   const { organizationId, projectId, sprintId } = ids(req);
-  const sprint = await startSprint(organizationId, projectId, sprintId);
+  const sprint = await startSprint(organizationId, projectId, sprintId, req.orgContext!.membership.id);
   sendSuccess(res, { sprint }, "Sprint started successfully");
 }
 
 export async function complete(req: Request, res: Response): Promise<void> {
   const { organizationId, projectId, sprintId } = ids(req);
-  const sprint = await completeSprint(organizationId, projectId, sprintId);
-  sendSuccess(res, { sprint }, "Sprint completed successfully");
+  const { moveOpenTasksTo } = req.body as CompleteSprintBody;
+  const result = await completeSprint(organizationId, projectId, sprintId, req.orgContext!.membership.id, moveOpenTasksTo);
+  sendSuccess(res, result, "Sprint completed successfully");
 }
 
 export async function remove(req: Request, res: Response): Promise<void> {
   const { organizationId, projectId, sprintId } = ids(req);
-  await deleteSprint(organizationId, projectId, sprintId);
+  await deleteSprint(organizationId, projectId, sprintId, req.orgContext!.membership.id);
   sendSuccess(res, null, "Sprint deleted successfully");
 }

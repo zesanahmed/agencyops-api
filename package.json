@@ -10,7 +10,11 @@
     "worker": "tsx watch src/worker.ts",
     "start:worker": "node dist/worker.js",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "seed": "tsx src/scripts/seed.ts",
+    "seed:built": "node dist/scripts/seed.js",
+    "prisma:generate": "prisma generate --config prisma7.config.ts",
+    "migrate:deploy": "prisma migrate deploy --config prisma7.config.ts"
   },
   "repository": {
     "type": "git",

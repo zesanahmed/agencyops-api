@@ -47,6 +47,6 @@ export async function updateRole(req: Request, res: Response): Promise<void> {
 /** DELETE /api/v1/organizations/:organizationId/members/:membershipId */
 export async function remove(req: Request, res: Response): Promise<void> {
   const { membershipId } = req.params as { membershipId: string };
-  await removeMember(req.orgContext!.organization.id, membershipId);
+  await removeMember(req.orgContext!.organization.id, membershipId, req.orgContext!.membership.id);
   sendSuccess(res, null, "Member removed successfully");
 }

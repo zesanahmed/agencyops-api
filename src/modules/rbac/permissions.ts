@@ -50,6 +50,8 @@ export const PERMISSIONS = [
   "billing:manage",
   "invoice:read",
   "invoice:manage",
+  "activity:read",
+  "activity:read-all",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
@@ -106,6 +108,8 @@ const ROLE_PERMISSIONS: Record<MembershipRole, readonly Permission[]> = {
     "billing:manage",
     "invoice:read",
     "invoice:manage",
+    "activity:read",
+    "activity:read-all",
   ],
   MANAGER: [
     "organization:read",
@@ -145,9 +149,16 @@ const ROLE_PERMISSIONS: Record<MembershipRole, readonly Permission[]> = {
     "billing:read",
     "invoice:read",
     "invoice:manage",
+    "activity:read",
+    "activity:read-all",
   ],
-  TEAM_MEMBER: ["organization:read", "membership:read", "team:read", "project:read", "sprint:read", "task:create", "task:read", "task:update", "comment:create", "comment:read", "client:read", "client-portal:read"],
+  TEAM_MEMBER: ["organization:read", "membership:read", "team:read", "project:read", "sprint:read", "task:create", "task:read", "task:update", "comment:create", "comment:read", "client:read", "client-portal:read", "activity:read"],
 };
+
+/** Every permission a role holds, for clients that gate UI on it (the server still enforces each call). */
+export function permissionsForRole(role: MembershipRole): Permission[] {
+  return [...ROLE_PERMISSIONS[role]];
+}
 
 export function roleHasPermission(
   role: MembershipRole,

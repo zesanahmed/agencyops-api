@@ -7,6 +7,8 @@ export const createCommentSchema = z.object({
 
 export const updateCommentSchema = z.object({
   content: z.string().trim().min(1, "Content is required").max(10000),
+  // When present, replaces the comment's mentions; only newly added people are notified.
+  mentionedMembershipIds: z.array(z.string().uuid()).max(50).optional(),
 });
 
 export const commentIdParamSchema = z.object({

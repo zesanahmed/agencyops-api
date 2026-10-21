@@ -183,6 +183,11 @@ describe("platform subscription (billing)", () => {
     const res = await request(app).post(`${org(ctx)}/billing/checkout`).set(auth(ctx.owner));
     expect(res.status).toBe(201);
     expect(res.body.data.url).toContain("checkout.stripe.test");
+    const sub = stripeMock.checkout.sessions.create.mock.calls.at(-1)![0] as unknown as { success_url: string; cancel_url: string };
+    expect(sub.success_url).toBe(
+      `http://web.test/payment/success?type=subscription&organizationId=${ctx.orgId}&session_id={CHECKOUT_SESSION_ID}`,
+    );
+    expect(sub.cancel_url).toBe(`http://web.test/payment/cancel?type=subscription&organizationId=${ctx.orgId}`);
     const billing = await request(app).get(`${org(ctx)}/billing`).set(auth(ctx.owner));
     expect(billing.body.data.plan.code).toBe("FREE");
     expect(billing.body.data.subscription.hasBillingAccount).toBe(true);
@@ -364,6 +369,43 @@ describe("client invoices (portal + payment)", () => {
 
     const draft = (await request(app).post(`${org(ctx)}/invoices`).set(auth(ctx.owner)).send(invoiceBody(ctx))).body.data.id;
     expect((await request(app).post(`${api}/portal/invoices/${draft}/checkout`).set(bearer(ctx.clientToken))).status).toBe(404);
+  });
+
+  it("redirects to the shared /payment pages and payment-status reflects only webhook-confirmed state", async () => {
+    const ctx = await setup();
+    const id = await openInvoice(ctx);
+    const status = (sessionId?: string, token = ctx.clientToken) =>
+      request(app)
+        .get(`${api}/portal/invoices/${id}/payment-status${sessionId ? `?session_id=${sessionId}` : ""}`)
+        .set(bearer(token));
+
+    // Before any checkout: nothing is confirmed and there is no payment attempt.
+    expect((await status()).body.data).toEqual({ invoiceStatus: "OPEN", confirmed: false, payment: null });
+
+    const sessionId = await startCheckout(ctx, id);
+    const params = stripeMock.checkout.sessions.create.mock.calls.at(-1)![0] as unknown as { success_url: string; cancel_url: string };
+    expect(params.success_url).toBe(
+      `http://web.test/payment/success?type=invoice&invoiceId=${id}&session_id={CHECKOUT_SESSION_ID}`,
+    );
+    expect(params.cancel_url).toBe(`http://web.test/payment/cancel?type=invoice&invoiceId=${id}`);
+
+    // Coming back from Stripe is not proof: still pending and unconfirmed.
+    const pending = await status(sessionId);
+    expect(pending.status).toBe(200);
+    expect(pending.body.data).toMatchObject({ invoiceStatus: "OPEN", confirmed: false, payment: { status: "PENDING", paidAt: null } });
+    expect((await status("cs_other")).body.data.payment).toBeNull();
+
+    await sendEvent(makeEvent("checkout.session.completed", paidSession(sessionId, 24500)));
+    const paid = await status(sessionId);
+    expect(paid.body.data).toMatchObject({ invoiceStatus: "PAID", confirmed: true, payment: { status: "SUCCEEDED" } });
+    expect(paid.body.data.payment.paidAt).toBeTruthy();
+    expect(JSON.stringify(paid.body)).not.toMatch(/stripe|pi_test/i);
+
+    // Authentication and scoping.
+    expect((await request(app).get(`${api}/portal/invoices/${id}/payment-status`)).status).toBe(401);
+    const draft = (await request(app).post(`${org(ctx)}/invoices`).set(auth(ctx.owner)).send(invoiceBody(ctx))).body.data.id;
+    expect((await request(app).get(`${api}/portal/invoices/${draft}/payment-status`).set(bearer(ctx.clientToken))).status).toBe(404);
+    expect((await request(app).get(`${api}/portal/invoices/nope/payment-status`).set(bearer(ctx.clientToken))).status).toBe(400);
   });
 
   it("marks the invoice PAID from a verified webhook, notifies staff, and is idempotent", async () => {

@@ -40,7 +40,7 @@ export async function update(req: Request, res: Response): Promise<void> {
   const c = ctx(req);
   const { commentId } = req.params as { commentId: string };
   const body = req.body as UpdateCommentBody;
-  const comment = await updateComment(c.organizationId, c.projectId, c.taskId, commentId, c.membershipId, body.content);
+  const comment = await updateComment(c.organizationId, c.projectId, c.taskId, commentId, c.membershipId, body.content, body.mentionedMembershipIds);
   sendSuccess(res, { comment }, "Comment updated successfully");
 }
 
